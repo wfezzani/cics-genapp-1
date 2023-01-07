@@ -25,15 +25,15 @@ pipeline {
     
      environment {
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
-        DBB_HOME = "${env.AGENT_DBB_HOME ? env.AGENT_DBB_HOME : '/usr/lpp/IBM/dbb'}"
-        DBB_URL = "https://example.com:9443/dbb"
-        DBB_HLQ = "IBMUSER.GENAPP.DBBBUILD"
-        GROOVYZ_BUILD_EXTRA_OPTS = ""
-        DBB_BUILD_EXTRA_OPTS = ""
-        ZOAU_HOME = "/usr/lpp/IBM/zoautil"
-        ATRIFACTORY_URL = ""
-        ATRIFACTORY_REPOSITORY_PATH = ""
-        PYTHON_VIRTUAL_ENV_COMMAND = ""
+        DBB_HOME = "${env.DBB_HOME ? env.DBB_HOME : '/usr/lpp/IBM/dbb'}"
+        DBB_URL = "${env.DBB_URL ? env.DBB_URL : 'https://example.com:9443/dbb'}"
+        DBB_HLQ = "${env.DBB_HLQ ? env.DBB_HLQ : 'IBMUSER.GENAPP.DBBBUILD'}"
+        GROOVYZ_BUILD_EXTRA_OPTS = "${env.GROOVYZ_BUILD_EXTRA_OPTS ? env.GROOVYZ_BUILD_EXTRA_OPTS : ''}"
+        DBB_BUILD_EXTRA_OPTS = "${env.DBB_BUILD_EXTRA_OPTS ? env.DBB_BUILD_EXTRA_OPTS : ''}"
+        ZOAU_HOME =" ${env.ZOAU_HOME ? env.ZOAU_HOME : '/usr/lpp/IBM/zoautil'}"
+        ATRIFACTORY_URL = "${env.ATRIFACTORY_URL ? env.ATRIFACTORY_URL : 'https://example.com/artifactory'}"
+        ATRIFACTORY_REPOSITORY_PATH = "${env.ATRIFACTORY_REPOSITORY_PATH ? env.ATRIFACTORY_REPOSITORY_PATH : 'repository_path'}"
+        PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
      }
      
      parameters {
