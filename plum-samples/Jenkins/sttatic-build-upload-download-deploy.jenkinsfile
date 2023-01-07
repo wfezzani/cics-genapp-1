@@ -8,12 +8,6 @@ def zAppBuildGitBranch = 'zAppBuild_2_x'
 def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
 
-// DBB
-def dbbHome="/usr/lpp/IBM/dbb"
-def dbbUrl="https://example.com:9443/dbb"
-def dbbHlq="NAZARE.GENAPP.DBBBUILD"
-def dbbCredentialOptions='-id ADMIN -pw ADMIN'
-
 // Artifactory
 def artiCredentialsId = 'artifactory_id'
 def artiUrl = "https://example.com/artifactory"
@@ -37,15 +31,19 @@ pipeline {
        string(defaultValue: "1.0.0", description: 'Current release number.', name: 'RELEASE_NUMBER')
        booleanParam(defaultValue: true, description: 'Display verbose output', name: 'VERBOSE')
 
+
+       choice(choices: ["-impactBuild", "-fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
+       string(defaultValue: "/usr/lpp/IBM/dbb", description: 'DBB Home.', name: 'DBB_HOME')
+       string(defaultValue: "https://example.com:9443/db", description: 'DBB URL.', name: 'DBB_URL')
        string(defaultValue: "", description: 'Groovyz Extra Options.', name: 'GROOVYZ_BUILD_EXTRA_OPTS')
        string(defaultValue: "", description: 'DBB Build Extra Options.', name: 'DBB_BUILD_EXTRA_OPTS')
-       choice(choices: ["-impactBuild", "-fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
+       string(defaultValue: "-id ADMIN -pw ADMIN", description: 'DBB Build Extra Options.', name: 'DBB_CREDENTIAL_OPTIONS')
        
        string(defaultValue: "", description: 'Python Virtual Environment Command.', name: 'PYTHON_VIRTUAL_ENV_COMMAND')
        string(defaultValue: "/usr/lpp/IBM/zoautil", description: 'ZOAU Home.', name: 'ZOAU_HOME')
        
        string(defaultValue: "https://example.com/artifactory", description: 'Artifactory URL.', name: 'ATRIFACTORY_URL')
-       string(defaultValue:"example.repo/plum/static", description: 'Artifactory Repository Path.', name: 'ATRIFACTORY_REPOSITORY_PATH')              
+       string(defaultValue:"example.repo/plum/static", description: 'Artifactory Repository Path.', name: 'ATRIFACTORY_REPOSITORY_PATH')
     }    
 
     options { skipDefaultCheckout(true) }
