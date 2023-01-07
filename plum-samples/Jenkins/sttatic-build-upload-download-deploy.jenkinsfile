@@ -1,17 +1,11 @@
 // Agent labels
-def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'plum-e2e-pipeline'
-def linuxAgent = 'master'
+def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.AGENT_LABEL : 'plum-e2e-pipeline'
 
 // DBB Git repositories (For DBB 1.X)
 def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
 def zAppBuildGitBranch = 'zAppBuild_2_x'
 def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
-
-// Artifactory
-def artiCredentialsId = 'artifactory_id'
-def artiUrl = "https://example.com/artifactory"
-def artiRepoPath= "example.repo/plum/dbb/static"
 
 // Private
 def verbose = false
@@ -36,6 +30,7 @@ pipeline {
         ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
         ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
         ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'repository_path'}"
+        ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"
         PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
      }
      
@@ -118,7 +113,7 @@ pipeline {
 
         stage('Artifactory Upload') {
            environment {
-              ARTI_CREDS = credentials("$artiCredentialsId")
+              ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
             }
             steps {
                 script {
@@ -159,6 +154,10 @@ pipeline {
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
                                     --repository  ${ARTIFACTORY_REPO}\
                                     --repositoryPath  ${ARTIFACTORY_REPO}_PATH\
+                                      --manifestVersion "1.0.${BUILD_NUMBER}" \
+                                      --manifestName "GenAppCICS"\
+                                      --manifestDescription "GenAppCICS"\
+                                      --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application_state.yml\
                                     --uploadType archive"
                             echo $CMD
                             $CMD
@@ -184,9 +183,9 @@ pipeline {
                             then
                                echo "Use a virtual env $PYTHON_VIRT_ENV"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
-                            fi  
+                            fi
                             cd ${WORKSPACE}
-                            CMD="plumdeploy-generate\
+                            CMD="plum-generate\
                                    -dm  ${WORKSPACE}/cics-genapp/deployment_method/deployment_method.yml\
                                    -dp  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                    -dpr ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
@@ -209,10 +208,15 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            then
+                               echo "Use a virtual env $PYTHON_VIRT_ENV"
+                               . $PYTHON_VIRTUAL_ENV_COMMAND
+                            fi
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
-                            CMD="plumdeploy-deploy\
+                            CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                 --packageInputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
                                 --envFile  ${WORKSPACE}//cics-genapp/environment_conf/${PLUM_ENV_FILE}\
