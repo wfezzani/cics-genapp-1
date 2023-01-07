@@ -34,18 +34,18 @@ pipeline {
      }
      
      parameters {
-       stringParam("1.0.0", description: 'Current release number.', name: 'RELEASE_NUMBER')
+       string(efaultValue: "1.0.0", description: 'Current release number.', name: 'RELEASE_NUMBER')
        booleanParam(defaultValue: true, description: 'Display verbose output', name: 'VERBOSE')
 
-       stringParam("", description: 'Groovyz Extra Options.', name: 'GROOVYZ_BUILD_EXTRA_OPTS')
-       stringParam("", description: 'DBB Build Extra Options.', name: 'DBB_BUILD_EXTRA_OPTS')
+       string(defaultValue: "", description: 'Groovyz Extra Options.', name: 'GROOVYZ_BUILD_EXTRA_OPTS')
+       string(defaultValue: "", description: 'DBB Build Extra Options.', name: 'DBB_BUILD_EXTRA_OPTS')
        choice(choices: ["-impactBuild", "-fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
        
-       stringParam("", description: 'Python Virtual Environment Command.', name: 'PYTHON_VIRTUAL_ENV_COMMAND')
-       stringParam("/usr/lpp/IBM/zoautil", description: 'ZOAU Home.', name: 'ZOAU_HOME')
+       string(defaultValue: "", description: 'Python Virtual Environment Command.', name: 'PYTHON_VIRTUAL_ENV_COMMAND')
+       string(defaultValue: "/usr/lpp/IBM/zoautil", description: 'ZOAU Home.', name: 'ZOAU_HOME')
        
-       stringParam("https://example.com/artifactory", description: 'Artifactory URL.', name: 'ATRIFACTORY_URL')
-       stringParam("example.repo/plum/static", description: 'Artifactory Repository Path.', name: 'ATRIFACTORY_REPOSITORY_PATH')              
+       string(defaultValue: "https://example.com/artifactory", description: 'Artifactory URL.', name: 'ATRIFACTORY_URL')
+       string(defaultValue:"example.repo/plum/static", description: 'Artifactory Repository Path.', name: 'ATRIFACTORY_REPOSITORY_PATH')              
     }    
 
     options { skipDefaultCheckout(true) }
