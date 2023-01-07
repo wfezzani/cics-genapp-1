@@ -35,7 +35,6 @@ pipeline {
      }
      
      parameters {
-       string(defaultValue: "1.0.0", description: 'Current release number.', name: 'RELEASE_NUMBER')
        booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
        choice(choices: ["-impactBuild", "-fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
     }
@@ -129,7 +128,7 @@ pipeline {
    password: ${ARTI_CREDS_PSW}
                              """ 
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRT_ENV"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
@@ -154,8 +153,8 @@ pipeline {
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
                                     --repository  ${ARTIFACTORY_REPO}\
                                     --repositoryPath  ${ARTIFACTORY_REPO}_PATH\
-                                    --buildName ${BUILD_NAME} \
-                                    --buildUrl "${BUILD_URL}" \
+                                    --buildName ${BUILD_NAME}\
+                                    --buildUrl "${BUILD_URL}"\
                                     --manifestVersion "1.0.${BUILD_NUMBER}" \
                                     --manifestName "GenAppCICS"\
                                     --manifestDescription "GenAppCICS"\
@@ -181,7 +180,7 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRT_ENV"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
@@ -210,7 +209,7 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRT_ENV"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
