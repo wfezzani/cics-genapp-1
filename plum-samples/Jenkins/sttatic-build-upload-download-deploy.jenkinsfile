@@ -28,6 +28,7 @@ pipeline {
         DBB_HOME = "${env.DBB_HOME ? env.DBB_HOME : '/usr/lpp/IBM/dbb'}"
         DBB_URL = "${env.DBB_URL ? env.DBB_URL : 'https://example.com:9443/dbb'}"
         DBB_HLQ = "${env.DBB_HLQ ? env.DBB_HLQ : 'IBMUSER.GENAPP.DBBBUILD'}"
+        DBB_CRED = "${env.DBB_CRED ? env.DBB_CRED : '-id ADMIN -pw ADMIN'}"
         GROOVYZ_BUILD_EXTRA_OPTS = "${env.GROOVYZ_BUILD_EXTRA_OPTS ? env.GROOVYZ_BUILD_EXTRA_OPTS : ''}"
         DBB_BUILD_EXTRA_OPTS = "${env.DBB_BUILD_EXTRA_OPTS ? env.DBB_BUILD_EXTRA_OPTS : ''}"
         ZOAU_HOME =" ${env.ZOAU_HOME ? env.ZOAU_HOME : '/usr/lpp/IBM/zoautil'}"
@@ -86,7 +87,7 @@ pipeline {
                             CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
                                 ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
                                 --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ} --url ${DBB_URL}\
-                                ${DBB_CREDENTIAL_OPTIONS} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
+                                ${DBB_CRED} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
                                 --application cics-genapp --sourceDir ${WORKSPACE}"
                             echo $CMD
                             $CMD
