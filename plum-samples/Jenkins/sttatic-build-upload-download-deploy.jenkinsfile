@@ -47,7 +47,6 @@ pipeline {
     stages {
         
         stage('Git Clone/Refresh') {
-            agent { label zOsAgentLabel }
             steps {
                 script {
                     verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
@@ -82,36 +81,32 @@ pipeline {
         stage('DBB Build & Package') {
             steps {
                 script{
-                    node( zOsAgentLabel ) {
-                        // DBB Build
-                        rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
-                                    ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
-                                    --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ} --url ${DBB_URL}\
-                                    ${DBB_CREDENTIAL_OPTIONS} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
-                                    --application cics-genapp --sourceDir ${WORKSPACE}"
-                                echo $CMD
-                                $CMD
-                                exit $?
-                            ''')
-                        if ( rc != 0 )
-                            error("DBB build failed!!!")
+                    // DBB Build
+                    rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
+                                ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
+                                --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ} --url ${DBB_URL}\
+                                ${DBB_CREDENTIAL_OPTIONS} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
+                                --application cics-genapp --sourceDir ${WORKSPACE}"
+                            echo $CMD
+                            $CMD
+                            exit $?
+                        ''')
+                    if ( rc != 0 )
+                        error("DBB build failed!!!")
 
-                        def files = findFiles(glob: "**BUILD-${BUILD_NUMBER}/**/buildList.txt")
-                        // Do not enter into some steps if nothing in the build list
-                        hasBuildFiles = files.length > 0 && files[0].length > 0
-                    }
+                    def files = findFiles(glob: "**BUILD-${BUILD_NUMBER}/**/buildList.txt")
+                    // Do not enter into some steps if nothing in the build list
+                    hasBuildFiles = files.length > 0 && files[0].length > 0
                 }
             }
             post {
                 always {
-                    node( zOsAgentLabel ) {
-                        dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
-                            archiveArtifacts allowEmptyArchive: true,
-                                            artifacts: '**/*.log,**/*.json,**/*.html',
-                                            excludes: '**/*clist',
-                                            onlyIfSuccessful: false
-                        }
+                    dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                        archiveArtifacts allowEmptyArchive: true,
+                                        artifacts: '**/*.log,**/*.json,**/*.html',
+                                        excludes: '**/*clist',
+                                        onlyIfSuccessful: false
                     }
                 }
             }
@@ -124,24 +119,22 @@ pipeline {
             }
             steps {
                 script {
-                    node( zOsAgentLabel ) {
-                        if ( hasBuildFiles ) {
-                            if ( env.PYTHON_VIRTUAL_ENV != "" ){
-                                env.PYTHON_INTERPRETER = "plum_py"
-                                env.USE_PYTHON_VIRTUAL_ENV = "True"
-                            }                        
-                            rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
-                                then
-                                   echo "Use a virtual env $PYTHON_VIRT_ENV"
-                                   . $PYTHON_VIRTUAL_ENV_COMMAND
-                                fi
-                                exit -1
-                            ''')
-                            if ( rc != 0 )
-                                error("Uploading Package failed!!!")
-                         }
-                    }
+                    if ( hasBuildFiles ) {
+                        if ( env.PYTHON_VIRTUAL_ENV != "" ){
+                            env.PYTHON_INTERPRETER = "plum_py"
+                            env.USE_PYTHON_VIRTUAL_ENV = "True"
+                        }                        
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            then
+                               echo "Use a virtual env $PYTHON_VIRT_ENV"
+                               . $PYTHON_VIRTUAL_ENV_COMMAND
+                            fi
+                            exit -1
+                        ''')
+                        if ( rc != 0 )
+                            error("Uploading Package failed!!!")
+                     }
                 }
             }
         }
@@ -150,73 +143,67 @@ pipeline {
         stage('PLUM Python Generation') {
             steps {
                 script {
-                    node( zOsAgentLabel ) {
-                        if ( hasBuildFiles ) {
-                            rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
-                                then
-                                   echo "Use a virtual env $PYTHON_VIRT_ENV"
-                                   . $PYTHON_VIRTUAL_ENV_COMMAND
-                                fi  
-                                cd ${WORKSPACE}
-                                CMD="plumdeploy-generate\
-                                       -dm  ${WORKSPACE}/cics-genapp/deployment_method/deployment_method.yml\
-                                       -dp  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
-                                       -dpr ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
-                                       -pi  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar"
-                                echo $CMD
-                                $CMD
-                                rc=$?
-                                exit $rc
-                            ''')
-                            if ( rc != 0 )
-                              error("Generation Of Deployment Scripts Failed!!!")
-                         }
-                    }
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            then
+                               echo "Use a virtual env $PYTHON_VIRT_ENV"
+                               . $PYTHON_VIRTUAL_ENV_COMMAND
+                            fi  
+                            cd ${WORKSPACE}
+                            CMD="plumdeploy-generate\
+                                   -dm  ${WORKSPACE}/cics-genapp/deployment_method/deployment_method.yml\
+                                   -dp  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
+                                   -dpr ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
+                                   -pi  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar"
+                            echo $CMD
+                            $CMD
+                            rc=$?
+                            exit $rc
+                        ''')
+                        if ( rc != 0 )
+                          error("Generation Of Deployment Scripts Failed!!!")
+                     }
                 }
-            }          
+            }
         }
         
         
         stage('PLUM Python Execution') {
             steps {
                 script {
-                    node( zOsAgentLabel ) {
-                        if ( hasBuildFiles ) {
-                            rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                export ZOAU_HOME=${ZOAU_HOME}
-                                export PATH=${ZOAU_HOME}/bin:$PATH
-                                export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
-                                CMD="plumdeploy-deploy\
-                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
-                                    --packageInputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
-                                    --envFile  ${WORKSPACE}//cics-genapp/environment_conf/${PLUM_ENV_FILE}\
-                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml\
-                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
-                                echo $CMD
-                                $CMD > deploy.log 2>&1
-                                rc=$?
-                                cat deploy.log
-                                # For jenkins artifact upload
-                                chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml
-                                chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html
-                                chtag -r  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml
-                                exit $rc
-                          ''')
-                          if ( rc != 0 )
-                              error("Excecution Of Deployment Scripts Failed!!!")
-                         }
-                    }
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            export ZOAU_HOME=${ZOAU_HOME}
+                            export PATH=${ZOAU_HOME}/bin:$PATH
+                            export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
+                            CMD="plumdeploy-deploy\
+                                --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
+                                --packageInputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
+                                --envFile  ${WORKSPACE}//cics-genapp/environment_conf/${PLUM_ENV_FILE}\
+                                --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml\
+                                --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
+                            echo $CMD
+                            $CMD > deploy.log 2>&1
+                            rc=$?
+                            cat deploy.log
+                            # For jenkins artifact upload
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html
+                            chtag -r  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml
+                            exit $rc
+                      ''')
+                      if ( rc != 0 )
+                          error("Excecution Of Deployment Scripts Failed!!!")
+                     }
                 }
             }
             post {
                 always {
-                    node( zOsAgentLabel ) {
-                        dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
-                            archiveArtifacts allowEmptyArchive: true,
-                                            artifacts: '**/deployment_plan.yml,**/deployment_plan_report.html,**/evidence.yml',
-                                            onlyIfSuccessful: false
-                        }
+                    dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                        archiveArtifacts allowEmptyArchive: true,
+                                        artifacts: '**/deployment_plan.yml,**/deployment_plan_report.html,**/evidence.yml',
+                                        onlyIfSuccessful: false
                     }
                 }
             }
