@@ -33,7 +33,7 @@ pipeline {
        choice(choices: ["-impactBuild", "-fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
        string(defaultValue: "/usr/lpp/IBM/dbb", description: 'DBB Home.', name: 'DBB_HOME')
        string(defaultValue: "https://example.com:9443/dbb", description: 'DBB URL.', name: 'DBB_URL')
-       string(defaultValue: "IBMUSER.GENAPP/DBBBUILD", description: 'DBB HLQ.', name: 'DBB_HLQ')
+       string(defaultValue: "IBMUSER.GENAPP.DBBBUILD", description: 'DBB HLQ.', name: 'DBB_HLQ')
        string(defaultValue: "", description: 'Groovyz Extra Options.', name: 'GROOVYZ_BUILD_EXTRA_OPTS')
        string(defaultValue: "", description: 'DBB Build Extra Options.', name: 'DBB_BUILD_EXTRA_OPTS')
        string(defaultValue: "-id ADMIN -pw ADMIN", description: 'DBB Build Extra Options.', name: 'DBB_CREDENTIAL_OPTIONS')
