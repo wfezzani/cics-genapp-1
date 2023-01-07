@@ -154,10 +154,12 @@ pipeline {
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
                                     --repository  ${ARTIFACTORY_REPO}\
                                     --repositoryPath  ${ARTIFACTORY_REPO}_PATH\
-                                      --manifestVersion "1.0.${BUILD_NUMBER}" \
-                                      --manifestName "GenAppCICS"\
-                                      --manifestDescription "GenAppCICS"\
-                                      --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application_state.yml\
+                                    --buildName ${BUILD_NAME} \
+                                    --buildUrl "${BUILD_URL}" \
+                                    --manifestVersion "1.0.${BUILD_NUMBER}" \
+                                    --manifestName "GenAppCICS"\
+                                    --manifestDescription "GenAppCICS"\
+                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application_state.yml\
                                     --uploadType archive"
                             echo $CMD
                             $CMD
