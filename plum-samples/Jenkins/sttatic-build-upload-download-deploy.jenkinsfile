@@ -31,6 +31,7 @@ pipeline {
         DBB_CRED = "${env.DBB_CRED ? env.DBB_CRED : '-id ADMIN -pw ADMIN'}"
         GROOVYZ_BUILD_EXTRA_OPTS = "${env.GROOVYZ_BUILD_EXTRA_OPTS ? env.GROOVYZ_BUILD_EXTRA_OPTS : ''}"
         DBB_BUILD_EXTRA_OPTS = "${env.DBB_BUILD_EXTRA_OPTS ? env.DBB_BUILD_EXTRA_OPTS : ''}"
+        PYTHON_INTERPRETER = "${env.PYTHON_INTERPRETER ? env.PYTHON_INTERPRETER : '/usr/lpp/IBM/cyp/v3r10/pyz/bin/python3'}"
         ZOAU_HOME =" ${env.ZOAU_HOME ? env.ZOAU_HOME : '/usr/lpp/IBM/zoautil'}"
         ATRIFACTORY_URL = "${env.ATRIFACTORY_URL ? env.ATRIFACTORY_URL : 'https://example.com/artifactory'}"
         ATRIFACTORY_REPOSITORY_PATH = "${env.ATRIFACTORY_REPOSITORY_PATH ? env.ATRIFACTORY_REPOSITORY_PATH : 'repository_path'}"
@@ -121,17 +122,47 @@ pipeline {
             steps {
                 script {
                     if ( hasBuildFiles ) {
-                        if ( env.PYTHON_VIRTUAL_ENV != "" ){
-                            env.PYTHON_INTERPRETER = "plum_py"
-                            env.USE_PYTHON_VIRTUAL_ENV = "True"
-                        }                        
+                        writeFile file: "${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml", encoding: "UTF-8",
+                        text:"""artifact_repository:
+   # The type of the artifactory manager [artifactory|nexus]]
+   type: 'artifactory'
+   # The URL to the Artifactory Server
+   url: ${ARTIFACTORY_URL}
+   # Artifactory credentials
+   user: ${ARTI_CREDS_USR}
+   password: ${ARTI_CREDS_PSW}
+                             """ 
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRT_ENV"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
                             fi
-                            exit -1
+                            BUILD_OUTPUT_FOLDER=$(ls ${WORKSPACE}/BUILD-${BUILD_NUMBER} | grep "build.*[0-9]$" | tail -n 1)
+                            mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package
+                            
+                            cd ${WORKSPACE}
+                            CMD="${PYTHON_INTERPRETER}\
+                                   ${WORKSPACE}/cics-genapp/plum-samples/python/dbb/dbb_prepare_folder.py\
+                                   --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
+                                   --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package"
+                            echo $CMD
+                            $CMD
+                            if [ $? -ne 0 ]
+                            then
+                              exit $?
+                            fi
+                            export PATH=$HOME/.local/bin:$PATH
+                            CMD="plum-package\
+                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml \
+                                    --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
+                                    --uploadType archive"
+                            echo $CMD
+                            $CMD
+                            if [ $? -ne 0 ]
+                            then
+                              exit $?
+                            fi
                         ''')
                         if ( rc != 0 )
                             error("Uploading Package failed!!!")
