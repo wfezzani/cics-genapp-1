@@ -1,0 +1,93 @@
+#*******************************************************************************
+# Licensed Materials - Property of IBM
+# (c) Copyright IBM Corp. 2023. All Rights Reserved.
+#
+# Note to U.S. Government Users Restricted Rights:
+# Use, duplication or disclosure restricted by GSA ADP Schedule
+# Contract with IBM Corp.
+#*******************************************************************************
+---
+apiVersion: deploy.ibm.com/v1
+kind: Environment
+metadata:
+  name: "tivlp02.svl.ibm.com"
+  version: 1.0.0
+
+spec:
+
+  default_cics_cmci_action: "NEWCOPY"
+
+  cics_sys_def:
+     cicsplex: "CICS01"
+     cmci_url: "http://127.0.0.1:1490"
+     cmci_user: ""
+     cmci_password: ""
+     cmci_action: "{{env.spec.default_cics_cmci_action}}"
+     csd_group: "GENASAP"
+
+  default_db2_sdsnload: "DSN.V12R1M0.SDSNLOAD"
+  default_pkg_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
+  default_plan_jobcard: "BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
+
+  db2_sys_def:
+     package_maxrc: 4
+     plan_maxrc: 4
+     user: JENKINS
+     package: GENASA1
+     plan: GENAONE
+     qualifier: GENADB0
+     subsys: DBC1
+     package_jobcard: "{{env.spec.default_pkg_jobcard}}"
+     plan_jobcard: "{{env.spec.default_plan_jobcard}}"
+     sdsnload: "{{env.spec.default_db2_sdsnload}}"
+
+  common_pds_load_spec:
+     type: LIBRARY
+     primary_space: 150
+     secondary_space: 300
+     record_format: U
+     record_length: 0
+  common_pds_binary_spec:
+     type: LIBRARY
+     primary_space: 150
+     secondary_space: 300
+     record_format: FB
+     record_length: 80
+  common_pds_txt_spec:
+     type: LIBRARY
+     primary_space: 150
+     secondary_space: 300
+     record_format: FB
+     record_length: 80
+
+  hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.GENAPP' }}"
+  types:
+    - pattern: .*\.LOAD$
+      dataset: "{{ env.spec.hlq }}.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq }}.BACKPY.LOADLIB"
+      spec: "{{ env.spec.common_pds_load_spec }}"
+    - pattern: .*\.CICSLOAD$
+      dataset: "{{ env.spec.hlq }}.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq }}.BACKPY.LOADLIB"
+      spec: "{{ env.spec.common_pds_load_spec }}"
+      cics_systems:
+      - "{{ env.spec.cics_sys_def }}"
+    - pattern: .*\.MAPLOAD$
+      dataset: "{{ env.spec.hlq }}.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq }}.BACKPY.LOADLIB"
+      spec: "{{ env.spec.common_pds_load_spec }}"
+      cics_systems:
+      - "{{ env.spec.cics_sys_def }}"
+    - pattern: .*.DBRM$
+      dataset: "{{ env.spec.hlq }}.DBRM"
+      dataset_backup: "{{ env.spec.hlq }}.BACK.DBRMM"
+      spec: "{{ env.spec.common_pds_binary_spec }}"
+      db2_systems:
+      - "{{ env.spec.db2_sys_def }}"
+    - pattern: .*.JCL$
+      dataset: "{{ env.spec.hlq }}.JCL"
+      dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
+      spec: "{{ env.spec.common_pds_txt_spec }}"
+      #encoding:
+      #  from: UTF-8
+      #  to: IBM-1047

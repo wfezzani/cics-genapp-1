@@ -1,0 +1,4 @@
+# Copy Mode Properties
+# deployType: [LOAD|BINARY|TEXT]
+---
+copy: TEXT

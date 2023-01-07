@@ -1,0 +1,231 @@
+// Agent labels
+def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'plum-e2e-pipeline'
+def linuxAgent = 'master'
+
+// DBB Git repositories (For DBB 1.X)
+def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
+def zAppBuildGitBranch = 'zAppBuild_2_x'
+def dbbGitRepo = 'https://github.com/IBM/dbb.git'
+def dbbGitBranch = 'main'
+
+// DBB
+def dbbHome="/usr/lpp/IBM/dbb"
+def dbbUrl="https://example.com:9443/dbb"
+def dbbHlq="NAZARE.GENAPP.DBBBUILD"
+def dbbCredentialOptions='-id ADMIN -pw ADMIN'
+
+// Artifactory
+def artiCredentialsId = 'artifactory_id'
+def artiUrl = "https://example.com/artifactory"
+def artiRepoPath= "example.repo/plum/dbb/static"
+
+// Private
+def verbose = false
+def hasBuildFiles = true
+def srcGitRepo =  null
+def srcGitBranch = null
+
+pipeline {
+
+    agent { label linuxAgent }
+    
+     environment {
+        BUILD_NUMBER = "${env.BUILD_NUMBER}"
+     }
+     
+     parameters {
+       stringParam(choices: ["1.0.0"], description: 'Current release number.', name: 'RELEASE_NUMBER')
+       booleanParam(defaultValue: true, description: 'Display verbose output', name: 'VERBOSE')
+
+       stringParam("", description: 'Groovyz Extra Options.', name: 'GROOVYZ_BUILD_EXTRA_OPTS')
+       stringParam("", description: 'DBB Build Extra Options.', name: 'DBB_BUILD_EXTRA_OPTS')
+       choice(choices: ["impactBuild", "fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
+       
+       stringParam("", description: 'Python Virtual Environment Command.', name: 'PYTHON_VIRTUAL_ENV_COMMAND')
+       stringParam("/usr/lpp/IBM/zoautil", description: 'ZOAU Home.', name: 'ZOAU_HOME')
+       
+       stringParam("https://example.com/artifactory", description: 'Artifactory URL.', name: 'ATRIFACTORY_URL')
+       stringParam("example.repo/plum/static", description: 'Artifactory Repository Path.', name: 'ATRIFACTORY_REPOSITORY_PATH')              
+    }    
+
+    options { skipDefaultCheckout(true) }
+
+    stages {
+        
+        stage('Git Clone/Refresh') {
+            agent { label zOsAgentLabel }
+            steps {
+                script {
+                    verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
+                    env.BUILD_VERBOSE = verbose ? '-v' : ''
+                    if ( verbose ) {
+                        echo sh(script: 'env|sort', returnStdout: true)
+                    }
+                    dir('cics-genapp') {
+                        srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
+                        srcGitBranch = scm.branches[0].name
+                        def scmVars = null
+                        scmVars = checkout([$class: 'GitSCM', branches: [[name: srcGitBranch]],
+                                                doGenerateSubmoduleConfigurations: false,
+                                                submoduleCfg: [],
+                                                userRemoteConfigs: [[
+                                                                     url: srcGitRepo,
+                                                                     ]]])
+                    }
+                    dir("dbb-zappbuild") {
+                        def scmVars =
+                            checkout([$class: 'GitSCM', branches: [[name: zAppBuildGitBranch]],
+                                    doGenerateSubmoduleConfigurations: false,
+                                    submoduleCfg: [],
+                                    userRemoteConfigs: [[
+                                        url: zAppBuildGitRepo,
+                            ]]])
+                    }
+                }
+            }
+        }
+
+        stage('DBB Build & Package') {
+            steps {
+                script{
+                    node( zOsAgentLabel ) {
+                        // DBB Build
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
+                                    ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
+                                    --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ} --url ${DBB_URL}\
+                                    ${DBB_CREDENTIAL_OPTIONS} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
+                                    --application cics-genapp --sourceDir ${WORKSPACE}"
+                                echo $CMD
+                                $CMD
+                                exit $?
+                            ''')
+                        if ( rc != 0 )
+                            error("DBB build failed!!!")
+
+                        def files = findFiles(glob: "**BUILD-${BUILD_NUMBER}/**/buildList.txt")
+                        // Do not enter into some steps if nothing in the build list
+                        hasBuildFiles = files.length > 0 && files[0].length > 0
+                    }
+                }
+            }
+            post {
+                always {
+                    node( zOsAgentLabel ) {
+                        dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                            archiveArtifacts allowEmptyArchive: true,
+                                            artifacts: '**/*.log,**/*.json,**/*.html',
+                                            excludes: '**/*clist',
+                                            onlyIfSuccessful: false
+                        }
+                    }
+                }
+            }
+        }
+
+
+        stage('Artifactory Upload') {
+           environment {
+              ARTI_CREDS = credentials("$artiCredentialsId")
+            }
+            steps {
+                script {
+                    node( zOsAgentLabel ) {
+                        if ( hasBuildFiles ) {
+                            if ( env.PYTHON_VIRTUAL_ENV != "" ){
+                                env.PYTHON_INTERPRETER = "plum_py"
+                                env.USE_PYTHON_VIRTUAL_ENV = "True"
+                            }                        
+                            rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                                then
+                                   echo "Use a virtual env $PYTHON_VIRT_ENV"
+                                   . $PYTHON_VIRTUAL_ENV_COMMAND
+                                fi                            
+                                exit -1
+                            ''')
+                            if ( rc != 0 )
+                                error("Uploading Package failed!!!")
+                         }
+                    }
+                }
+            }
+        }
+        
+        
+        stage('PLUM Python Generation') {
+            steps {
+                script {
+                    node( zOsAgentLabel ) {
+                        if ( hasBuildFiles ) {
+                            rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                if [ - z "PYTHON_VIRTUAL_ENV_COMMAND" ]
+                                then
+                                   echo "Use a virtual env $PYTHON_VIRT_ENV"
+                                   . $PYTHON_VIRTUAL_ENV_COMMAND
+                                fi  
+                                cd ${WORKSPACE}
+                                CMD="plumdeploy-generate\
+                                       -dm  ${WORKSPACE}/cics-genapp/deployment_method/deployment_method.yml\
+                                       -dp  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
+                                       -dpr ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
+                                       -pi  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar"
+                                echo $CMD
+                                $CMD
+                                rc=$?
+                                exit $rc
+                            ''')
+                            if ( rc != 0 )
+                              error("Generation Of Deployment Scripts Failed!!!")
+                         }
+                    }
+                }
+            }          
+        }
+        
+        
+        stage('PLUM Python Execution') {
+            steps {
+                script {
+                    node( zOsAgentLabel ) {
+                        if ( hasBuildFiles ) {
+                            rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                export ZOAU_HOME=${ZOAU_HOME}
+                                export PATH=${ZOAU_HOME}/bin:$PATH
+                                export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
+                                CMD="plumdeploy-deploy\
+                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
+                                    --packageInputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
+                                    --envFile  ${WORKSPACE}//cics-genapp/environment_conf/${PLUM_ENV_FILE}\
+                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml\
+                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
+                                echo $CMD
+                                $CMD > deploy.log 2>&1
+                                rc=$?
+                                cat deploy.log
+                                # For jenkins artifact upload
+                                chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml
+                                chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html
+                                chtag -r  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml
+                                exit $rc
+                          ''')
+                          if ( rc != 0 )
+                              error("Excecution Of Deployment Scripts Failed!!!")
+                         }
+                    }
+                }
+            }
+            post {
+                always {
+                    node( zOsAgentLabel ) {
+                        dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                            archiveArtifacts allowEmptyArchive: true,
+                                            artifacts: '**/deployment_plan.yml,**/deployment_plan_report.html,**/evidence.yml',
+                                            onlyIfSuccessful: false
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
