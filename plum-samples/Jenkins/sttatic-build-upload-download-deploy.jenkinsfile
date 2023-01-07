@@ -33,8 +33,9 @@ pipeline {
         DBB_BUILD_EXTRA_OPTS = "${env.DBB_BUILD_EXTRA_OPTS ? env.DBB_BUILD_EXTRA_OPTS : ''}"
         PYTHON_INTERPRETER = "${env.PYTHON_INTERPRETER ? env.PYTHON_INTERPRETER : '/usr/lpp/IBM/cyp/v3r10/pyz/bin/python3'}"
         ZOAU_HOME =" ${env.ZOAU_HOME ? env.ZOAU_HOME : '/usr/lpp/IBM/zoautil'}"
-        ATRIFACTORY_URL = "${env.ATRIFACTORY_URL ? env.ATRIFACTORY_URL : 'https://example.com/artifactory'}"
-        ATRIFACTORY_REPOSITORY_PATH = "${env.ATRIFACTORY_REPOSITORY_PATH ? env.ATRIFACTORY_REPOSITORY_PATH : 'repository_path'}"
+        ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
+        ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
+        ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'repository_path'}"
         PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
      }
      
@@ -154,8 +155,10 @@ pipeline {
                             fi
                             export PATH=$HOME/.local/bin:$PATH
                             CMD="plum-package\
-                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml \
+                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
+                                    --repository  ${ARTIFACTORY_REPO}\
+                                    --repositoryPath  ${ARTIFACTORY_REPO}_PATH\
                                     --uploadType archive"
                             echo $CMD
                             $CMD
