@@ -34,7 +34,7 @@ pipeline {
      }
      
      parameters {
-       string(efaultValue: "1.0.0", description: 'Current release number.', name: 'RELEASE_NUMBER')
+       string(defaultValue: "1.0.0", description: 'Current release number.', name: 'RELEASE_NUMBER')
        booleanParam(defaultValue: true, description: 'Display verbose output', name: 'VERBOSE')
 
        string(defaultValue: "", description: 'Groovyz Extra Options.', name: 'GROOVYZ_BUILD_EXTRA_OPTS')
