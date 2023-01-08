@@ -18,6 +18,7 @@ pipeline {
     agent { label zOsAgentLabel }
     
      environment {
+        APP_NAME = "GenAppCICS"
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         DBB_HOME = "${env.DBB_HOME ? env.DBB_HOME : '/usr/lpp/IBM/dbb'}"
         DBB_URL = "${env.DBB_URL ? env.DBB_URL : 'https://example.com:9443/dbb'}"
@@ -36,6 +37,7 @@ pipeline {
      }
      
      parameters {
+       string(defaultValue: "1.0.0", description: 'Realese Version.', name: 'RELEASE_VERSION')
        booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
        choice(choices: ["-impactBuild", "-fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
     }
@@ -157,9 +159,9 @@ pipeline {
                                     --repositoryPath  ${ARTIFACTORY_REPO}\
                                     --buildName ${BUILD_NAME}\
                                     --buildUrl "${BUILD_URL}"\
-                                    --manifestVersion "1.0.${BUILD_NUMBER}" \
-                                    --manifestName "GenAppCICS"\
-                                    --manifestDescription "GenAppCICS"\
+                                    --manifestVersion "${RELEASE_VERSION}" \
+                                    --manifestName "${APP_NAME}"\
+                                    --manifestDescription "${APP_NAME}"\
                                     --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application_state.yml\
                                     --uploadType archive"
                             echo $CMD
@@ -223,7 +225,7 @@ pipeline {
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
                             CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
-                                --packageInputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
+                                --packageInputFile  ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO_PATH}/${ARTIFACTORY_REPO_PATH}/${APP_NAME}.${RELEASE_VERSION}.tar\
                                 --envFile  ${WORKSPACE}//cics-genapp/environment_conf/${PLUM_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml\
                                 --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
