@@ -184,11 +184,11 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
-                            then
-                               echo "Use a virtual env $PYTHON_VIRT_ENV"
-                               . $PYTHON_VIRTUAL_ENV_COMMAND
-                            fi
+                            #if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            #then
+                            #   echo "Use a virtual env $PYTHON_VIRT_ENV"
+                            #   . $PYTHON_VIRTUAL_ENV_COMMAND
+                            #fi
                             cd ${WORKSPACE}
                             export PATH=$PATH:$HOME/.local/bin
                             CMD="plum-generate\
@@ -223,8 +223,8 @@ pipeline {
                             #fi
                             export PATH=$PATH:$HOME/.local/bin
                             export ZOAU_HOME=${ZOAU_HOME}
-                            export PATH=${ZOAU_HOME}/bin:$PATH
-                            export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
+                            export PATH=$PATH:${ZOAU_HOME}/bin
+                            export LIBPATH=${LIBPATH}:${ZOAU_HOME}/lib
                             CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                 --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
