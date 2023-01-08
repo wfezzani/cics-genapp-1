@@ -231,6 +231,8 @@ pipeline {
                         if ( env.PLUM_DEPLOY_ENV_FILE == null )
                            env.PLUM_DEPLOY_ENV_FILE = "environment-zos.yml"
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            export ZOAU_HOME=${ZOAU_HOME}
+                            export PATH=${ZOAU_HOME}/bin:$PATH
                             if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
@@ -238,10 +240,8 @@ pipeline {
                                export PYTHON_INTERPRETER="python3"
                             else
                                export PATH=$PATH:$HOME/.local/bin
+                               export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
                             fi
-                            export ZOAU_HOME=${ZOAU_HOME}
-                            export PATH=${ZOAU_HOME}/bin:$PATH
-                            export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
                             CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                 --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
