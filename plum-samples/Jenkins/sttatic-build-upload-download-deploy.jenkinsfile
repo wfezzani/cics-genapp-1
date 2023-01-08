@@ -195,7 +195,7 @@ pipeline {
                                    -dm  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
                                    -dp  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                    -dpr ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
-                                   -pi  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar"
+                                   -pi   ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO_PATH}/${ARTIFACTORY_REPO_PATH}/${APP_NAME}.${RELEASE_VERSION}.tar"
                             echo $CMD
                             $CMD
                             rc=$?
