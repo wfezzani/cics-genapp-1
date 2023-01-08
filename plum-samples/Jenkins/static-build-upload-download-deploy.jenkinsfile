@@ -82,6 +82,8 @@ pipeline {
             steps {
                 script{
                     // DBB Build
+                    if ( env.DBB_BUILD_TYPE == null )
+                        env.DBB_BUILD_TYPE = "--fullBuild"
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                             CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
                                 ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
@@ -129,7 +131,9 @@ pipeline {
    # Artifactory credentials
    user: ${ARTI_CREDS_USR}
    password: ${ARTI_CREDS_PSW}
-                             """ 
+                             """
+                        if ( env.RELEASE_VERSION == null )
+                            env.RELEASE_VERSION = "1.0.0"
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             #if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
                             #then
@@ -215,6 +219,8 @@ pipeline {
             steps {
                 script {
                     if ( hasBuildFiles ) {
+                        env.ZOAU_HOME = ${ZOAU_HOME}
+                        echo "${ZOAU_HOME}"
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             #if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
                             #then
