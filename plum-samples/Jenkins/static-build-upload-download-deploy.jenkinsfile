@@ -223,7 +223,7 @@ pipeline {
                             #fi
                             export PATH=$PATH:$HOME/.local/bin
                             export ZOAU_HOME=${ZOAU_UTIL_HOME}
-                            export PATH=$PATH:${ZOAU_UTIL_HOME}/bin
+                            export PATH=$PATH:${ZOAU_HOME}/bin
                             export LIBPATH=${LIBPATH}:${ZOAU_UTIL_HOME}/lib
                             CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
