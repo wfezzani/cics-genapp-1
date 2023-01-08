@@ -135,7 +135,7 @@ pipeline {
                         if ( env.PYTHON_VIRTUAL_ENV_COMMAND == null  ){
                             env.PYTHON_VIRTUAL_ENV_COMMAND = ""
                         } else if ( env.PYTHON_VIRTUAL_ENV_COMMAND != "" ) {
-                            env.PYTHON_INTERPRETER=python3
+                            env.PYTHON_INTERPRETER="python3"
                         }
 
                         if ( env.RELEASE_VERSION == null )
