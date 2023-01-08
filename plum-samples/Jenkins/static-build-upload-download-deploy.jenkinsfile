@@ -134,8 +134,6 @@ pipeline {
                              """
                         if ( env.PYTHON_VIRTUAL_ENV_COMMAND == null  ){
                             env.PYTHON_VIRTUAL_ENV_COMMAND = ""
-                        } else if ( env.PYTHON_VIRTUAL_ENV_COMMAND != "" ) {
-                            env.PYTHON_INTERPRETER="python3"
                         }
 
                         if ( env.RELEASE_VERSION == null )
@@ -145,6 +143,7 @@ pipeline {
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
+                               export PYTHON_INTERPRETER="python3"
                             else
                                export PATH=$PATH:$HOME/.local/bin
                             fi
@@ -200,6 +199,7 @@ pipeline {
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
+                               export PYTHON_INTERPRETER="python3"
                             else
                                export PATH=$PATH:$HOME/.local/bin
                             fi
@@ -235,6 +235,7 @@ pipeline {
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
+                               export PYTHON_INTERPRETER="python3"
                             else
                                export PATH=$PATH:$HOME/.local/bin
                             fi
