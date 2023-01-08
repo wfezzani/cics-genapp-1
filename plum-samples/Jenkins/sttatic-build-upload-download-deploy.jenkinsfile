@@ -197,6 +197,7 @@ pipeline {
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                    --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar"
+                                   --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar"
                             echo $CMD
                             $CMD
                             rc=$?
@@ -226,7 +227,7 @@ pipeline {
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
                             CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
-                                --packageInputFile  ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${APP_NAME}.${RELEASE_VERSION}.tar\
+                                --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
                                 --envFile  ${WORKSPACE}//cics-genapp/environment_conf/${PLUM_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml\
                                 --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
