@@ -158,9 +158,9 @@ pipeline {
                                     --repository  ${ARTIFACTORY_REPO}\
                                     --repositoryPath  ${ARTIFACTORY_REPO_PATH}\
                                     --buildName ${BUILD_NAME}\
-                                    --buildNumber  ${BUILD_NUMBER}\
+                                    --buildNumber ${BUILD_NUMBER}\
                                     --buildUrl "${BUILD_URL}"\
-                                    --manifestVersion "${RELEASE_VERSION}" \
+                                    --manifestVersion "${RELEASE_VERSION}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
                                     --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application_state.yml\
@@ -196,7 +196,7 @@ pipeline {
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
-                                   --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar"
+                                   --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar
                                    --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar"
                             echo $CMD
                             $CMD
