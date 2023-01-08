@@ -219,6 +219,8 @@ pipeline {
             steps {
                 script {
                     if ( hasBuildFiles ) {
+                        if ( env.PLUM_DEPLOY_ENV_FILE == null )
+                           env.PLUM_DEPLOY_ENV_FILE = "environment-zos.yml"
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             #if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
                             #then
@@ -231,13 +233,12 @@ pipeline {
                             CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                 --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
-                                --envFile  ${WORKSPACE}//cics-genapp/environment_conf/${PLUM_ENV_FILE}\
+                                --envFile   ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/python/${PLUM_DEPLOY_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml\
                                 --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
                             echo $CMD
-                            $CMD > deploy.log 2>&1
+                            $CMD 
                             rc=$?
-                            cat deploy.log
                             # For jenkins artifact upload
                             chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml
                             chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html
