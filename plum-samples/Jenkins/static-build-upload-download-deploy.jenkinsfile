@@ -134,7 +134,10 @@ pipeline {
                              """
                         if ( env.PYTHON_VIRTUAL_ENV_COMMAND == null  ){
                             env.PYTHON_VIRTUAL_ENV_COMMAND = ""
+                        } else if ( env.PYTHON_VIRTUAL_ENV_COMMAND != "" ) {
+                            env.PYTHON_INTERPRETER=python3
                         }
+
                         if ( env.RELEASE_VERSION == null )
                             env.RELEASE_VERSION = "1.0.0"
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
@@ -142,6 +145,8 @@ pipeline {
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
+                            else
+                               export PATH=$PATH:$HOME/.local/bin
                             fi
                             
                             BUILD_OUTPUT_FOLDER=$(ls ${WORKSPACE}/BUILD-${BUILD_NUMBER} | grep "build.*[0-9]$" | tail -n 1)
@@ -158,7 +163,7 @@ pipeline {
                             then
                               exit $?
                             fi
-                            export PATH=$PATH:$HOME/.local/bin
+                            
                             CMD="plum-package\
                                     --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
@@ -195,9 +200,10 @@ pipeline {
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
+                            else
+                               export PATH=$PATH:$HOME/.local/bin
                             fi
                             cd ${WORKSPACE}
-                            export PATH=$PATH:$HOME/.local/bin
                             CMD="plum-generate\
                                    --deploymentMethod  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
@@ -229,9 +235,11 @@ pipeline {
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
+                            else
+                               export PATH=$PATH:$HOME/.local/bin
                             fi
                             export ZOAU_HOME=${ZOAU_HOME}
-                            export PATH=${ZOAU_HOME}/bin:$PATH:$HOME/.local/bin
+                            export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
                             CMD="plum-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
