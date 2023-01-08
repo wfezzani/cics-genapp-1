@@ -190,7 +190,7 @@ pipeline {
                             cd ${WORKSPACE}
                             export PATH=$PATH:$HOME/.local/bin
                             CMD="plum-generate\
-                                   -dm  ${WORKSPACE}/cics-genapp/deployment_method/deployment_method.yml\
+                                   -dm  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
                                    -dp  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                    -dpr ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
                                    -pi  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar"
