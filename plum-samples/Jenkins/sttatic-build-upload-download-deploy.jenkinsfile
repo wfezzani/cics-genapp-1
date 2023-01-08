@@ -149,12 +149,12 @@ pipeline {
                             then
                               exit $?
                             fi
-                            export PATH=$HOME/.local/bin:$PATH
+                            export PATH=$PATH:$HOME/.local/bin
                             CMD="plum-package\
                                     --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
                                     --repository  ${ARTIFACTORY_REPO}\
-                                    --repositoryPath  ${ARTIFACTORY_REPO}_PATH\
+                                    --repositoryPath  ${ARTIFACTORY_REPO}\
                                     --buildName ${BUILD_NAME}\
                                     --buildUrl "${BUILD_URL}"\
                                     --manifestVersion "1.0.${BUILD_NUMBER}" \
@@ -188,6 +188,7 @@ pipeline {
                                . $PYTHON_VIRTUAL_ENV_COMMAND
                             fi
                             cd ${WORKSPACE}
+                            export PATH=$PATH:$HOME/.local/bin
                             CMD="plum-generate\
                                    -dm  ${WORKSPACE}/cics-genapp/deployment_method/deployment_method.yml\
                                    -dp  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
@@ -216,6 +217,7 @@ pipeline {
                                echo "Use a virtual env $PYTHON_VIRT_ENV"
                                . $PYTHON_VIRTUAL_ENV_COMMAND
                             fi
+                            export PATH=$PATH:$HOME/.local/bin
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
