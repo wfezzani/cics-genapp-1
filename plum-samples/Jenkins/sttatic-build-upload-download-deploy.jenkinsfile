@@ -195,7 +195,7 @@ pipeline {
                                    --deploymentMethod  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
-                                   -configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
+                                   --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                    --packageInputFile   ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${APP_NAME}.${RELEASE_VERSION}.tar"
                             echo $CMD
                             $CMD
