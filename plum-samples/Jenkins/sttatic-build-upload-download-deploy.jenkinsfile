@@ -216,11 +216,11 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
-                            then
-                               echo "Use a virtual env $PYTHON_VIRT_ENV"
-                               . $PYTHON_VIRTUAL_ENV_COMMAND
-                            fi
+                            #if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
+                            #then
+                            #   echo "Use a virtual env $PYTHON_VIRT_ENV"
+                            #   . $PYTHON_VIRTUAL_ENV_COMMAND
+                            #fi
                             export PATH=$PATH:$HOME/.local/bin
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
