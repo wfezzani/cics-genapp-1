@@ -219,7 +219,7 @@ pipeline {
             steps {
                 script {
                     if ( hasBuildFiles ) {
-                        env.ZOAU_HOME = ${ZOAU_HOME}
+                        env.ZOAU_HOME = "${ZOAU_HOME}"
                         echo "${ZOAU_HOME}"
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             #if [ - z "$PYTHON_VIRTUAL_ENV_COMMAND" ]
