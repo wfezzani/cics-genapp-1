@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 
-from wazideploy.service.utilities import Utilities
+from plum_py.service.utilities import Utilities
 from python.dbb.dbb_utilities import DBBUtilities
 
 def copy_dbb_build_result_to_local_folder(**kwargs):

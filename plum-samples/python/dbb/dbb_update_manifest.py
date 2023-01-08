@@ -17,7 +17,7 @@ import re
 sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 
 from python.dbb.dbb_utilities import DBBUtilities
-from wazideploy.service.utilities import Utilities
+from plum_py.service.utilities import Utilities
 from python.dbb.dbb_utilities import GitUtilities
 
         
