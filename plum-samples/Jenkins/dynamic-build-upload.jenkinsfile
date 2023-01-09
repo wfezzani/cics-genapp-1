@@ -6,6 +6,7 @@ def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
 def zAppBuildGitBranch = 'zAppBuild_2_x'
 def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
+def gitCredId = 'git-credentials-id'
 
 // Private
 def verbose = false
@@ -57,6 +58,11 @@ pipeline {
                     dir('cics-genapp') {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name
+                        if ( env.APP_GIT_BRANCH == null || env.APP_GIT_BRANCH == "") {
+                            srcGitBranch = scm.branches[0].name
+                            env.GIT_BRANCH = srcGitBranch
+                        } else
+                            srcGitBranch =  env.GIT_BRANCH
                         def scmVars = null
                         scmVars = checkout([$class: 'GitSCM', branches: [[name: srcGitBranch]],
                                                 doGenerateSubmoduleConfigurations: false,
@@ -196,7 +202,33 @@ pipeline {
                         ''')
                         if ( rc != 0 )
                             error("Uploading Package failed!!!")
+                            
+                        // Upload application state
+                        sshagent(['git-credentials-id']) {
+                            sh "git push origin master"
+                            rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                cd ${WORKSPACE}/cics-genapp
+                                git add plum-samples/application-state/application_state.yml
+                                git commit -am "Commit the new application state into ${GIT_BRANCH}"
+                                git push origin HEAD:${GIT_BRANCH}
+                                # For jenkins artifact upload
+                                chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml
+                            ''')
+                            if ( rc != 0 )
+                                error("Uploading application state to Git failed!!!")
+                        }
                      }
+                }
+            }
+            post {
+                always {
+                    node( zOsAgentLabel ) {
+                        dir("${WORKSPACE}/cics-genapp/application-state") {
+                            archiveArtifacts allowEmptyArchive: true,
+                                            artifacts: '**/wd_application_state.yml',
+                                            onlyIfSuccessful: false
+                        }
+                    }
                 }
             }
         }
