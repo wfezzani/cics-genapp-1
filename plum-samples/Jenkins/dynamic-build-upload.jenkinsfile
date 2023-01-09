@@ -215,6 +215,7 @@ pipeline {
                                 git push origin HEAD:${GIT_BRANCH} >> git.log 2>&1
                                 # For jenkins artifact upload
                                 chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml >> git.log 2>&1
+                               cat git.log
                             ''')
                             if ( rc != 0 )
                                 error("Uploading application state to Git failed!!!")
