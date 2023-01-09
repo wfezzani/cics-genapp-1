@@ -222,12 +222,10 @@ pipeline {
             }
             post {
                 always {
-                    node( zOsAgentLabel ) {
-                        dir("${WORKSPACE}/cics-genapp/application-state") {
+                     dir("${WORKSPACE}/cics-genapp/application-state") {
                             archiveArtifacts allowEmptyArchive: true,
                                             artifacts: '**/wd_application_state.yml',
                                             onlyIfSuccessful: false
-                        }
                     }
                 }
             }
