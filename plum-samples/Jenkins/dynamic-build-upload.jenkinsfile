@@ -68,7 +68,7 @@ pipeline {
                                                 doGenerateSubmoduleConfigurations: false,
                                                 submoduleCfg: [],
                                                 userRemoteConfigs: [[
-                                                                     url: srcGitRepo,
+                                                                     url: srcGitRepo, credentialsId: gitCredId,
                                                                      ]]])
                     }
                     dir("dbb-zappbuild") {
@@ -204,7 +204,7 @@ pipeline {
                             error("Uploading Package failed!!!")
                             
                         // Upload application state
-                        sshagent(['git-credentials-id']) {
+                        sshagent([gitCredId]) {
                             sh "git push origin master"
                             rc = sh (returnStatus: true, script: '''#!/bin/sh
                                 cd ${WORKSPACE}/cics-genapp
