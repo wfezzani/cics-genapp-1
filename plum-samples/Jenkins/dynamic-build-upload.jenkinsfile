@@ -204,9 +204,14 @@ pipeline {
                             error("Uploading Package failed!!!")
                             
                         // Upload application state
-                        // sshagent([gitCredId]) {# Does not work on z/OS
-                        withCredentials([sshUserPrivateKey(credentialsId: gitCredId, keyFileVariable: 'SSH_KEY')]) {
+                        // sshagent([gitCredId]) { // Does not work on z/OS
+                        withCredentials([sshUserPrivateKey(credentialsId: gitCredId, keyFileVariable: 'SSH_KEY')]) { // Only for tests
                             rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                export _BPXK_AUTOCVT: "ON"
+                                export _CEE_RUNOPTS: "FILETAG(AUTOCVT,AUTOTAG) POSIX(ON)"
+                                export _TAG_REDIR_ERR: "txt"
+                                export _TAG_REDIR_IN: "txt"
+                                export _TAG_REDIR_OUT: "txt"
                                 chtag -t -c ISO8859-1 $SSH_KEY
                                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
                                 cd ${WORKSPACE}/cics-genapp
@@ -224,9 +229,9 @@ pipeline {
             }
             post {
                 always {
-                     dir("${WORKSPACE}/cics-genapp/application-state") {
+                     dir("${WORKSPACE}/cics-genapp/plum-samples/application-state") {
                             archiveArtifacts allowEmptyArchive: true,
-                                            artifacts: '**/wd_application_state.yml',
+                                            artifacts: '**/application_state.yml',
                                             onlyIfSuccessful: false
                     }
                 }
