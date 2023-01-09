@@ -68,7 +68,7 @@ pipeline {
                                                 doGenerateSubmoduleConfigurations: false,
                                                 submoduleCfg: [],
                                                 userRemoteConfigs: [[
-                                                                     url: srcGitRepo, credentialsId: gitCredId,
+                                                                     url: srcGitRepo, credentialsId: gitCredId
                                                                      ]]])
                     }
                     dir("dbb-zappbuild") {
