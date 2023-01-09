@@ -207,6 +207,7 @@ pipeline {
                         sshagent([gitCredId]) {
                             sh "git push origin master"
                             rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                env
                                 cd ${WORKSPACE}/cics-genapp
                                 git add plum-samples/application-state/application_state.yml
                                 git commit -am "Commit the new application state into ${GIT_BRANCH}"
