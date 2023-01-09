@@ -6,7 +6,7 @@ def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
 def zAppBuildGitBranch = 'zAppBuild_2_x'
 def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
-def gitCredId = 'git-credentials-id'
+def gitCredId = 'git_hub_cred'
 
 // Private
 def verbose = false
