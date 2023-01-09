@@ -207,19 +207,14 @@ pipeline {
                         // sshagent([gitCredId]) { // Does not work on z/OS
                         withCredentials([sshUserPrivateKey(credentialsId: gitCredId, keyFileVariable: 'SSH_KEY')]) { // Only for tests
                             rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                export _BPXK_AUTOCVT="ON"
-                                export _CEE_RUNOPTS="FILETAG(AUTOCVT,AUTOTAG) POSIX(ON)"
-                                export _TAG_REDIR_ERR="txt"
-                                export _TAG_REDIR_IN="txt"
-                                export _TAG_REDIR_OUT="txt"
                                 chtag -t -c ISO8859-1 $SSH_KEY
                                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
                                 cd ${WORKSPACE}/cics-genapp
-                                git add plum-samples/application-state/application_state.yml
-                                git commit -am "Commit the new application state into ${GIT_BRANCH}"
-                                git push origin HEAD:${GIT_BRANCH}
+                                git add plum-samples/application-state/application_state.yml > git.log 2>&1
+                                git commit -am "Commit the new application state into ${GIT_BRANCH}" >> git.log 2>&1
+                                git push origin HEAD:${GIT_BRANCH} >> git.log 2>&1
                                 # For jenkins artifact upload
-                                chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml
+                                chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml >> git.log 2>&1
                             ''')
                             if ( rc != 0 )
                                 error("Uploading application state to Git failed!!!")
