@@ -169,7 +169,6 @@ pipeline {
                                     --repository  ${ARTIFACTORY_REPO}\
                                     --repositoryPath  ${ARTIFACTORY_REPO_PATH}\
                                     --buildName ${ARTIFACTORY_STATIC_BUILD_NAME}\
-                                    --buildNumber ${BUILD_NUMBER}\
                                     --buildUrl "${BUILD_URL}"\
                                     --manifestVersion "${RELEASE_VERSION}"\
                                     --manifestName "${APP_NAME}"\
