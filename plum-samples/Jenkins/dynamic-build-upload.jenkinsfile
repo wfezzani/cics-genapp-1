@@ -205,7 +205,7 @@ pipeline {
                             
                         // Upload application state
                         // sshagent([gitCredId]) {# Does not work on z/OS
-                        withCredentials([sshUserPrivateKey(credentialsId: 'gitCredId', keyFileVariable: 'SSH_KEY')]) {
+                        withCredentials([sshUserPrivateKey(credentialsId: gitCredId, keyFileVariable: 'SSH_KEY')]) {
                             rc = sh (returnStatus: true, script: '''#!/bin/sh
                                 chtag -t -c ISO8859-1 $SSH_KEY
                                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
