@@ -119,13 +119,11 @@ pipeline {
 
 
         stage('Deploy: Execute The Deployment With Ansible for z/OS') {
-           environment {
-              ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
-            }
             steps {
                 script {
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                         cd ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible
+                        echo $PWD
                         CMD="ansible-playbook deploy.yml -i inventories\
                                 -e plum_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                 -e plum_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
