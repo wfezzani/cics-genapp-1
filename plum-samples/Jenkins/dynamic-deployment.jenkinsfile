@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
-                    env.ANSIBLE_VERBOSE_OPTS = verbose ? '-vvv -e plum_log=True' : ''
+                    env.ANSIBLE_VERBOSE_OPTS = verbose ? '-vvvv -e plum_log=True' : ''
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
