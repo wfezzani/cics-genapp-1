@@ -105,7 +105,7 @@ pipeline {
                                --deploymentState ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-state/deployment_state.yml\
                                ${CURRENT_DEPLOYMENT_STATE}\
                                --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
-                               ---configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml"
+                               --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml"
                         echo $CMD
                         $CMD
                         rc=$?
