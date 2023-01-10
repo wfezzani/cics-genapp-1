@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
-                    env.BUILD_VERBOSE = verbose ? '-v' : ''
+                    env.ANSIBLE_VERBOSE_OPTS = verbose ? '-vvv -e plum_log=True' : ''
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
@@ -129,7 +129,7 @@ pipeline {
                         CMD="ansible-playbook deploy.yml -i inventories\
                                 -e plum_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
                                 -e plum_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
-                                ${ANSIBLE_PLAYBOOK_OPTS}"
+                                ${ANSIBLE_PLAYBOOK_OPTS} ${ANSIBLE_VERBOSE_OPTS}"
                         echo $CMD
                         $CMD
                         rc=$?
