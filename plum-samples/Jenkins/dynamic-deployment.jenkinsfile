@@ -140,6 +140,7 @@ pipeline {
                 }
             }
             post {
+                always {
                     dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
                         archiveArtifacts allowEmptyArchive: true,
                                         artifacts: '**/deployment_plan.yml,**/deployment_plan_report.html,**/package.tar',
@@ -150,6 +151,7 @@ pipeline {
                                         artifacts: '**/*.yml',
                                         onlyIfSuccessful: false
                     }
+                }
             }
         }
         
