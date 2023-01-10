@@ -79,7 +79,7 @@ pipeline {
             }
         }
 
-        stage('DBB Build & Package') {
+        stage('DBB Build') {
             steps {
                 script{
                     // DBB Build
@@ -116,7 +116,7 @@ pipeline {
         }
 
 
-        stage('Artifactory Upload') {
+        stage('Package & Artifactory Upload') {
            environment {
               ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
             }
@@ -191,7 +191,7 @@ pipeline {
             }
         }
         
-        stage('PLUM Python Generation') {
+        stage('Deploy: Generate The Deployment Plan & Package') {
             steps {
                 script {
                     if ( hasBuildFiles ) {
@@ -225,7 +225,7 @@ pipeline {
         }
         
         
-        stage('PLUM Python Execution') {
+        stage('Deploy: Execute The Deployment With Python/ZOAU') {
             steps {
                 script {
                     if ( hasBuildFiles ) {

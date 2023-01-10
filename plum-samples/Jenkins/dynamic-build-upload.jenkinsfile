@@ -84,7 +84,7 @@ pipeline {
             }
         }
 
-        stage('DBB Build & Package') {
+        stage('DBB Build') {
             steps {
                 script{
                     // DBB Build
@@ -121,7 +121,7 @@ pipeline {
         }
 
 
-        stage('Artifactory Upload') {
+        stage('Package & Artifactory Upload') {
            environment {
               ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
             }
