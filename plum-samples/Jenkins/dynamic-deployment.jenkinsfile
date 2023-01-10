@@ -121,19 +121,21 @@ pipeline {
         stage('Deploy: Execute The Deployment With Ansible for z/OS') {
             steps {
                 script {
-                    rc = sh (returnStatus: true, script: '''#!/bin/sh
-                        cd ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible
-                        echo $PWD
-                        rm -rf evidences
-                        CMD="ansible-playbook deploy.yml -i inventories\
-                                -e plum_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
-                                -e plum_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
-                                ${ANSIBLE_PLAYBOOK_OPTS} ${ANSIBLE_VERBOSE_OPTS}"
-                        echo $CMD
-                        $CMD
-                        rc=$?
-                        exit $rc
-                    ''')
+                    sshagent([gitCredId]) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            cd ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible
+                            echo $PWD
+                            rm -rf evidences
+                            CMD="ansible-playbook deploy.yml -i inventories\
+                                    -e plum_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
+                                    -e plum_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
+                                    ${ANSIBLE_PLAYBOOK_OPTS} ${ANSIBLE_VERBOSE_OPTS}"
+                            echo $CMD
+                            $CMD
+                            rc=$?
+                            exit $rc
+                        ''')
+                    }
                     if ( rc != 0 )
                         error("Wazi Deploy Ansible Deployment Failed!!!")
                 }
