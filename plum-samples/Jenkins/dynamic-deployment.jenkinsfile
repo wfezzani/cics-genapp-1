@@ -122,6 +122,7 @@ pipeline {
             steps {
                 script {
                     sshagent([gitCredId]) {
+                        // Deploy
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             cd ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible
                             echo $PWD
@@ -135,9 +136,21 @@ pipeline {
                             rc=$?
                             exit $rc
                         ''')
+                        if ( rc != 0 )
+                            error("Deploy Ansible Deployment Failed!!!")
+                            
+                        // Git Push
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                             cd ${WORKSPACE}/cics-genapp
+                             mv ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible/evidences/* plum-samples/external-repos/evidences
+                             git add plum-samples/external-repos/deployment-state/deployment_state.yml
+                             git add plum-samples/external-repos/evidences/*
+                             git commit -am "Commit new deployment state to ${GIT_BRANCH} branch for the current environment"
+                             git push origin HEAD:${GIT_BRANCH}
+                            ''')
+                        if ( rc != 0 )
+                            error("Git Push Failed!!!")
                     }
-                    if ( rc != 0 )
-                        error("Wazi Deploy Ansible Deployment Failed!!!")
                 }
             }
             post {
