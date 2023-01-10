@@ -42,6 +42,7 @@ pipeline {
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
+                    sh("rm -rf ${env.WORKSPACE}/cics-genapp")
                     dir('cics-genapp') {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name
@@ -121,7 +122,6 @@ pipeline {
         stage('Deploy: Execute The Deployment With Ansible for z/OS') {
             steps {
                 script {
-                    sshagent([gitCredId]) {
                         // Deploy
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             cd ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible
@@ -138,7 +138,6 @@ pipeline {
                         ''')
                         if ( rc != 0 )
                             error("Deploy Ansible Deployment Failed!!!")
-                            
                         // Git Push
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                              cd ${WORKSPACE}/cics-genapp
@@ -150,7 +149,6 @@ pipeline {
                             ''')
                         if ( rc != 0 )
                             error("Git Push Failed!!!")
-                    }
                 }
             }
             post {
