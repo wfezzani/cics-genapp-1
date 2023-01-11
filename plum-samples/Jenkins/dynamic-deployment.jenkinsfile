@@ -99,7 +99,7 @@ pipeline {
                         fi
                         CMD="plum-generate\
                                --deploymentMethod  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
-                               --manifests ${WORKSPACE}/cics-genapp/plum-samples/application-state/application-state.yml\
+                               --manifests ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml\
                                --deploymentPlan ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                --deploymentState ${WORKSPACE}/BUILD-${BUILD_NUMBER}/merged_deployment-state.yml\
