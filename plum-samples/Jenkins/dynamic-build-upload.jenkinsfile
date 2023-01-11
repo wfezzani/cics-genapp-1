@@ -181,6 +181,8 @@ pipeline {
                                     --manifestDescription "${APP_NAME}"\
                                     --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml\
                                     --uploadType delta"
+                            echo ""
+                            echo ""
                             echo $CMD
                             $CMD
                             if [ $? -ne 0 ]
