@@ -128,7 +128,7 @@ pipeline {
                         echo $PWD
                         rm -rf evidences
                         CMD="ansible-playbook deploy.yml -i inventories\
-                                -e plum_deployment-plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
+                                -e plum_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                 -e plum_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
                                 ${ANSIBLE_PLAYBOOK_OPTS} ${ANSIBLE_VERBOSE_OPTS}"
                         echo $CMD
