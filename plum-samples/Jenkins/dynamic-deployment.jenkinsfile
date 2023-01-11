@@ -109,6 +109,7 @@ pipeline {
                         echo $CMD
                         $CMD
                         rc=$?
+                        echo ""
                         exit $rc
                     ''')
                     if ( rc != 0 )
@@ -140,6 +141,7 @@ pipeline {
                         error("Deploy Ansible Deployment Failed!!!")
                     // Git Push
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
+                         echo ""
                          cd ${WORKSPACE}/cics-genapp
                          cp ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible/evidences/* plum-samples/external-repos/evidences
                          cp ${WORKSPACE}/BUILD-${BUILD_NUMBER}/merged_deployment-state.yml ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-state/deployment-state.yml
