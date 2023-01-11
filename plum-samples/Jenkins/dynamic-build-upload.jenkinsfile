@@ -179,7 +179,7 @@ pipeline {
                                     --manifestVersion "${RELEASE_VERSION}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
-                                    --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml\
+                                    --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml\
                                     --uploadType delta"
                             echo $CMD
                             $CMD
@@ -192,7 +192,7 @@ pipeline {
                                 ${WORKSPACE}/cics-genapp/plum-samples/python/dbb/dbb_update_manifest.py\
                                --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
                                --sourceFolder ${WORKSPACE}/cics-genapp\
-                               --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml"
+                               --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml"
                             echo $CMD
                             $CMD
                             if [ $? -ne 0 ]
@@ -210,11 +210,11 @@ pipeline {
                                 chtag -t -c ISO8859-1 $SSH_KEY
                                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
                                 cd ${WORKSPACE}/cics-genapp
-                                git add plum-samples/application-state/application_state.yml > git.log 2>&1
+                                git add plum-samples/application-manifest/application-manifest.yml > git.log 2>&1
                                 git commit -am "Commit the new application state into ${GIT_BRANCH}" >> git.log 2>&1
                                 git push origin HEAD:${GIT_BRANCH} >> git.log 2>&1
                                 # For jenkins artifact upload
-                                chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml >> git.log 2>&1
+                                chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml >> git.log 2>&1
                                cat git.log
                             ''')
                             if ( rc != 0 )
@@ -225,9 +225,9 @@ pipeline {
             }
             post {
                 always {
-                     dir("${WORKSPACE}/cics-genapp/plum-samples/application-state") {
+                     dir("${WORKSPACE}/cics-genapp/plum-samples/application-manifest") {
                             archiveArtifacts allowEmptyArchive: true,
-                                            artifacts: '**/application_state.yml',
+                                            artifacts: '**/application-manifest.yml',
                                             onlyIfSuccessful: false
                     }
                 }

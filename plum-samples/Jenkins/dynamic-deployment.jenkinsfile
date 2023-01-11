@@ -70,9 +70,9 @@ pipeline {
             steps {
                 script{
                     if ( env.FULL_DEPLOY && env.FULL_DEPLOY == 'true' )
-                        env.CURRENT_DEPLOYMENT_STATE=""
+                        env.CURRENT_deployment-state=""
                     else
-                        env.CURRENT_DEPLOYMENT_STATE="-cds ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-state/deployment_state.yml"
+                        env.CURRENT_deployment-state="-cds ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-state/deployment-state.yml"
 
                     writeFile file: "${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml", encoding: "UTF-8",
                     text:"""artifact_repository:
@@ -100,10 +100,10 @@ pipeline {
                         CMD="plum-generate\
                                --deploymentMethod  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
                                --manifests ${WORKSPACE}/cics-genapp/plum-samples/application-state/application_state.yml\
-                               --deploymentPlan ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
-                               --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
-                               --deploymentState ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-state/deployment_state.yml\
-                               ${CURRENT_DEPLOYMENT_STATE}\
+                               --deploymentPlan ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
+                               --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
+                               --deploymentState ${WORKSPACE}/BUILD-${BUILD_NUMBER}/merged_deployment-state.yml\
+                               ${CURRENT_deployment-state}\
                                --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
                                --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml"
                         echo $CMD
@@ -128,7 +128,7 @@ pipeline {
                         echo $PWD
                         rm -rf evidences
                         CMD="ansible-playbook deploy.yml -i inventories\
-                                -e plum_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
+                                -e plum_deployment-plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                 -e plum_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
                                 ${ANSIBLE_PLAYBOOK_OPTS} ${ANSIBLE_VERBOSE_OPTS}"
                         echo $CMD
@@ -142,7 +142,8 @@ pipeline {
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                          cd ${WORKSPACE}/cics-genapp
                          cp ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible/evidences/* plum-samples/external-repos/evidences
-                         git add plum-samples/external-repos/deployment-state/deployment_state.yml
+                         cp ${WORKSPACE}/BUILD-${BUILD_NUMBER}/merged_deployment-state.yml ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-state/deployment-state.yml
+                         git add plum-samples/external-repos/deployment-state/deployment-state.yml
                          git add plum-samples/external-repos/evidences/*
                          git commit -am "Commit new deployment state to ${GIT_BRANCH} branch for the current environment"
                          git push origin HEAD:${GIT_BRANCH}
@@ -155,7 +156,7 @@ pipeline {
                 always {
                     dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
                         archiveArtifacts allowEmptyArchive: true,
-                                        artifacts: '**/deployment_plan.yml,**/deployment_plan_report.html,**/package.tar',
+                                        artifacts: '**/deployment-plan.yml,**/deployment-plan-report.html,**/package.tar',
                                         onlyIfSuccessful: false
                     }
                     dir("${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible/evidences") {

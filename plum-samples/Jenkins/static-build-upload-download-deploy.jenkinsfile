@@ -175,7 +175,7 @@ pipeline {
                                     --manifestVersion "${RELEASE_VERSION}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
-                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application_state.yml\
+                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application-manifest.yml\
                                     --uploadType archive"
                             echo $CMD
                             $CMD
@@ -207,8 +207,8 @@ pipeline {
                             cd ${WORKSPACE}
                             CMD="plum-generate\
                                    --deploymentMethod  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
-                                   --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
-                                   --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html\
+                                   --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
+                                   --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                    --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar
                                    --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar"
@@ -244,7 +244,7 @@ pipeline {
                                export PATH=$PATH:$HOME/.local/bin
                             fi
                             CMD="plum-deploy\
-                                --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml\
+                                --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                 --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
                                 --envFile   ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/python/${PLUM_DEPLOY_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml\
@@ -253,8 +253,8 @@ pipeline {
                             $CMD 
                             rc=$?
                             # For jenkins artifact upload
-                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan.yml
-                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment_plan_report.html
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
                             chtag -r  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidence.yml
                             exit $rc
                       ''')
@@ -267,7 +267,7 @@ pipeline {
                 always {
                     dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
                         archiveArtifacts allowEmptyArchive: true,
-                                        artifacts: '**/deployment_plan.yml,**/deployment_plan_report.html,**/evidence.yml',
+                                        artifacts: '**/deployment-plan.yml,**/deployment-plan-report.html,**/evidence.yml',
                                         onlyIfSuccessful: false
                     }
                 }
