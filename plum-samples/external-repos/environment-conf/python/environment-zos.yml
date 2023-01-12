@@ -85,7 +85,7 @@ spec:
       db2_systems:
       - "{{ env.spec.db2_sys_def }}"
     - pattern: .*.JCL$
-      dataset: "{{ env.spec.hlq }}.JCL"
+      dataset: "{{ env.spec.hlq }}.TEST.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
       spec: "{{ env.spec.common_pds_txt_spec }}"
       #encoding:
