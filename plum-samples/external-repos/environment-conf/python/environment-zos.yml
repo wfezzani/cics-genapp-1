@@ -14,7 +14,6 @@ metadata:
   version: 1.0.0
 
 spec:
-
   default_cics_cmci_action: "NEWCOPY"
 
   cics_sys_def:
@@ -43,49 +42,49 @@ spec:
 
   common_pds_load_spec:
      type: LIBRARY
-     primary_space: 150
-     secondary_space: 300
+     primary_space: 10CYL
+     secondary_space: 20CYL
      record_format: U
      record_length: 0
   common_pds_binary_spec:
      type: LIBRARY
-     primary_space: 150
-     secondary_space: 300
+     primary_space: 10CYL
+     secondary_space: 20CYL
      record_format: FB
      record_length: 80
   common_pds_txt_spec:
      type: LIBRARY
-     primary_space: 150
-     secondary_space: 300
+     primary_space: 10CYL
+     secondary_space: 20CYL
      record_format: FB
      record_length: 80
 
-  hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.GENAPP' }}"
+  hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.WDEPLOY.DEMO.PYTHON' }}"
   types:
     - pattern: .*\.LOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
-      dataset_backup: "{{ env.spec.hlq }}.BACKPY.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
     - pattern: .*\.CICSLOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
-      dataset_backup: "{{ env.spec.hlq }}.BACKPY.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*\.MAPLOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
-      dataset_backup: "{{ env.spec.hlq }}.BACKPY.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*.DBRM$
       dataset: "{{ env.spec.hlq }}.DBRM"
-      dataset_backup: "{{ env.spec.hlq }}.BACK.DBRMM"
+      dataset_backup: "{{ env.spec.hlq }}.BACK.DBRM"
       spec: "{{ env.spec.common_pds_binary_spec }}"
       db2_systems:
       - "{{ env.spec.db2_sys_def }}"
     - pattern: .*.JCL$
-      dataset: "{{ env.spec.hlq }}.TEST.JCL"
+      dataset: "{{ env.spec.hlq }}.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
       spec: "{{ env.spec.common_pds_txt_spec }}"
       #encoding:
