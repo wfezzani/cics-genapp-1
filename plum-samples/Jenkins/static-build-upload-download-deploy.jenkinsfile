@@ -1,5 +1,5 @@
 // Agent labels
-def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.AGENT_LABEL : 'plum-e2e-pipeline'
+def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'plum-e2e-pipeline'
 
 // DBB Git repositories (For DBB 1.X)
 def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'

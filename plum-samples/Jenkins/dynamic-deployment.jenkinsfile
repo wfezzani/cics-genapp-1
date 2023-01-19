@@ -1,5 +1,5 @@
 // Agent labels
-def linuxAgentLabel = env.LINUX_AGENT_LABEL ? env.AGENT_LABEL : 'master'
+def linuxAgentLabel = env.LINUX_AGENT_LABEL ? env.LINUX_AGENT_LABEL : 'master'
 
 // DBB Git repositories (For DBB 1.X)
 def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
