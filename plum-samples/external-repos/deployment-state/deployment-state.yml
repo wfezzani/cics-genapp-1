@@ -5,18 +5,18 @@ metadata:
   description: GenAppCICS
   version: 1.0.0
   annotations:
-    creationTimestamp: 20230119.195058.851
+    creationTimestamp: 20230119.200207.579
 manifests:
 - name: GenAppCICS
   description: GenAppCICS
   version: 1.0.0
   annotations:
-    creationTimestamp: 20230119.194403.366
+    creationTimestamp: 20230119.195726.901
     scm:
       type: git
       uri: git@github.com:jbyibm/cics-genapp.git
       branch: main
-      shortCommit: d538af6a
+      shortCommit: e89b77cc
     package:
       name: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       properties:
@@ -27,24 +27,12 @@ manifests:
       - key: build_name
         value: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       - key: build_number
-        value: '7'
-      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/7
+        value: '8'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/8
       type: ARTIFACTORY
     dbb:
-      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/49757
+      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/49769
 artifacts:
-- name: LGACDB02
-  description: LGACDB02.CICSLOAD
-  properties:
-  - key: path
-    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
-  - key: fingerprint
-    value: 5695PMB01 02042023019144242
-  - key: wdManifestIndex
-    value: 0
-  type: CICSLOAD
-  hash: 0b3c1addf7a8b9708f4594cb4dc135c6f47b4cac9287795b44b6e4ea028e1e5c
-  state: UNDEFINED
 - name: LGIPDB01
   description: LGIPDB01.DBRM
   properties:
@@ -56,7 +44,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 1c46d64a82dae5a05ce74332cccb48d237a04ae31d559ad42b79f22f877ea112
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGDPOL01
   description: LGDPOL01.CICSLOAD
   properties:
@@ -68,7 +56,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 2213913b4a90801b8d1d8bd83bee37f9d2359124b4357080dba5a9f88c3c01fb
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: HELLO2
   description: HELLO2.JCL
   properties:
@@ -80,7 +68,7 @@ artifacts:
     value: 0
   type: JCL
   hash: 2a305ee5391a1f7f687177e712e9eb8d3747ff1992630b36438e3bbefc162488
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGIPOL01
   description: LGIPOL01.CICSLOAD
   properties:
@@ -92,7 +80,19 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 3a3a15e898232b983d0616c4aacbf1ea59c390e0e1ee3c3764d3886b69add112
-  state: UNDEFINED
+  state: UNMODIFIED
+- name: LGACDB02
+  description: LGACDB02.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+  - key: fingerprint
+    value: 41d3a1df4667d9837afa246faa467801c142f0f29f33f4d33babd339c6a0a4de
+  - key: wdManifestIndex
+    value: 0
+  type: DBRM
+  hash: 41d3a1df4667d9837afa246faa467801c142f0f29f33f4d33babd339c6a0a4de
+  state: MODIFIED
 - name: LGUPVS01
   description: LGUPVS01.CICSLOAD
   properties:
@@ -104,7 +104,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 43bef065275fe551306dad2759db2e9166f097c0f31a84618a0e6b1fae007024
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGUPDB01
   description: LGUPDB01.CICSLOAD
   properties:
@@ -116,7 +116,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 445d896a84b9d6bf5bd99300e4cb3dfc77f9c7584ca533305c275451255ac32a
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGUCVS01
   description: LGUCVS01.CICSLOAD
   properties:
@@ -128,7 +128,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 478e9eecd457c731224da5ac36fd7b4687ce5b568956cf27c4f5824b55bca607
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGIPDB01
   description: LGIPDB01.CICSLOAD
   properties:
@@ -140,7 +140,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 5428c1badafcebd555c4fe6a9a8be86c1a72f81fedc1b8ee09bc8bb88763fd18
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGDPDB01
   description: LGDPDB01.CICSLOAD
   properties:
@@ -152,7 +152,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 5f079d7fc3919f96b0ecddfeb3ddade5db75e75613bca3436cb40b262c720032
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGUPOL01
   description: LGUPOL01.CICSLOAD
   properties:
@@ -164,19 +164,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 65c688c9e122542f213e4b7c9bed1aa1dd2a7b1916a762491d74f9a53a82b6dc
-  state: UNDEFINED
-- name: LGACDB02
-  description: LGACDB02.DBRM
-  properties:
-  - key: path
-    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
-  - key: fingerprint
-    value: 6f90f68b3d47e6cfd54f196c6473609e0499d7c2f99b780177e7d06905affe29
-  - key: wdManifestIndex
-    value: 0
-  type: DBRM
-  hash: 6f90f68b3d47e6cfd54f196c6473609e0499d7c2f99b780177e7d06905affe29
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: HELLO1
   description: HELLO1.JCL
   properties:
@@ -188,7 +176,7 @@ artifacts:
     value: 0
   type: JCL
   hash: 7178851f630501f1dde713b408e2d8ed2b4147638e5b818e8200851ed1a203b9
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGDPDB01
   description: LGDPDB01.DBRM
   properties:
@@ -200,7 +188,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 74f09458951e3b79e727f3cb8cd67c530fddad7cdb81b22a9ade5877e7f0bdb3
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGAPVS01
   description: LGAPVS01.CICSLOAD
   properties:
@@ -212,7 +200,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 751b0e2ff29a36644586ee845361cfddeea506581206803685783b93bbf898ee
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGACUS01
   description: LGACUS01.CICSLOAD
   properties:
@@ -224,7 +212,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 7d1ec3f1dd384fd68d81b478a0db53f6b91db07433cede55c9abcbecc269da17
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGAPOL01
   description: LGAPOL01.CICSLOAD
   properties:
@@ -236,7 +224,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 86039536722bc6fbb246cf1dd241a8aa9c965bf637cccf2b3a071d233a9c02e3
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGICDB01
   description: LGICDB01.DBRM
   properties:
@@ -248,7 +236,19 @@ artifacts:
     value: 0
   type: DBRM
   hash: 869e737f9cc2f820aa4c5f3b8fa280e0b75717e4162e10d85f46520529dbf85e
-  state: UNDEFINED
+  state: UNMODIFIED
+- name: LGACDB02
+  description: LGACDB02.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023019145705
+  - key: wdManifestIndex
+    value: 0
+  type: CICSLOAD
+  hash: 87d9a7ebe707d8f7a66cb50a7a72bbbf11f19749b525ebc9913e44ad94ac1fb3
+  state: MODIFIED
 - name: LGACDB01
   description: LGACDB01.CICSLOAD
   properties:
@@ -260,7 +260,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 88b96bbaf8d3152a5ec1b829d6043c7418e5fb114999d14e6ec64be574125c91
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGICUS01
   description: LGICUS01.CICSLOAD
   properties:
@@ -272,7 +272,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 8a9f5b1198e5c5df2881c898e5e4b4f8680962ebe54e52ddf9312a1290dad309
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGDPVS01
   description: LGDPVS01.CICSLOAD
   properties:
@@ -284,7 +284,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 92e4ce4afec1989f84f0f8556ed52f6493f4578990cbb904112aeda20d98e5ea
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGICDB01
   description: LGICDB01.CICSLOAD
   properties:
@@ -296,7 +296,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: a6d04a13a7a9a467824429e71e1354ec8aef8dc5083585a732f92ab0adc624c7
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGUCUS01
   description: LGUCUS01.CICSLOAD
   properties:
@@ -308,7 +308,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: c923134081b098a74b38df148d7b998a78c4ef93416a685972ba77ed4460150e
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: SSMAP
   description: SSMAP.MAPLOAD
   properties:
@@ -320,7 +320,7 @@ artifacts:
     value: 0
   type: MAPLOAD
   hash: cc83131d3b4c9af829d5f3785c224123c14461262f09f8a69839620c4235170e
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGIPVS01
   description: LGIPVS01.CICSLOAD
   properties:
@@ -332,7 +332,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: dbbaddde059524a627ead9a2fe3fc7f71efe4d533699e3934630bf569c3daa21
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGAPDB01
   description: LGAPDB01.DBRM
   properties:
@@ -344,7 +344,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: e06b116b601db983fcdb2e74992ae920e74e597521f1ec8c1319b62e6526bf1f
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGUPDB01
   description: LGUPDB01.DBRM
   properties:
@@ -356,7 +356,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: e2ae1d147a0e93e961181cc0bd7b3d3a00f4c385ea62c5ecd3cbf659f2c682ca
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGUCDB01
   description: LGUCDB01.DBRM
   properties:
@@ -368,7 +368,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: e3200b9e70d38f9643e59e3782b33e8758a76f84153a62f67ad8ed045954076c
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGSTSQ
   description: LGSTSQ.CICSLOAD
   properties:
@@ -380,7 +380,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: e62080ebe1d2b4292507295b612e3111e7630f4bc66e9749dedeebe129909d47
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGAPDB01
   description: LGAPDB01.CICSLOAD
   properties:
@@ -392,7 +392,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: e68c34afd33dd8ca876a1325466b00219c7378ab13751716f28ec4b6a1a381d3
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGACDB01
   description: LGACDB01.DBRM
   properties:
@@ -404,7 +404,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: e72bedc77ecb61cfc19438673f063a16aa5a5420b6df5acab8d4e0edc31a8799
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGACVS01
   description: LGACVS01.CICSLOAD
   properties:
@@ -416,7 +416,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: f48619d7c7ddef5e3d46fe75c6c39521e1a71af1af2ed552d39cf7e0e3ea984c
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGUCDB01
   description: LGUCDB01.CICSLOAD
   properties:
@@ -428,7 +428,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: f52628a24a3005c6abc0c4e0f864ae8f75a45f4b2b6124caac86ec547ee764ba
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGSETUP
   description: LGSETUP.CICSLOAD
   properties:
@@ -440,7 +440,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: f52d54ffd414ba5e88f0e0852f2ac823e889fedbeddc73faf96d3d53125c3b43
-  state: UNDEFINED
+  state: UNMODIFIED
 - name: LGICVS01
   description: LGICVS01.CICSLOAD
   properties:
@@ -452,4 +452,4 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: fdaecdc32034dec7c2286787ff240ec642670a88346acc83be249356f8548b05
-  state: UNDEFINED
+  state: UNMODIFIED
