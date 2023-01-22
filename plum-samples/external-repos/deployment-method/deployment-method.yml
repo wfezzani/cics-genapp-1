@@ -63,18 +63,6 @@ activities:
           - name: MEMBER_COPY
             description: |
               This step do the copy of artifacts into targeted PDS(s)
-
-        - name: DELETE
-          description: |
-            This action is applicable when we deleting artifacts
-          states:
-             - DELETED
-          steps:
-          - name: MEMBER_DELETE
-            description: |
-              This step do the deletion of artifacts
-            plan_tags:
-             - never
     types:
       - name: 'DBRM'
       - name: 'LOAD'
@@ -145,3 +133,26 @@ activities:
     is_artifact: True
     tags:
     - cics
+    
+  - name: DELETE_MODULES
+    description: |
+      This activity is dedicated to the deletion of the artifacts from the PDSs 
+    actions:
+        - name: DELETE
+          description: |
+            This action is applicable when we deleting artifacts
+          states:
+             - DELETED
+          steps:
+          - name: MEMBER_DELETE
+            description: |
+              This step do the deletion of artifacts 
+    types:
+      - name: 'DBRM'
+      - name: 'LOAD'
+      - name: 'CICSLOAD'
+      - name: 'MAPLOAD'
+      - name: 'JCL'
+    is_artifact: True
+    tags:
+    - delete_modules    
