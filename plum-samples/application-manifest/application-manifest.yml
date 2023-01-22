@@ -5,12 +5,12 @@ metadata:
   description: GenAppCICS
   version: 1.0.0
   annotations:
-    creationTimestamp: 20230122.200726.985
+    creationTimestamp: 20230122.201331.320
     scm:
       type: git
       uri: git@github.com:jbyibm/cics-genapp.git
       branch: main
-      shortCommit: 34663b62
+      shortCommit: 7d7dcd27
     package:
       name: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       properties:
@@ -21,11 +21,11 @@ metadata:
       - key: build_name
         value: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       - key: build_number
-        value: '9'
-      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/9
+        value: '10'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/10
       type: ARTIFACTORY
     dbb:
-      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/49817
+      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/49829
 artifacts:
 - name: LGSETUP
   description: LGSETUP.CICSLOAD
@@ -153,24 +153,6 @@ artifacts:
     value: 5f19a53cdf668be03a38a57e6f69b9d7e540e7800c1fead9620624c8e06ec70a
   type: DBRM
   hash: 5f19a53cdf668be03a38a57e6f69b9d7e540e7800c1fead9620624c8e06ec70a
-- name: LGACDB02
-  description: LGACDB02.DBRM
-  properties:
-  - key: path
-    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
-  - key: fingerprint
-    value: 6149e93ce4f1283e4e0f062c749050df792426be719c9506a5aece6c69a64100
-  type: DBRM
-  hash: 6149e93ce4f1283e4e0f062c749050df792426be719c9506a5aece6c69a64100
-- name: LGACDB02
-  description: LGACDB02.CICSLOAD
-  properties:
-  - key: path
-    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
-  - key: fingerprint
-    value: 5695PMB01 02042023022150621
-  type: CICSLOAD
-  hash: 68b7f37528c8733659c3fe90374fc33a89a32c48f86c20c39338f3a5fdf96c52
 - name: LGAPDB01
   description: LGAPDB01.CICSLOAD
   properties:
@@ -270,6 +252,15 @@ artifacts:
     value: 5695PMB01 02042023022150626
   type: CICSLOAD
   hash: ac36b21649ed729d40584ecfc6215aa4c571be4654f09a6f1245ef7bd6ddc02e
+- name: LGACDB02
+  description: LGACDB02.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023022151313
+  type: CICSLOAD
+  hash: b1b8829e51a121299424377790b4eb5664498c0da166f52f238c97b0db0d84db
 - name: LGIPVS01
   description: LGIPVS01.CICSLOAD
   properties:
@@ -306,6 +297,15 @@ artifacts:
     value: 5695PMB01 02042023022150608
   type: CICSLOAD
   hash: d75ee5f30fea521be23e30efbcf16fd093642f90a532705687d07997e95b27a7
+- name: LGACDB02
+  description: LGACDB02.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+  - key: fingerprint
+    value: d8325062ae0960334439b5c1ad3a5dbc657bbffabc29676a78e5697e62ffc1ce
+  type: DBRM
+  hash: d8325062ae0960334439b5c1ad3a5dbc657bbffabc29676a78e5697e62ffc1ce
 - name: SSMAP
   description: SSMAP.MAPLOAD
   properties:
