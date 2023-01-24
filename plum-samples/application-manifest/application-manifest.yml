@@ -5,12 +5,12 @@ metadata:
   description: GenAppCICS
   version: 1.0.0
   annotations:
-    creationTimestamp: 20230124.213705.147
+    creationTimestamp: 20230124.214230.883
     scm:
       type: git
       uri: git@github.com:jbyibm/cics-genapp.git
-      branch: HEAD
-      shortCommit: 3d87bf1f
+      branch: main
+      shortCommit: 58efa6bf
     package:
       name: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       properties:
@@ -21,11 +21,11 @@ metadata:
       - key: build_name
         value: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       - key: build_number
-        value: '12'
-      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/12
+        value: '13'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/13
       type: ARTIFACTORY
     dbb:
-      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/49943
+      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/49956
 artifacts:
 - name: LGDPDB01
   description: LGDPDB01.DBRM
@@ -234,6 +234,15 @@ artifacts:
     value: 5695PMB01 02042023024163620
   type: CICSLOAD
   hash: 81c4e4642a024c876a3cb95633fa735923b43de5b8f0aa6bb16a57ac51dc4ce8
+- name: LGACDB03
+  description: LGACDB03.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB03.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023024164210
+  type: CICSLOAD
+  hash: 81d685d48e9b4aa1fbb810e121b39d631152d8c2580e8c68a13c3fcedb329992
 - name: LGAPDB01
   description: LGAPDB01.CICSLOAD
   properties:
@@ -270,6 +279,15 @@ artifacts:
     value: 5695PMB01 02042023024163631
   type: CICSLOAD
   hash: 8cb6796d08c0ea69dc3eb1ceb586a98c72b53758beb889cd3da9352da7f048cb
+- name: LGACDB03
+  description: LGACDB03.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB03.DBRM
+  - key: fingerprint
+    value: 97b2c73ca2029cb0817e1b89dcaaf7df2dbf018ebfa97e28a870324995697bb5
+  type: DBRM
+  hash: 97b2c73ca2029cb0817e1b89dcaaf7df2dbf018ebfa97e28a870324995697bb5
 - name: LGAPVS01
   description: LGAPVS01.CICSLOAD
   properties:
