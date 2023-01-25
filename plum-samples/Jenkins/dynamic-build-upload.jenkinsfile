@@ -11,6 +11,7 @@ def gitCredId = 'git_hub_cred'
 // Private
 def verbose = false
 def hasBuildFiles = true
+def deletedFiles = false
 def srcGitRepo =  null
 def srcGitBranch = null
 
@@ -105,6 +106,7 @@ pipeline {
 
                     def files = findFiles(glob: "**BUILD-${BUILD_NUMBER}/**/buildList.txt")
                     // Do not enter into some steps if nothing in the build list
+                    deletedFiles = fileExists "${WORKSPACE}/BUILD-${BUILD_NUMBER}/*/deletedFilesList.txt"
                     hasBuildFiles = files.length > 0 && files[0].length > 0
                 }
             }

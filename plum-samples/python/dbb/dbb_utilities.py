@@ -91,6 +91,15 @@ class DBBUtilities(object):
         return False
 
     @staticmethod
+    def filter_deleted_records(record) -> bool:
+        try:
+            if record.get('deletedBuildOutputs'):
+                return True
+        except:
+            pass
+        return False
+    
+    @staticmethod
     def read_build_result(read_build_result_file) -> dict:
         with open(read_build_result_file) as read_file:
             return dict(json.load(read_file))
