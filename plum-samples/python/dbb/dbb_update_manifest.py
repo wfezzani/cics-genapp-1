@@ -29,7 +29,6 @@ def dbb_update_manifest(**kwargs):
     print((f"** Update the manifest {manifest_file}"))
     buildResult = DBBUtilities.read_build_result(dbb_build_result_file)
     records = list(filter(lambda record: DBBUtilities().filter_deployable_records(record),buildResult['records']))
-    deleted_records = list(filter(lambda record: DBBUtilities().filter_deleted_records(record),buildResult['records']))
     
     with open(manifest_file, 'r') as stream:
         manifest_dic = dict (yaml.safe_load(stream))
@@ -51,21 +50,26 @@ def dbb_update_manifest(**kwargs):
             manifest_dic['metadata']['annotations']['dbb']['buildResultUri'] = record.get('url')
             break
     
-    # Handle deleted records
-    if len(deleted_records) > 0 :
-        deleted_artifacts = []
-        for artifact in manifest_dic['artifacts']:
-            path_prop = list(filter(lambda prop: ('path' == prop['key']), artifact['properties']))
-            path = path_prop[0]['value']
-            dataset = path.replace('/', '(')[0:path.rindex('.')]+')'
-            for deleted_record in deleted_records:
-                if len(list(filter(lambda output: (output == dataset), deleted_record['deletedBuildOutputs']))) > 0:
-                    if not artifact in deleted_artifacts:
-                        deleted_artifacts.append(artifact)
-        if len(deleted_artifacts) > 0:
-            artifacts = manifest_dic['artifacts']
-            for deleted_artifact in deleted_artifacts:
-                artifacts.remove(deleted_artifact)
+    #===========================================================================
+    # zAppBuild not ready for that. Example if we delete a COBOL DB2 the related DBRM
+    # will not be in the deletion list.  
+    # # Handle deleted records
+    # deleted_records = list(filter(lambda record: DBBUtilities().filter_deleted_records(record),buildResult['records']))
+    # if len(deleted_records) > 0 :
+    #     deleted_artifacts = []
+    #     for artifact in manifest_dic['artifacts']:
+    #         path_prop = list(filter(lambda prop: ('path' == prop['key']), artifact['properties']))
+    #         path = path_prop[0]['value']
+    #         dataset = path.replace('/', '(')[0:path.rindex('.')]+')'
+    #         for deleted_record in deleted_records:
+    #             if len(list(filter(lambda output: (output == dataset), deleted_record['deletedBuildOutputs']))) > 0:
+    #                 if not artifact in deleted_artifacts:
+    #                     deleted_artifacts.append(artifact)
+    #     if len(deleted_artifacts) > 0:
+    #         artifacts = manifest_dic['artifacts']
+    #         for deleted_artifact in deleted_artifacts:
+    #             artifacts.remove(deleted_artifact)
+    #===========================================================================
     
     for record in records:
         dataset = record['dataset']
