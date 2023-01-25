@@ -100,7 +100,7 @@ pipeline {
                             echo $CMD
                             $CMD
                             rc=$?
-                            mv -f {WORKSPACE}/BUILD-${BUILD_NUMBER}/*/deletedFilesList.txt {WORKSPACE}/BUILD-${BUILD_NUMBER}
+                            mv -f ${WORKSPACE}/BUILD-${BUILD_NUMBER}/*/deletedFilesList.txt ${WORKSPACE}/BUILD-${BUILD_NUMBER} 2>/dev/null
                             exit $rc
                         ''')
                     if ( rc != 0 )
