@@ -226,13 +226,17 @@ pipeline {
             }
             post {
                 always {
-                     dir("${WORKSPACE}/cics-genapp/plum-samples/application-manifest") {
-                            rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml
-                            ''')
-                            archiveArtifacts allowEmptyArchive: true,
-                                            artifacts: '**/application-manifest.yml',
-                                            onlyIfSuccessful: false
+                    steps {
+                        script {
+                             dir("${WORKSPACE}/cics-genapp/plum-samples/application-manifest") {
+                                    rc = sh (returnStatus: true, script: '''#!/bin/sh
+                                        chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml
+                                    ''')
+                                    archiveArtifacts allowEmptyArchive: true,
+                                                    artifacts: '**/application-manifest.yml',
+                                                    onlyIfSuccessful: false
+                            }
+                        }
                     }
                 }
             }
