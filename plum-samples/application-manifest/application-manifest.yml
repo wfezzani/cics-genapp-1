@@ -5,12 +5,12 @@ metadata:
   description: GenAppCICS
   version: 1.0.0
   annotations:
-    creationTimestamp: 20230125.163730.106
+    creationTimestamp: 20230125.165339.402
     scm:
       type: git
       uri: git@github.com:jbyibm/cics-genapp.git
       branch: main
-      shortCommit: 485aec3f
+      shortCommit: de29d985
     package:
       name: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       properties:
@@ -21,11 +21,11 @@ metadata:
       - key: build_name
         value: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       - key: build_number
-        value: '24'
-      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/24
+        value: '25'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/25
       type: ARTIFACTORY
     dbb:
-      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/50258
+      buildResultUri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/50271
 artifacts:
 - name: LGACDB05
   description: LGACDB05.CICSLOAD
@@ -324,15 +324,6 @@ artifacts:
     value: 5695PMB01 02042023024163637
   type: CICSLOAD
   hash: 9aeb15132a487a04f09d70738822031056b8fa058278b95bdccab43ef99b81a7
-- name: LGACDB03
-  description: LGACDB03.CICSLOAD
-  properties:
-  - key: path
-    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB03.CICSLOAD
-  - key: fingerprint
-    value: 5695PMB01 02042023025113714
-  type: CICSLOAD
-  hash: a53008f6d2f4aebe36eef892540984d8c9d93a64b2dd832464de36532ecd06c6
 - name: LGACDB02
   description: LGACDB02.CICSLOAD
   properties:
