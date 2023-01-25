@@ -99,14 +99,16 @@ pipeline {
                                 --application cics-genapp --sourceDir ${WORKSPACE}"
                             echo $CMD
                             $CMD
-                            exit $?
+                            rc=$?
+                            mv -f {WORKSPACE}/BUILD-${BUILD_NUMBER}/*/deletedFilesList.txt {WORKSPACE}/BUILD-${BUILD_NUMBER}
+                            exit $rc
                         ''')
                     if ( rc != 0 )
                         error("DBB build failed!!!")
 
                     def files = findFiles(glob: "**BUILD-${BUILD_NUMBER}/**/buildList.txt")
                     // Do not enter into some steps if nothing in the build list
-                    hasDeletedFiles = fileExists "${WORKSPACE}/BUILD-${BUILD_NUMBER}/*/deletedFilesList.txt"
+                    hasDeletedFiles = fileExists "${WORKSPACE}/BUILD-${BUILD_NUMBER}/deletedFilesList.txt"
                     hasBuildFiles = files.length > 0 && files[0].length > 0
                 }
             }
