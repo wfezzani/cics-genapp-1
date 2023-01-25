@@ -129,7 +129,7 @@ pipeline {
             }
             steps {
                 script {
-                    if ( hasBuildFiles || hasDeletedFiles) {
+                    if ( hasBuildFiles || hasDeletedFiles ) {
                         writeFile file: "${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml", encoding: "UTF-8",
                         text:"""artifact_repository:
    # The type of the artifactory manager [artifactory|nexus]]
