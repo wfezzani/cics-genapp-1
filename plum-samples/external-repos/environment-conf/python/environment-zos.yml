@@ -14,6 +14,7 @@ metadata:
   version: 1.0.0
 
 spec:
+
   default_cics_cmci_action: "NEWCOPY"
 
   cics_sys_def:
@@ -28,10 +29,11 @@ spec:
   default_pkg_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
   default_plan_jobcard: "BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
 
+  db2_user: "{{ extra_vars.db2_user if extra_vars.db2_user is defined else 'JENKINS' }}"
   db2_sys_def:
      package_maxrc: 4
      plan_maxrc: 4
-     user: JENKINS
+     user: "{{ env.spec.db2_user }}"
      package: GENASA1
      plan: GENAONE
      qualifier: GENADB0
@@ -65,22 +67,26 @@ spec:
       dataset: "{{ env.spec.hlq }}.LOADLIB"
       dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
+      is_load: True
     - pattern: .*\.CICSLOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
       dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
+      is_load: True
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*\.MAPLOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
       dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
+      is_load: True
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*.DBRM$
       dataset: "{{ env.spec.hlq }}.DBRM"
       dataset_backup: "{{ env.spec.hlq }}.BACK.DBRM"
       spec: "{{ env.spec.common_pds_binary_spec }}"
+      is_binary: True
       db2_systems:
       - "{{ env.spec.db2_sys_def }}"
     - pattern: .*.JCL$
@@ -90,3 +96,21 @@ spec:
       #encoding:
       #  from: UTF-8
       #  to: IBM-1047
+    - pattern: .*.BIN$
+      directory: "/tmp/wd_uss/bin/"
+      directory_backup: "/tmp/wd_uss/bin/back/"
+      is_binary: True
+    - pattern: .*.SH$
+      directory: "/tmp/wd_uss/sh/"
+      directory_backup: "/tmp/wd_uss/sh/back/"      
+    - pattern: .*.TXT$
+      directory: "/tmp/wd_uss/txt/"
+      directory_backup: "/tmp/wd_uss/txt/back/"
+      encoding:
+        from: UTF-8
+        to: IBM-1047      
+
+artifact_mode: 755
+
+# Variables for system_command template      
+system_command_cmd_default: "D T"  
