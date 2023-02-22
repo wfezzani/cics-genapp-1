@@ -31,7 +31,7 @@ spec:
     BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
     /* ---
   default_db2_user: "{{ extra_vars.db2_user if extra_vars.db2_user is defined else 'JENKINS' }}"
-  default_db2_action: "REPLACE"
+  default_db2_action: "ADD"
   db2_sys_def:
      package_maxrc: 4
      plan_maxrc: 4
