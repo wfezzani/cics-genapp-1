@@ -30,18 +30,20 @@ spec:
   default_plan_jobcard: | 
     BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
     /* ---
-
-  db2_user: "{{ extra_vars.db2_user if extra_vars.db2_user is defined else 'JENKINS' }}"
+  default_db2_user: "{{ extra_vars.db2_user if extra_vars.db2_user is defined else 'JENKINS' }}"
+  default_db2_action: "REPLACE"
   db2_sys_def:
      package_maxrc: 4
      plan_maxrc: 4
-     user: "{{ env.spec.db2_user }}"
+     user: "{{ env.spec.default_db2_user }}"
      package: GENASA1
      plan: GENAONE
      qualifier: GENADB0
      subsys: DBC1
      package_jobcard: "{{env.spec.default_pkg_jobcard}}"
      plan_jobcard: "{{env.spec.default_plan_jobcard}}"
+     package_action: "{{env.spec.default_db2_action}}"
+     plan_action: "{{env.spec.default_db2_action}}"
      sdsnload: "{{env.spec.default_db2_sdsnload}}"
 
   common_pds_load_spec:
@@ -107,9 +109,9 @@ spec:
       dataset: "{{ env.spec.hlq }}.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
       spec: "{{ env.spec.common_pds_txt_spec }}"
-      #encoding:
-      #  from: UTF-8
-      #  to: IBM-1047
+      encoding:
+        from: UTF-8
+        to: IBM-1047
     - pattern: .*.BIN$
       directory: "/tmp/wd_uss/bin/"
       directory_backup: "/tmp/wd_uss/bin/back/"
@@ -150,3 +152,9 @@ spec:
 
 # Variables for system_command template      
 system_command_cmd_default: "D T"  
+
+# Variables for shell_command template
+shell_command_cmd_default: |
+ #!/bin/sh
+ echo "shell command"
+ 
