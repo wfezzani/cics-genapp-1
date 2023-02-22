@@ -78,6 +78,7 @@ spec:
      record_length: 15
 
   hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.WDEPLOY.PYTHON' }}"
+  uss_root: "{{ extra_vars.uss_root if extra_vars.uss_root is defined else '/tmp/uss_root' }}"
   types:
     - pattern: .*\.LOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
@@ -109,26 +110,26 @@ spec:
       dataset: "{{ env.spec.hlq }}.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
       spec: "{{ env.spec.common_pds_txt_spec }}"
-      encoding:
-        from: UTF-8
-        to: IBM-1047
+      #encoding:
+      #  from: UTF-8
+      #  to: IBM-1047
     - pattern: .*.BIN$
-      directory: "/tmp/wd_uss/bin/"
-      directory_backup: "/tmp/wd_uss/bin/back/"
+      directory: "{{ env.spec.uss_root }}/bin/"
+      directory_backup: "{{ env.spec.uss_root }}/bin/back/"
       dest_mode: 0777
       artifact_mode: 0755
       is_binary: True
     - pattern: .*.SH$
-      directory: "/tmp/wd_uss/sh/"
-      directory_backup: "/tmp/wd_uss/sh/back/"  
+      directory: "{{ env.spec.uss_root }}/sh/"
+      directory_backup: "{{ env.spec.uss_root }}/sh/back/"
       dest_mode: 0777
-      artifact_mode: 0755    
+      artifact_mode: 0755
     - pattern: .*.TXT$
-      directory: "/tmp/wd_uss/txt/"
-      directory_backup: "/tmp/wd_uss/txt/back/"
+      directory: "{{ env.spec.uss_root }}/txt/"
+      directory_backup: "{{ env.spec.uss_root }}/txt/back/"
       encoding:
         from: UTF-8
-        to: IBM-1047      
+        to: IBM-1047
       dest_mode: 0777
       artifact_mode: 0755
     - pattern: .*.SEQ$
@@ -136,7 +137,7 @@ spec:
       dataset_backup_prefix: "{{ env.spec.hlq }}.BACK.SEQ"
       encoding:
         from: UTF-8
-        to: IBM-1047      
+        to: IBM-1047
       is_binary: False
       is_sequential: True
       spec: "{{env.spec.seq_spec}}"
@@ -145,13 +146,13 @@ spec:
       dataset_backup_prefix: "{{ env.spec.hlq }}.BACK.SEQ"
       encoding:
         from: UTF-8
-        to: IBM-1047      
+        to: IBM-1047
       is_binary: False
       is_sequential: True
       spec: "{{env.spec.seq_spec_a}}"
 
-# Variables for system_command template      
-system_command_cmd_default: "D T"  
+# Variables for system_command template
+system_command_cmd_default: "D T"
 
 # Variables for shell_command template
 shell_command_cmd_default: |
