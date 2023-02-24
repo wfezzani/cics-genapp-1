@@ -155,4 +155,4 @@ activities:
       - name: 'JCL'
     is_artifact: True
     tags:
-    - delete_modules    
+    - delete_modules

@@ -92,21 +92,41 @@ common_pds_text_spec:
   space_type: CYL
   record_format: FB
   record_length: 80
+  
+seq_spec:
+  type: SEQ
+  space_primary: 5
+  space_secondary: 2
+  space_type: TRK
+  record_format: FB
+  record_length: 20  
+
+seq_spec_a:
+  type: SEQ
+  space_primary: 2
+  space_secondary: 1
+  space_type: TRK
+  record_format: FB
+  record_length: 15
+  
 
 hlq: 'NAZARE.WDEPLOY.ANSIBLE'
+uss_root_folder: '/tmp/wd_uss'
 
 default_package_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
 default_plan_jobcard: "BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
-
+default_db2_action: "REPLACE"
 db2_sys_def:
    sdsnload: DSN.V12R1M0.SDSNLOAD
    subsys: DBC1
    qualifier: GENADB0
    package: GENASA1
    plan: GENAONE
-   sqlid: JENKINS
+   sqlid: "{{ ansible_user }}"
    package_jobcard: "{{default_package_jobcard}}"
    plan_jobcard: "{{default_plan_jobcard}}"
+   package_action: "{{default_db2_action}}"
+   plan_action: "{{default_db2_action}}"
    package_job_max_rc: 4
    plan_job_max_rc: 4
  
@@ -169,6 +189,49 @@ types:
       name: '{{ hlq }}.COPY'
       spec: "{{common_pds_text_spec}}"
       backup: '{{ hlq }}.BACK.COPY'
+  - type: 'bin'
+    uss: 
+      dest: "{{ uss_root_folder }}/bin/"
+      backup_dest: "{{ uss_root_folder }}/bin/back/"
+      dest_mode: '0777'
+      artifact_mode: '0755'
+  - type: 'txt'
+    encoding:
+      from: UTF-8
+      to: IBM-1047
+    uss: 
+      dest: "{{ uss_root_folder }}/txt/"
+      backup_dest: "{{ uss_root_folder }}/txt/back/"
+      dest_mode: '0777'
+      artifact_mode: '0755'
+  - type: 'sh'
+    uss: 
+      dest: "{{ uss_root_folder }}/sh/"
+      backup_dest: "{{ uss_root_folder }}/sh/back/"
+      dest_mode: '0777'
+      artifact_mode: '0755'
+
+  - type: 'seq'
+    is_binary: False
+    is_sequential: True
+    encoding:
+      from: UTF-8
+      to: IBM-1047
+    ds: 
+      prefix: "{{ hlq }}.SEQ"
+      backup_prefix: "{{ hlq }}.BACK.SEQ"
+      spec: "{{seq_spec}}"
+
+  - type: 'seqa'
+    is_binary: False
+    is_sequential: True
+    encoding:
+      from: UTF-8
+      to: IBM-1047
+    ds: 
+      prefix: "{{ hlq }}.SEQ"
+      backup_prefix: "{{ hlq }}.BACK.SEQ"
+      spec: "{{seq_spec_a}}"
 
 # Default folders and logging values
 wd_env:
@@ -183,7 +246,7 @@ plum_env:
 plum_no_log_flag: "{{ plum_log | bool  if plum_log is defined  else False}}"
 
 # Variables for system_command template
-system_command_cmd_default: "/D SYMBOLS"
+system_command_cmd_default: "D SYMBOLS"
 system_command_verbose_default: false
 system_command_wait_time_s_default: 5
 system_command_wait_default: true
@@ -193,6 +256,13 @@ shell_command_cmd_default: |
  #!/bin/sh
  echo "shell command"
 shell_command_delegate_default_false: False
+
+# Variables for ds_create and ds_delete templates
+ds_create_lsds_default:
+- name: '{{ hlq }}.LIB'
+  spec: '{{common_pds_load_spec}}'
+ds_delete_lsds_default:
+- name: '{{ hlq }}.LIB'
 
 # Zowe Variables
 zowe_exsh_jobcard: "EXECSHL  JOB 'WD-EXECSHELL',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
