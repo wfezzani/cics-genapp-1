@@ -198,7 +198,9 @@ span.vlabel_ko {
 {% if 'Failed' in step.step_result.status %}
 <br><br><b>Details:</b>
 {%for result in step.step_result.results -%}
+{% if 'Failed' in result.status %}
 {% call render_result(result) %}{% endcall %}
+{% endif %}
 {% endfor %}
 {% endif %}
 </td>
