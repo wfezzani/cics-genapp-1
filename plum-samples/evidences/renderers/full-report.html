@@ -126,6 +126,7 @@ span.vlabel_ko {
 <span class='vlabel'>Version </span>: {{ deployment.metadata.version }}</br>
 <span class='vlabel'>Deployment Date </span>: {{ deployment.metadata.annotations.deploy_timestamp }}</br>
 <span class='vlabel'>Environment </span>: {{ deployment.metadata.annotations.environment_name }}</br>
+<span class='vlabel'>Evidence File </span>: {{ deployment.ymli_full_file_path }}</br>
 
 {% if 'Ok' in deployment.status -%}
 <span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
@@ -140,7 +141,7 @@ span.vlabel_ko {
 <span class='vlabel'>Name </span>: {{ manifest.name }}</br>
 <span class='vlabel'>Version </span>: {{ manifest.version }}</br>
 {% if manifest.description is defined -%}
-<span class='vlabel'>Version </span>: {{ manifest.description }}</br>
+<span class='vlabel'>Description </span>: {{ manifest.description }}</br>
 {% endif %}
 {% if manifest.annotations.dbb is defined -%}
 <span class='vlabel'>DBB Build Result </span>: <a href='{{ manifest.annotations.dbb.build_result_uri }}' target=_other>{{ manifest.annotations.dbb.build_result_uri }}</a></br>
