@@ -310,6 +310,7 @@ pipeline {
                             then
                               exit $?
                             fi
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html
                       ''')
                       if ( rc != 0 )
                           error("Excecution Of Deployment Report Failed!!!")
