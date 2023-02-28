@@ -70,6 +70,7 @@ spec:
      secondary_space: 2TRK
      record_format: FB
      record_length: 20  
+#     replace: yes
   seq_spec_a:
      type: SEQ
      primary_space: 2TRK
@@ -158,4 +159,21 @@ system_command_cmd_default: "D T"
 shell_command_cmd_default: |
  #!/bin/sh
  echo "shell command"
+
+# Variables for ds_create template
+ds_create_lsds_default:
+- name: '{{ env.spec.hlq  }}.LIB01'
+  spec: '{{env.spec.common_pds_load_spec}}'
+- name: '{{ env.spec.hlq  }}.SEQ01'
+  spec: '{{env.spec.seq_spec}}'
+- name: '{{ env.spec.hlq  }}.PDS01'
+  spec: '{{env.spec.common_pds_load_spec}}'
+
+# Variables for ds_delete template
+ds_delete_lsds_default:
+- name: '{{ env.spec.hlq  }}.LIB01(MBR1)'
+  type: MEMBER
+- name: '{{ env.spec.hlq  }}.SEQ01'
+- name: '{{ env.spec.hlq  }}.PDS01'
+
  

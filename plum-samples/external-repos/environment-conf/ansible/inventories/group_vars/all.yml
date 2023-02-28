@@ -115,6 +115,7 @@ uss_root_folder: '/tmp/wd_uss'
 
 default_package_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
 default_plan_jobcard: "BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
+default_db2_user: "{{ansible_user}}"
 default_db2_action: "REPLACE"
 db2_sys_def:
    sdsnload: DSN.V12R1M0.SDSNLOAD
@@ -122,7 +123,7 @@ db2_sys_def:
    qualifier: GENADB0
    package: GENASA1
    plan: GENAONE
-   sqlid: "{{ ansible_user }}"
+   sqlid: "{{default_db2_user}}"
    package_jobcard: "{{default_package_jobcard}}"
    plan_jobcard: "{{default_plan_jobcard}}"
    package_action: "{{default_db2_action}}"
