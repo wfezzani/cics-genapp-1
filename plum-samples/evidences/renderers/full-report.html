@@ -110,7 +110,7 @@ span.vlabel_ko {
 {% endif %}
 </td>
 <td><a href="#{{deployment.metadata.annotations.deploy_timestamp}}">{{ deployment.metadata.name }}</a></td>
-{% if deployment.metadata.version != None -%}
+{% if deployment.metadata.version -%}
 <td>{{ deployment.metadata.version }}</td>
 {% else %}
 <td></td>
@@ -131,7 +131,9 @@ span.vlabel_ko {
 <hr>
 <h2>Deployment Information:</h2>
 <span class='vlabel'>Name </span>: {{ deployment.metadata.name }}</br>
+{% if deployment.metadata.version -%}
 <span class='vlabel'>Version </span>: {{ deployment.metadata.version }}</br>
+{% endif %}
 <span class='vlabel'>Deployment Date </span>: {{ deployment.metadata.annotations.deploy_timestamp }}</br>
 <span class='vlabel'>Environment </span>: {{ deployment.metadata.annotations.environment_name }}</br>
 <span class='vlabel'>Evidence File </span>: {{ deployment.ymli_full_file_path }}</br>
