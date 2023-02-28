@@ -110,7 +110,11 @@ span.vlabel_ko {
 {% endif %}
 </td>
 <td><a href="#{{deployment.metadata.annotations.deploy_timestamp}}">{{ deployment.metadata.name }}</a></td>
+{% if deployment.metadata.version -%}
 <td>{{ deployment.metadata.version }}</td>
+{% else %}
+<td></td>
+{% endif %}
 <td>{{ deployment.metadata.annotations.deploy_timestamp }}</td>
 <td>{{ deployment.metadata.annotations.environment_name }}</td>
 </tr>
@@ -119,7 +123,11 @@ span.vlabel_ko {
 {%for deployment in deployments%}
 <a id="{{deployment.metadata.annotations.deploy_timestamp}}"></a>
 <hr>
+{% if deployment.metadata.version -%}
 <h1>Deployment {{ deployment.metadata.name }} Version {{ deployment.metadata.version }}</h1>
+{% else %}
+<h1>Deployment {{ deployment.metadata.name }}</h1>
+{% endif %}
 <hr>
 <h2>Deployment Information:</h2>
 <span class='vlabel'>Name </span>: {{ deployment.metadata.name }}</br>
