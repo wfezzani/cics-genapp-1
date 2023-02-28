@@ -110,7 +110,7 @@ span.vlabel_ko {
 {% endif %}
 </td>
 <td><a href="#{{deployment.metadata.annotations.deploy_timestamp}}">{{ deployment.metadata.name }}</a></td>
-{% if deployment.metadata.version -%}
+{% if deployment.metadata.version != None -%}
 <td>{{ deployment.metadata.version }}</td>
 {% else %}
 <td></td>
