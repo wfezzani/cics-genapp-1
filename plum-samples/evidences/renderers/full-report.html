@@ -149,7 +149,9 @@ span.vlabel_ko {
 <h2>Manifests:</h2>
 {%for manifest in deployment.manifests%}
 <span class='vlabel'>Name </span>: {{ manifest.name }}</br>
+{% if manifest.version is defined -%}
 <span class='vlabel'>Version </span>: {{ manifest.version }}</br>
+{% endif %}
 {% if manifest.description is defined -%}
 <span class='vlabel'>Description </span>: {{ manifest.description }}</br>
 {% endif %}
