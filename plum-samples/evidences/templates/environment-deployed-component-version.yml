@@ -8,7 +8,7 @@
 #*******************************************************************************
 ---
 select:
-  ymli_category~: " activities:[0-9]* actions:[0-9]* steps:[0-9]* artifacts:[0-9]* $"
+  ymli_category~: "^ activities:[0-9]* actions:[0-9]* steps:[0-9]* artifacts:[0-9]* $"
   ymli_parent:
      kind: Evidence
      metadata:
