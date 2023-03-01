@@ -245,7 +245,7 @@ pipeline {
                 always {
                     dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
                         archiveArtifacts allowEmptyArchive: true,
-                                        artifacts: '**/deployment-report.html',
+                                        artifacts: '**/deployment-report.html,**/deployed-component-where.csv,**/environment-deployed-component-version.html',
                                         onlyIfSuccessful: false
                     }
                 }
