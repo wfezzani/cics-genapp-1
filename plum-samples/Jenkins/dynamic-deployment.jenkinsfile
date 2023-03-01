@@ -183,11 +183,13 @@ pipeline {
                                 --dataFolder ${WORKSPACE}/cics-genapp/plum-samples/external-repos/evidences\
                                 i"
                             echo $CMD
-                            $CMD 
-                            if [ $? -ne 0 ]
+                            $CMD
+                            rc=$? 
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
+                            
                             # Full Report
                             CMD="plum-evidence\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
@@ -196,10 +198,11 @@ pipeline {
                               r\
                               renderer=${WORKSPACE}/cics-genapp/plum-samples/evidences/renderers/full-report.html"
                             echo $CMD
-                            $CMD 
-                            if [ $? -ne 0 ]
+                            $CMD
+                            rc=$? 
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
                             
                             # Where LGACDB02 is deployed
@@ -211,9 +214,10 @@ pipeline {
                               renderer=${WORKSPACE}/cics-genapp/plum-samples/evidences/renderers/deployed-component-where.csv"
                             echo $CMD
                             $CMD 
-                            if [ $? -ne 0 ]
+                            rc=$? 
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
                             
                             # Versions of the deployed components for the current environnment
@@ -225,9 +229,10 @@ pipeline {
                               renderer=${WORKSPACE}/cics-genapp/plum-samples/evidences/renderers/environment-deployed-component-version.html"
                             echo $CMD
                             $CMD 
-                            if [ $? -ne 0 ]
+                            rc=$? 
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
                             
                       ''')
