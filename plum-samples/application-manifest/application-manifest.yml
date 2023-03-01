@@ -3,14 +3,14 @@ kind: ManifestState
 metadata:
   name: GenAppCICS
   description: GenAppCICS
-  version: 1.0.506
+  version: 1.0.507
   annotations:
-    creation_timestamp: 20230301.132235.857
+    creation_timestamp: 20230301.133508.069
     scm:
       type: git
       uri: git@github.com:jbyibm/cics-genapp.git
       branch: main
-      short_commit: d2414e7a
+      short_commit: 67ab61dd
     package:
       name: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       properties:
@@ -21,11 +21,11 @@ metadata:
       - key: build_name
         value: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
       - key: build_number
-        value: '14'
-      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/14
+        value: '15'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/15
       type: ARTIFACTORY
     dbb:
-      build_result_uri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/51025
+      build_result_uri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/51037
 artifacts:
 - name: LGUCDB01
   description: LGUCDB01.DBRM
@@ -261,15 +261,6 @@ artifacts:
     value: 5695PMB01 02042023060054435
   type: CICSLOAD
   hash: 939ac6a049b7dbd1c740242609e4430f5607ebd4b74234c3ddcc91d1e9460637
-- name: LGIPOL01
-  description: LGIPOL01.CICSLOAD
-  properties:
-  - key: path
-    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
-  - key: fingerprint
-    value: 5695PMB01 02042023060054430
-  type: CICSLOAD
-  hash: a500e3a8c4072eef9f42cf03edf0ca9ba3cef830c2e13e1f116a8ea6ac31118a
 - name: LGACDB03
   description: LGACDB03.DBRM
   properties:
@@ -279,6 +270,15 @@ artifacts:
     value: a65fe24a01da8df74da73725678b7d4028ebb585cd09fee7ae9b36ba9a98bd62
   type: DBRM
   hash: a65fe24a01da8df74da73725678b7d4028ebb585cd09fee7ae9b36ba9a98bd62
+- name: LGIPOL01
+  description: LGIPOL01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023060083446
+  type: CICSLOAD
+  hash: a7544d2c2af80050747c9df54aaf5f65be7dcbe57857b893c6a2adb66fc5f263
 - name: LGUCDB01
   description: LGUCDB01.CICSLOAD
   properties:
