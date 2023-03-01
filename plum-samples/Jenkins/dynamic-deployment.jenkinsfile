@@ -179,7 +179,7 @@ pipeline {
                             # Index Evidences
                             CMD="plum-evidence\
                                 --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
-                                --dataFolder ${WORKSPACE}/cics-genapp/plum-samples/external-repos/environment-conf/ansible/evidences\
+                                --dataFolder ${WORKSPACE}/cics-genapp/plum-samples/external-repos/evidences\
                                 i"
                             echo $CMD
                             $CMD 
