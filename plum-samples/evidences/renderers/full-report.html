@@ -191,13 +191,7 @@ span.vlabel_ko {
 </td>
 <td style='width:200px;'>
 {%for artifact in step.artifacts -%}
-{{ artifact.name }}
-{%for property in artifact.properties -%}
-{% if 'type' in property.key %}
-.{{  property.value }}<br>
-{% endif %}
-{% endfor %}
-{% endfor %}
+{{ artifact.name }}{%for property in artifact.properties -%}{% if 'type' in property.key %}.{{  property.value }}<br>{% endif %}{% endfor %}{% endfor %}
 </td>
 <td>
 <b>Status: </b>

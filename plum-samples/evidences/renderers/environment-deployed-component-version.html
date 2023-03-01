@@ -79,11 +79,7 @@ span.vlabel_ko {
 {%for component in components%}
 <tr>
 <td>
-{{ component.name }}{%for property in component.properties -%}
-{% if 'type' in property.key -%}
-.{{ property.value }}<br>
-{% endif %}
-{% endfor %}
+{{ component.name }}{%for property in component.properties -%}{% if 'type' in property.key -%}.{{ property.value }}<br>{% endif %}{% endfor %}
 </td>
 <td>
 {{ component.ymli_parent.ymli_parent.ymli_parent.ymli_parent.metadata.version }}
