@@ -39,7 +39,7 @@ pipeline {
      }
      
      parameters {
-       string(defaultValue: "1.0.0", description: 'Realese Version.', name: 'RELEASE_VERSION')
+       string(defaultValue: "1.0", description: 'Realese Version (build number will be added).', name: 'RELEASE_VERSION')
        booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
        choice(choices: ["--impactBuild", "--fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
     }
@@ -147,7 +147,7 @@ pipeline {
                         }
 
                         if ( env.RELEASE_VERSION == null )
-                            env.RELEASE_VERSION = "1.0.0"
+                            env.RELEASE_VERSION = "1.0"
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
                             then
@@ -180,7 +180,7 @@ pipeline {
                                     --repositoryPath  ${ARTIFACTORY_REPO_PATH}\
                                     --buildName ${ARTIFACTORY_DYNAMIC_BUILD_NAME}\
                                     --buildUrl "${BUILD_URL}"\
-                                    --manifestVersion "${RELEASE_VERSION}"\
+                                    --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
                                     --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml\
