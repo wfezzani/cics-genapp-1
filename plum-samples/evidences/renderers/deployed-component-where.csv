@@ -1,3 +1,3 @@
-Coponent; Manifest Name; Version; Environment; Deploy Date
+Component; Manifest Name; Version; Environment; Deploy Date
 {% for result in results %}{{component}};{{result.metadata.name}};{{result.metadata.version}};{{result.metadata.annotations.environment_name}}; {{result.metadata.annotations.deploy_timestamp}}
 {% endfor %}
