@@ -41,13 +41,13 @@ def dbb_update_manifest(**kwargs):
         scm['branch'] = GitUtilities.get_current_git_detached_branch(source_folder)
     else:
         scm['branch'] = GitUtilities.get_current_git_branch (source_folder)
-    scm['shortCommit'] = GitUtilities.get_current_git_hash (source_folder)
+    scm['short_commit'] = GitUtilities.get_current_git_hash (source_folder)
     manifest_dic['metadata']['annotations']['scm'] = scm
         
     for record in buildResult['records']:
         if record.get('url') != None:
             manifest_dic['metadata']['annotations']['dbb'] = {}
-            manifest_dic['metadata']['annotations']['dbb']['buildResultUri'] = record.get('url')
+            manifest_dic['metadata']['annotations']['dbb']['build_result_uri'] = record.get('url')
             break
     
     #===========================================================================
