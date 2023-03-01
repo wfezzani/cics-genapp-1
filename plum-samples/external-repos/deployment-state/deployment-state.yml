@@ -5,7 +5,7 @@ metadata:
   description: GenAppCICS
   version: 1.0.507
   annotations:
-    creation_timestamp: 20230301.133534.173
+    creation_timestamp: 20230301.160729.895
 manifests:
 - name: GenAppCICS
   description: GenAppCICS
@@ -368,7 +368,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: a7544d2c2af80050747c9df54aaf5f65be7dcbe57857b893c6a2adb66fc5f263
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUCDB01
   description: LGUCDB01.CICSLOAD
   properties:
