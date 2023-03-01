@@ -1,0 +1,1124 @@
+apiVersion: deploy.ibm.com/v1
+kind: Evidence
+metadata:
+  annotations:
+    creation_timestamp: 20230301.133534.173
+    engine:
+      build: '879'
+      date: Wed Mar  1 10:18:56 UTC 2023
+      version: v0.8.11
+    package:
+      path: /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar
+      sha256: fb671ef92273ba1e04863718572d17e196e1c2a18d57b31a4aba5ba3210e0df9
+    environment_name: zos_host_01
+    deploy_timestamp: 20230301.133540.673
+    inventory_hostname: zos_host_01
+    ansible_host: 9.30.222.103
+  description: GenAppCICS
+  name: GenAppCICS
+  version: 1.0.507
+status: Ok
+activities:
+- name: PACKAGE
+  actions:
+  - name: PACKAGE
+    steps:
+    - name: PACKAGE
+      step_result:
+        status: Ok
+        msg: 'package.yml : Ok'
+        results:
+        - status: Skipped
+          msg: 'package.yml line 15 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Set the package location'
+          results:
+            register: None
+            args:
+              plum_package_file: '{{ plum_deployment_plan.metadata.annotations.package.path
+                if plum_deployment_plan.metadata.annotations.package is defined else
+                None }}'
+            result:
+              skip_reason: Conditional result was False
+        - status: Ok
+          msg: 'package.yml line 20 : ibm.ibm_zos_plum_deploy.zos_deploy : [package>package>package]:
+            Check if /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar
+            exists'
+          results:
+            register: plum_payload_st
+            args:
+              checksum_algorithm: sha256
+              path: /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar
+            result:
+              invocation:
+                module_args:
+                  checksum_algorithm: sha256
+                  follow: false
+                  get_attributes: true
+                  get_checksum: true
+                  get_md5: false
+                  get_mime: true
+                  path: /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar
+              stat:
+                atime: 1677677734.8796787
+                attr_flags: ''
+                attributes: []
+                block_size: 4096
+                blocks: 144
+                charset: binary
+                checksum: fb671ef92273ba1e04863718572d17e196e1c2a18d57b31a4aba5ba3210e0df9
+                ctime: 1677677734.8786788
+                dev: 64768
+                device_type: 0
+                executable: false
+                exists: true
+                gid: 984
+                gr_name: jenkins
+                inode: 805335527
+                isblk: false
+                ischr: false
+                isdir: false
+                isfifo: false
+                isgid: false
+                islnk: false
+                isreg: true
+                issock: false
+                isuid: false
+                mimetype: application/x-tar
+                mode: '0644'
+                mtime: 1677677734.8786788
+                nlink: 1
+                path: /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar
+                pw_name: jenkins
+                readable: true
+                rgrp: true
+                roth: true
+                rusr: true
+                size: 71680
+                uid: 988
+                version: '3164656715'
+                wgrp: false
+                woth: false
+                writeable: true
+                wusr: true
+                xgrp: false
+                xoth: false
+                xusr: false
+        - status: Ok
+          msg: 'package.yml line 27 : ibm.ibm_zos_plum_deploy.zos_deploy : [package>package>package]:
+            Verify the deployment plan package section /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar'
+          results:
+            register: None
+            args:
+              msg: The deployment plan package section is not resent in the deployment
+                plan!!
+            result:
+              failed_when_result: false
+              msg: The deployment plan package section is not resent in the deployment
+                plan!!
+        - status: Ok
+          msg: 'package.yml line 34 : ibm.ibm_zos_plum_deploy.zos_deploy : [package>package>package]:
+            Verify the checksum of the package /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar'
+          results:
+            register: None
+            args:
+              msg: The current package checksum fb671ef92273ba1e04863718572d17e196e1c2a18d57b31a4aba5ba3210e0df9
+                differ from the checksum in the deployment plan fb671ef92273ba1e04863718572d17e196e1c2a18d57b31a4aba5ba3210e0df9
+            result:
+              failed_when_result: false
+              msg: The current package checksum fb671ef92273ba1e04863718572d17e196e1c2a18d57b31a4aba5ba3210e0df9
+                differ from the checksum in the deployment plan fb671ef92273ba1e04863718572d17e196e1c2a18d57b31a4aba5ba3210e0df9
+        - status: Ok
+          msg: 'package.yml line 41 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Create USS working folder {{plum_deploy_dir_uss}}'
+          results:
+            register: None
+            args:
+              _raw_params: task_create_uss_folders.yml
+            result:
+              include: task_create_uss_folders.yml
+              include_args: {}
+        - status: Ok
+          msg: 'task_create_uss_folders.yml line 13 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : [package>package>package]: Create deployer base directory on USS: /tmp/plum_deploy/jenkins/zos_host_01'
+          results:
+            register: None
+            args:
+              mode: 511
+              path: /tmp/plum_deploy/jenkins/zos_host_01
+              state: directory
+            result:
+              diff:
+                after:
+                  path: /tmp/plum_deploy/jenkins/zos_host_01
+                before:
+                  path: /tmp/plum_deploy/jenkins/zos_host_01
+              gid: 100
+              group: OMVS
+              invocation:
+                module_args:
+                  access_time_format: '%Y%m%d%H%M.%S'
+                  follow: true
+                  force: false
+                  mode: 511
+                  modification_time_format: '%Y%m%d%H%M.%S'
+                  path: /tmp/plum_deploy/jenkins/zos_host_01
+                  recurse: false
+                  state: directory
+                  unsafe_writes: false
+              mode: '0777'
+              owner: JENKINS
+              path: /tmp/plum_deploy/jenkins/zos_host_01
+              size: 8192
+              state: directory
+              uid: 10030
+        - status: Ok
+          msg: 'task_create_uss_folders.yml line 19 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : [package>package>package]: Create temporary directory on USS in: /tmp/plum_deploy/jenkins/zos_host_01'
+          results:
+            register: plum_deploy_dir_uss_result
+            args:
+              path: /tmp/plum_deploy/jenkins/zos_host_01
+              state: directory
+            result:
+              gid: 100
+              group: OMVS
+              invocation:
+                module_args:
+                  path: /tmp/plum_deploy/jenkins/zos_host_01
+                  prefix: ansible.
+                  state: directory
+                  suffix: ''
+              mode: '0700'
+              owner: JENKINS
+              path: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z
+              size: 0
+              state: directory
+              uid: 10030
+        - status: Ok
+          msg: 'task_create_uss_folders.yml line 25 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : [package>package>package]: Register USS temporary directory path: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z'
+          results:
+            register: None
+            args:
+              plum_deploy_dir_uss: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z
+            result:
+              ansible_facts:
+                plum_deploy_dir_uss: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z
+        - status: Ok
+          msg: 'package.yml line 45 : ibm.ibm_zos_plum_deploy.zos_deploy : [package>package>package]:
+            Send /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar
+            to USS: /tmp/plum_deploy/jenkins/zos_host_01'
+          results:
+            register: None
+            args:
+              dest: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z
+              src: /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar
+            result:
+              checksum: 2bf31b25655394fb2e59ea178293510327d88ae2
+              dest: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/package.tar
+              diff: []
+              gid: 100
+              group: OMVS
+              invocation:
+                module_args:
+                  _original_basename: package.tar
+                  backup: false
+                  checksum: 2bf31b25655394fb2e59ea178293510327d88ae2
+                  dest: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z
+                  follow: false
+                  force: true
+                  src: /u/jenkins/.ansible/tmp/ansible-tmp-1677677744.132336-2581718-211170015151202/source
+                  unsafe_writes: false
+              md5sum: d1ed1d381179d1834d3c19906e370b55
+              mode: '0644'
+              owner: JENKINS
+              size: 71680
+              src: /u/jenkins/.ansible/tmp/ansible-tmp-1677677744.132336-2581718-211170015151202/source
+              state: file
+              uid: 10030
+        - status: Ok
+          msg: 'package.yml line 51 : ibm.ibm_zos_plum_deploy.zos_deploy : [package>package>package]:
+            Extract /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-621/package.tar'
+          results:
+            register: None
+            args:
+              _raw_params: |-
+                set +e
+                tar -C /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z -xf /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/*.tar -L T 2>/tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log
+                if [ $(grep -v "cannot set uid.gid" /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log | wc -w) -eq 0 ]
+                then
+                   exit 0
+                else
+                   cat /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log | iconv -f ibm-1047 -t utf-8
+                   exit -1
+                fi
+              _uses_shell: true
+              warn: true
+            result:
+              cmd: |-
+                set +e
+                tar -C /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z -xf /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/*.tar -L T 2>/tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log
+                if [ $(grep -v "cannot set uid.gid" /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log | wc -w) -eq 0 ]
+                then
+                   exit 0
+                else
+                   cat /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log | iconv -f ibm-1047 -t utf-8
+                   exit -1
+                fi
+              delta: '0:00:00.136274'
+              end: '2023-03-01 08:35:46.632521'
+              invocation:
+                module_args:
+                  _raw_params: |-
+                    set +e
+                    tar -C /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z -xf /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/*.tar -L T 2>/tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log
+                    if [ $(grep -v "cannot set uid.gid" /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log | wc -w) -eq 0 ]
+                    then
+                       exit 0
+                    else
+                       cat /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/zos_host_01.tar.log | iconv -f ibm-1047 -t utf-8
+                       exit -1
+                    fi
+                  _uses_shell: true
+                  stdin_add_newline: true
+                  strip_empty_ends: true
+                  warn: true
+              rc: 0
+              start: '2023-03-01 08:35:46.496247'
+              stderr: ''
+              stderr_lines: []
+              stdout: ''
+              stdout_lines: []
+- name: DEPLOY_MODULES
+  properties:
+  - key: my_prop
+    value: my_value
+  actions:
+  - name: UPDATE
+    steps:
+    - name: MEMBER_VALIDATE
+      artifacts:
+      - hash: a7544d2c2af80050747c9df54aaf5f65be7dcbe57857b893c6a2adb66fc5f263
+        name: LGIPOL01
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042023060083446
+        - key: old_fingerprint
+          value: 5695PMB01 02042023060054430
+        - key: type
+          value: CICSLOAD
+      step_result:
+        status: Skipped
+        msg: Conditional result was False
+        results: []
+    - name: MEMBER_ARCHIVE
+      artifacts:
+      - hash: a7544d2c2af80050747c9df54aaf5f65be7dcbe57857b893c6a2adb66fc5f263
+        name: LGIPOL01
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042023060083446
+        - key: old_fingerprint
+          value: 5695PMB01 02042023060054430
+        - key: type
+          value: CICSLOAD
+      step_result:
+        status: Ok
+        msg: 'member_archive.yml : Ok'
+        results:
+        - status: Ok
+          msg: 'member_archive.yml line 13 : ibm.ibm_zos_plum_deploy.zos_deploy :
+            set_fact'
+          results:
+            register: None
+            args:
+              plum_backup_list_items:
+              - dest: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB(LGIPOL01)
+                fingerprint: 5695PMB01 02042023060054430
+                is_binary: true
+                is_load: true
+                is_sequential: false
+                is_uss: false
+                name: LGIPOL01
+                src: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+                type:
+                  cics_systems:
+                  - cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  is_load: true
+                  pds:
+                    backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                    name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                    spec:
+                      record_format: U
+                      record_length: 0
+                      space_primary: 10
+                      space_secondary: 20
+                      space_type: CYL
+                      type: LIBRARY
+                  type: cicsload
+              plum_backup_list_types:
+              - cics_systems:
+                - cmci_action: PHASEIN
+                  cmci_host: 9.30.222.103
+                  cmci_password: ''
+                  cmci_port: 1490
+                  cmci_user: JENKINS
+                  context: CICS01
+                  csd_group: GENASAP
+                  insecure: true
+                  scheme: http
+                  scope: ''
+                is_load: true
+                pds:
+                  backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                  name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                  spec:
+                    record_format: U
+                    record_length: 0
+                    space_primary: 10
+                    space_secondary: 20
+                    space_type: CYL
+                    type: LIBRARY
+                type: cicsload
+            result:
+              ansible_facts:
+                plum_backup_list_items:
+                - dest: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB(LGIPOL01)
+                  fingerprint: 5695PMB01 02042023060054430
+                  is_binary: true
+                  is_load: true
+                  is_sequential: false
+                  is_uss: false
+                  name: LGIPOL01
+                  src: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+                  type:
+                    cics_systems:
+                    - cmci_action: PHASEIN
+                      cmci_host: 9.30.222.103
+                      cmci_password: ''
+                      cmci_port: 1490
+                      cmci_user: JENKINS
+                      context: CICS01
+                      csd_group: GENASAP
+                      insecure: true
+                      scheme: http
+                      scope: ''
+                    is_load: true
+                    pds:
+                      backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                      name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                      spec:
+                        record_format: U
+                        record_length: 0
+                        space_primary: 10
+                        space_secondary: 20
+                        space_type: CYL
+                        type: LIBRARY
+                    type: cicsload
+                plum_backup_list_types:
+                - cics_systems:
+                  - cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  is_load: true
+                  pds:
+                    backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                    name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                    spec:
+                      record_format: U
+                      record_length: 0
+                      space_primary: 10
+                      space_secondary: 20
+                      space_type: CYL
+                      type: LIBRARY
+                  type: cicsload
+        - status: Skipped
+          msg: 'member_archive.yml line 20 : ibm.ibm_zos_plum_deploy.zos_deploy :
+            [{{current_step_name}}]: Create destination PDS(s)'
+          results:
+            register: None
+            args:
+              _raw_params: task_zos_data_set.yml
+            result:
+              msg: All items completed
+              results:
+              - ansible_loop_var: plum_type
+                changed: false
+                plum_type:
+                  cics_systems:
+                  - cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  is_load: true
+                  pds:
+                    backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                    name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                    spec:
+                      record_format: U
+                      record_length: 0
+                      space_primary: 10
+                      space_secondary: 20
+                      space_type: CYL
+                      type: LIBRARY
+                  type: cicsload
+                skip_reason: Conditional result was False
+                skipped: true
+        - status: Ok
+          msg: 'member_archive.yml line 40 : ibm.ibm_zos_plum_deploy.zos_deploy :
+            [{{current_step_name}}]: Copy the member(s) to backup PDS(s)'
+          results:
+            register: None
+            args:
+              _raw_params: task_zos_copy.yml
+            result:
+              msg: All items completed
+              results:
+              - ansible_loop_var: item
+                include: task_zos_copy.yml
+                include_args: {}
+                item:
+                  dest: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB(LGIPOL01)
+                  fingerprint: 5695PMB01 02042023060054430
+                  is_binary: true
+                  is_load: true
+                  is_sequential: false
+                  is_uss: false
+                  name: LGIPOL01
+                  src: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+                  type:
+                    cics_systems:
+                    - cmci_action: PHASEIN
+                      cmci_host: 9.30.222.103
+                      cmci_password: ''
+                      cmci_port: 1490
+                      cmci_user: JENKINS
+                      context: CICS01
+                      csd_group: GENASAP
+                      insecure: true
+                      scheme: http
+                      scope: ''
+                    is_load: true
+                    pds:
+                      backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                      name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                      spec:
+                        record_format: U
+                        record_length: 0
+                        space_primary: 10
+                        space_secondary: 20
+                        space_type: CYL
+                        type: LIBRARY
+                    type: cicsload
+        - status: Ok
+          msg: 'task_zos_copy.yml line 15 : ibm.ibm_zos_plum_deploy.zos_deploy : set_fact'
+          results:
+            register: None
+            args:
+              plum_ignore_errors_var: false
+            result:
+              ansible_facts:
+                plum_ignore_errors_var: false
+        - status: Ok
+          msg: 'task_zos_copy.yml line 18 : ibm.ibm_zos_plum_deploy.zos_deploy : [deploy_modules>update>member_archive]:
+            Copy NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01) to NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB(LGIPOL01)'
+          results:
+            register: plum_zos_module_result
+            args:
+              backup: false
+              dest: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB(LGIPOL01)
+              force: true
+              is_binary: true
+              remote_src: true
+              src: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+            result:
+              dest: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB(LGIPOL01)
+              failed_when_result: false
+              invocation:
+                module_args:
+                  backup: false
+                  dest: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB(LGIPOL01)
+                  force: true
+                  is_binary: true
+                  remote_src: true
+                  src: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+              is_binary: true
+              src: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+        - status: Skipped
+          msg: 'member_archive.yml line 56 : ibm.ibm_zos_plum_deploy.zos_deploy :
+            [{{current_step_name}}]: Copy the member(s) to backup PDS(s) using shell
+            command'
+          results:
+            register: None
+            args:
+              _raw_params: task_fast_copy.yml
+            result:
+              skip_reason: Conditional result was False
+    - name: MEMBER_COPY
+      artifacts:
+      - hash: a7544d2c2af80050747c9df54aaf5f65be7dcbe57857b893c6a2adb66fc5f263
+        name: LGIPOL01
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042023060083446
+        - key: old_fingerprint
+          value: 5695PMB01 02042023060054430
+        - key: type
+          value: CICSLOAD
+      step_result:
+        status: Ok
+        msg: 'member_copy.yml : Ok'
+        results:
+        - status: Ok
+          msg: 'member_copy.yml line 13 : ibm.ibm_zos_plum_deploy.zos_deploy : set_fact'
+          results:
+            register: None
+            args:
+              plum_copy_list_items:
+              - dest: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+                fingerprint: 5695PMB01 02042023060054430
+                is_binary: true
+                is_load: true
+                is_sequential: false
+                is_uss: false
+                name: LGIPOL01
+                src: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+                type:
+                  cics_systems:
+                  - cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  is_load: true
+                  pds:
+                    backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                    name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                    spec:
+                      record_format: U
+                      record_length: 0
+                      space_primary: 10
+                      space_secondary: 20
+                      space_type: CYL
+                      type: LIBRARY
+                  type: cicsload
+              plum_copy_list_types:
+              - cics_systems:
+                - cmci_action: PHASEIN
+                  cmci_host: 9.30.222.103
+                  cmci_password: ''
+                  cmci_port: 1490
+                  cmci_user: JENKINS
+                  context: CICS01
+                  csd_group: GENASAP
+                  insecure: true
+                  scheme: http
+                  scope: ''
+                is_load: true
+                pds:
+                  backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                  name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                  spec:
+                    record_format: U
+                    record_length: 0
+                    space_primary: 10
+                    space_secondary: 20
+                    space_type: CYL
+                    type: LIBRARY
+                type: cicsload
+            result:
+              ansible_facts:
+                plum_copy_list_items:
+                - dest: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+                  fingerprint: 5695PMB01 02042023060054430
+                  is_binary: true
+                  is_load: true
+                  is_sequential: false
+                  is_uss: false
+                  name: LGIPOL01
+                  src: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+                  type:
+                    cics_systems:
+                    - cmci_action: PHASEIN
+                      cmci_host: 9.30.222.103
+                      cmci_password: ''
+                      cmci_port: 1490
+                      cmci_user: JENKINS
+                      context: CICS01
+                      csd_group: GENASAP
+                      insecure: true
+                      scheme: http
+                      scope: ''
+                    is_load: true
+                    pds:
+                      backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                      name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                      spec:
+                        record_format: U
+                        record_length: 0
+                        space_primary: 10
+                        space_secondary: 20
+                        space_type: CYL
+                        type: LIBRARY
+                    type: cicsload
+                plum_copy_list_types:
+                - cics_systems:
+                  - cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  is_load: true
+                  pds:
+                    backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                    name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                    spec:
+                      record_format: U
+                      record_length: 0
+                      space_primary: 10
+                      space_secondary: 20
+                      space_type: CYL
+                      type: LIBRARY
+                  type: cicsload
+        - status: Ok
+          msg: 'member_copy.yml line 20 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Create destination PDS(s)'
+          results:
+            register: None
+            args:
+              _raw_params: task_zos_data_set.yml
+            result:
+              msg: All items completed
+              results:
+              - ansible_loop_var: plum_type
+                include: task_zos_data_set.yml
+                include_args: {}
+                plum_type:
+                  cics_systems:
+                  - cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  is_load: true
+                  pds:
+                    backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                    name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                    spec:
+                      record_format: U
+                      record_length: 0
+                      space_primary: 10
+                      space_secondary: 20
+                      space_type: CYL
+                      type: LIBRARY
+                  type: cicsload
+        - status: Ok
+          msg: 'task_zos_data_set.yml line 15 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : set_fact'
+          results:
+            register: None
+            args:
+              plum_ignore_errors_var: false
+            result:
+              ansible_facts:
+                plum_ignore_errors_var: false
+        - status: Ok
+          msg: 'task_zos_data_set.yml line 18 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : [deploy_modules>update>member_copy]: Manage data set NAZARE.WDEPLOY.ANSIBLE.LOADLIB'
+          results:
+            register: plum_zos_module_result
+            args:
+              name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+              record_format: U
+              record_length: '0'
+              space_primary: '10'
+              space_secondary: '20'
+              space_type: CYL
+              type: LIBRARY
+            result:
+              invocation:
+                module_args:
+                  name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                  record_format: U
+                  record_length: 0
+                  replace: false
+                  space_primary: '10'
+                  space_secondary: 20
+                  space_type: CYL
+                  state: present
+                  type: LIBRARY
+              message: ''
+              names:
+              - NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+        - status: Ok
+          msg: 'member_copy.yml line 39 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Copy the member(s) to destination PDS(s)'
+          results:
+            register: None
+            args:
+              _raw_params: task_zos_copy.yml
+            result:
+              msg: All items completed
+              results:
+              - ansible_loop_var: item
+                include: task_zos_copy.yml
+                include_args: {}
+                item:
+                  dest: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+                  fingerprint: 5695PMB01 02042023060054430
+                  is_binary: true
+                  is_load: true
+                  is_sequential: false
+                  is_uss: false
+                  name: LGIPOL01
+                  src: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+                  type:
+                    cics_systems:
+                    - cmci_action: PHASEIN
+                      cmci_host: 9.30.222.103
+                      cmci_password: ''
+                      cmci_port: 1490
+                      cmci_user: JENKINS
+                      context: CICS01
+                      csd_group: GENASAP
+                      insecure: true
+                      scheme: http
+                      scope: ''
+                    is_load: true
+                    pds:
+                      backup: NAZARE.WDEPLOY.ANSIBLE.BACK.LOADLIB
+                      name: NAZARE.WDEPLOY.ANSIBLE.LOADLIB
+                      spec:
+                        record_format: U
+                        record_length: 0
+                        space_primary: 10
+                        space_secondary: 20
+                        space_type: CYL
+                        type: LIBRARY
+                    type: cicsload
+        - status: Ok
+          msg: 'task_zos_copy.yml line 15 : ibm.ibm_zos_plum_deploy.zos_deploy : set_fact'
+          results:
+            register: None
+            args:
+              plum_ignore_errors_var: false
+            result:
+              ansible_facts:
+                plum_ignore_errors_var: false
+        - status: Ok
+          msg: 'task_zos_copy.yml line 18 : ibm.ibm_zos_plum_deploy.zos_deploy : [deploy_modules>update>member_copy]:
+            Copy /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+            to NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)'
+          results:
+            register: plum_zos_module_result
+            args:
+              backup: false
+              dest: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+              force: true
+              is_binary: true
+              remote_src: true
+              src: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+            result:
+              dest: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+              failed_when_result: false
+              invocation:
+                module_args:
+                  backup: false
+                  dest: NAZARE.WDEPLOY.ANSIBLE.LOADLIB(LGIPOL01)
+                  force: true
+                  is_binary: true
+                  remote_src: true
+                  src: /tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+              is_binary: true
+              src: /SYSTEM/tmp/plum_deploy/jenkins/zos_host_01/ansible.atkebn6z/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+        - status: Skipped
+          msg: 'member_copy.yml line 56 : ibm.ibm_zos_plum_deploy.zos_deploy : {{current_step_name}}]:
+            Create {{plum_deploy_dir_local}}/cp.sh global shell script'
+          results:
+            register: None
+            args:
+              _raw_params: task_fast_copy.yml
+            result:
+              skip_reason: Conditional result was False
+- name: CICS
+  actions:
+  - name: UPDATE
+    steps:
+    - name: PROG_UPDATE
+      properties:
+      - key: cmci_action
+        value: NEWCOPY
+      - key: template
+        value: cics_cmci_prog_update
+      artifacts:
+      - hash: a7544d2c2af80050747c9df54aaf5f65be7dcbe57857b893c6a2adb66fc5f263
+        name: LGIPOL01
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042023060083446
+        - key: old_fingerprint
+          value: 5695PMB01 02042023060054430
+        - key: type
+          value: CICSLOAD
+      step_result:
+        status: Ok
+        msg: 'cics_cmci_prog_update.yml : Ok'
+        results:
+        - status: Ok
+          msg: 'cics_cmci_prog_update.yml line 15 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : set_fact'
+          results:
+            register: None
+            args:
+              plum_cics_cmci_prog_update_list_items:
+              - cics_system:
+                  cmci_action: PHASEIN
+                  cmci_host: 9.30.222.103
+                  cmci_password: ''
+                  cmci_port: 1490
+                  cmci_user: JENKINS
+                  context: CICS01
+                  csd_group: GENASAP
+                  insecure: true
+                  scheme: http
+                  scope: ''
+                name: LGIPOL01
+            result:
+              ansible_facts:
+                plum_cics_cmci_prog_update_list_items:
+                - cics_system:
+                    cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  name: LGIPOL01
+        - status: Ok
+          msg: 'cics_cmci_prog_update.yml line 21 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : [{{current_step_name}}]: Perfom CICS Update on PROGRAM(s)'
+          results:
+            register: None
+            args:
+              _raw_params: task_cmci_action.yml
+            result:
+              msg: All items completed
+              results:
+              - ansible_loop_var: item
+                include: task_cmci_action.yml
+                include_args: {}
+                item:
+                  cics_system:
+                    cmci_action: PHASEIN
+                    cmci_host: 9.30.222.103
+                    cmci_password: ''
+                    cmci_port: 1490
+                    cmci_user: JENKINS
+                    context: CICS01
+                    csd_group: GENASAP
+                    insecure: true
+                    scheme: http
+                    scope: ''
+                  name: LGIPOL01
+        - status: Ok
+          msg: 'task_cmci_action.yml line 15 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : set_fact'
+          results:
+            register: None
+            args:
+              plum_ignore_errors_var: false
+            result:
+              ansible_facts:
+                plum_ignore_errors_var: false
+        - status: Ok
+          msg: 'task_cmci_action.yml line 18 : ibm.ibm_zos_plum_deploy.zos_deploy
+            : [cics>update>prog_update]: Perfom ''NEWCOPY'' for ''LGIPOL01'' in CICS
+            Context ''CICS01'''
+          results:
+            register: plum_zos_module_result
+            args:
+              action_name: NEWCOPY
+              cmci_cert: ''
+              cmci_host: 9.30.222.103
+              cmci_key: ''
+              cmci_password: ''
+              cmci_port: '1490'
+              cmci_user: JENKINS
+              context: CICS01
+              insecure: true
+              resources:
+                filter:
+                  program: LGIPOL01
+              scheme: http
+              scope: ''
+              type: CICSProgram
+            result:
+              connect_version: '0550'
+              cpsm_reason: ''
+              cpsm_reason_code: 0
+              cpsm_response: OK
+              cpsm_response_code: 1024
+              http_status: OK
+              http_status_code: 200
+              invocation:
+                module_args:
+                  action_name: NEWCOPY
+                  cmci_cert: ''
+                  cmci_host: 9.30.222.103
+                  cmci_key: ''
+                  cmci_password: ''
+                  cmci_port: 1490
+                  cmci_user: JENKINS
+                  context: CICS01
+                  insecure: true
+                  resources:
+                    filter:
+                      program: LGIPOL01
+                  scheme: http
+                  scope: ''
+                  timeout: 30
+                  type: CICSProgram
+              record_count: 1
+              records:
+              - _keydata: D3C7C9D7D6D3F0F1
+                aloadtime: '00:00:00.000000'
+                apist: CICSAPI
+                application: ''
+                applmajorver: '-1'
+                applmicrover: '-1'
+                applminorver: '-1'
+                basdefinever: '0'
+                cedfstatus: CEDF
+                changeagent: CSDBATCH
+                changeagrel: '0720'
+                changetime: '2019-01-30T05:38:59.000000+00:00'
+                changeusrid: SUMANG
+                coboltype: NOTINIT
+                concurrency: QUASIRENT
+                copy: NOTREQUIRED
+                currentloc: NOCOPY
+                datalocation: ANY
+                definesource: GENASAP
+                definetime: '2019-01-30T05:38:59.000000+00:00'
+                dynamstatus: NOTDYNAMIC
+                entrypoint: FF000000
+                execkey: USEREXECKEY
+                executionset: FULLAPI
+                eyu_cicsname: CICS01
+                eyu_cicsrel: E720
+                eyu_reserved: '0'
+                fetchcnt: '0'
+                fetchtime: '00:00:00.000000'
+                holdstatus: NOTAPPLIC
+                installagent: GRPLIST
+                installtime: '2020-05-01T16:16:15.000000+00:00'
+                installusrid: CICSUSER
+                jvmclass: ''
+                jvmserver: ''
+                language: COBOL
+                length: '7576'
+                library: NAZGEN
+                librarydsn: NAZARE.GENAPP.LOADLIB
+                loadpoint: FF000000
+                lpastat: NOTAPPLIC
+                newcopycnt: '14'
+                operation: ''
+                pgrjusecount: '0'
+                platform: ''
+                program: LGIPOL01
+                progtype: PROGRAM
+                remotename: ''
+                remotesystem: ''
+                removecnt: '0'
+                rescount: '0'
+                residency: NONRESIDENT
+                rloading: '0.000'
+                rplid: '0'
+                rremoval: '0.000'
+                runtime: UNKNOWN
+                ruse: '0.000'
+                sharestatus: PRIVATE
+                status: ENABLED
+                transid: ''
+                useagelstat: '0'
+                usecount: '0'
+                usefetch: '0.000'
+              request:
+                body: <request><action name="NEWCOPY"></action></request>
+                method: PUT
+                url: http://9.30.222.103:1490/CICSSystemManagement/cicsprogram/CICS01/?CRITERIA=%28program%3D%27LGIPOL01%27%29
+manifests:
+- annotations:
+    creation_timestamp: 20230301.133508.069
+    dbb:
+      build_result_uri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/51037
+    package:
+      name: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
+      properties:
+      - key: repository_path
+        value: plum/dynamic
+      - key: repository
+        value: sys-wazi-deploy-team-pentest-generic-local
+      - key: build_name
+        value: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
+      - key: build_number
+        value: '15'
+      type: ARTIFACTORY
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/15
+    scm:
+      branch: main
+      short_commit: 67ab61dd
+      type: git
+      uri: git@github.com:jbyibm/cics-genapp.git
+  description: GenAppCICS
+  name: GenAppCICS
+  version: 1.0.507
