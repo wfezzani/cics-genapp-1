@@ -178,10 +178,9 @@ pipeline {
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports
                             # Index Evidences
-                            CMD="plum-evidence\
+                            CMD="plum-evidence i\
                                 --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
-                                --dataFolder ${WORKSPACE}/cics-genapp/plum-samples/external-repos/evidences\
-                                i"
+                                --dataFolder ${WORKSPACE}/cics-genapp/plum-samples/external-repos/evidences"
                             echo $CMD
                             $CMD
                             rc=$? 
@@ -191,11 +190,10 @@ pipeline {
                             fi
                             
                             # Full Report
-                            CMD="plum-evidence\
+                            CMD="plum-evidence r\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/cics-genapp/plum-samples/evidences/templates/full-report.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/deployment-report.html\
-                              r\
                               renderer=${WORKSPACE}/cics-genapp/plum-samples/evidences/renderers/full-report.html"
                             echo $CMD
                             $CMD
@@ -206,11 +204,10 @@ pipeline {
                             fi
                             
                             # Where LGACDB02 is deployed
-                            CMD="plum-evidence\
+                            CMD="plum-evidence r\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/cics-genapp/plum-samples/evidences/templates/deployed-component-where.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/deployed-lgacdb02-where.csv\
-                              r\
                               renderer=${WORKSPACE}/cics-genapp/plum-samples/evidences/renderers/deployed-component-where.csv\
                               component=LGACDB02"
                             echo $CMD
@@ -222,11 +219,10 @@ pipeline {
                             fi
                             
                             # Versions of the deployed components for the current environnment
-                            CMD="plum-evidence\
+                            CMD="plum-evidence r\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/cics-genapp/plum-samples/evidences/templates/environment-deployed-component-version.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/environment-deployed-component-version.html\
-                              r\
                               renderer=${WORKSPACE}/cics-genapp/plum-samples/evidences/renderers/environment-deployed-component-version.html\
                               environment_name=zos_host_01"
                             echo $CMD
