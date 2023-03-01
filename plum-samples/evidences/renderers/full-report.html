@@ -8,27 +8,7 @@
     Contract with IBM Corp.
  -->
 
-{% macro render_result(result, indent=0, class='result') -%}
-{% if result is string %}
-{{result | replace("\n","<br>") }}<br>
-{% elif result is mapping %}
-<ul style="margin-left: {{indent}}px;padding-left: 0;">
-{% for key, value in result.items() %}
-<span class='vlabel_ko'><b>{{key}}</b></span>:
-{% call render_result(value, 10 ) %}{% endcall %}
-{% endfor %}
-</ul>
-{% elif result is iterable %}
-<ul style="margin-left: {{indent}}px;padding-left: 0;">
-{% for value in result %}
-{% call render_result(value, 10 ) %}{% endcall %}
-{% endfor %}
-</ul>
-{% else %} 
-{{ result | replace("\n","<br>") }}<br>
-{% endif %}
-{{ caller() }}
-{%- endmacro %}
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
 <title>IBM Deploy Evidences</title>
@@ -93,133 +73,2876 @@ span.vlabel_ko {
 </head>
 <body>
 <div id="main">
-{% set deployments = results | list %}
+
 <hr>
 <h1>Deployments List</h1>
 <hr>
 <table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Status</th><th id=\"name\">Name</th><th id=\"version\">Version</th><th id=\"deploydate\">Deployment Date</th><th id=\"environment\">Environment</th></tr>
-{%for deployment in deployments%}
+
 <tr>
 <td>
-{% if 'Ok' in deployment.status -%}
 <span class='vlabel_ok'>Success</span></br>
-{% elif 'Skipped' in deployment.status -%}
-<span class='vlabel_skipped'>Skipped</span></br>
-{% else %}
-<span class='vlabel_ko'>Failed</span><br>
-{% endif %}
+
 </td>
-<td><a href="#{{deployment.metadata.annotations.deploy_timestamp}}">{{ deployment.metadata.name }}</a></td>
-{% if deployment.metadata.version -%}
-<td>{{ deployment.metadata.version }}</td>
-{% else %}
-<td></td>
-{% endif %}
-<td>{{ deployment.metadata.annotations.deploy_timestamp }}</td>
-<td>{{ deployment.metadata.annotations.environment_name }}</td>
+<td><a href="#20230227.104949.239">GenAppCICS</a></td>
+<td>1.0.5</td>
+
+<td>20230227.104949.239</td>
+<td>zos_host_01</td>
 </tr>
-{% endfor %}
+
+<tr>
+<td>
+<span class='vlabel_ok'>Success</span></br>
+
+</td>
+<td><a href="#20230224.142743.061">GenAppCICS</a></td>
+<td>2.0.2</td>
+
+<td>20230224.142743.061</td>
+<td>tivlp02.svl.ibm.com</td>
+</tr>
+
+<tr>
+<td>
+<span class='vlabel_ok'>Success</span></br>
+
+</td>
+<td><a href="#20230224.135128.328">GenAppCICS</a></td>
+<td>1.0.4</td>
+
+<td>20230224.135128.328</td>
+<td>zos_host_01</td>
+</tr>
+
+<tr>
+<td>
+<span class='vlabel_ok'>Success</span></br>
+
+</td>
+<td><a href="#20230224.134524.257">GenAppCICS</a></td>
+<td>2.0.1</td>
+
+<td>20230224.134524.257</td>
+<td>tivlp02.svl.ibm.com</td>
+</tr>
+
+<tr>
+<td>
+<span class='vlabel_ok'>Success</span></br>
+
+</td>
+<td><a href="#20230224.134121.522">GenAppCICS</a></td>
+<td>1.0.3</td>
+
+<td>20230224.134121.522</td>
+<td>zos_host_01</td>
+</tr>
+
+<tr>
+<td>
+
+<span class='vlabel_ko'>Failed</span><br>
+
+</td>
+<td><a href="#20230224.131103.428">GenAppCICS</a></td>
+<td>1.0.2</td>
+
+<td>20230224.131103.428</td>
+<td>zos_host_01</td>
+</tr>
+
+<tr>
+<td>
+<span class='vlabel_ok'>Success</span></br>
+
+</td>
+<td><a href="#20230224.130557.202">GenAppCICS</a></td>
+<td>1.0.1</td>
+
+<td>20230224.130557.202</td>
+<td>zos_host_01</td>
+</tr>
+
+<tr>
+<td>
+<span class='vlabel_ok'>Success</span></br>
+
+</td>
+<td><a href="#20230224.115633.229">GenAppCICS</a></td>
+<td>1.0.0</td>
+
+<td>20230224.115633.229</td>
+<td>tivlp02.svl.ibm.com</td>
+</tr>
+
+<tr>
+<td>
+<span class='vlabel_ok'>Success</span></br>
+
+</td>
+<td><a href="#20230128.112109.203">GenAppCICS</a></td>
+<td>1.0.0</td>
+
+<td>20230128.112109.203</td>
+<td>zos_host_01</td>
+</tr>
+
 </table>
-{%for deployment in deployments%}
-<a id="{{deployment.metadata.annotations.deploy_timestamp}}"></a>
+
+<a id="20230227.104949.239"></a>
 <hr>
-{% if deployment.metadata.version -%}
-<h1>Deployment {{ deployment.metadata.name }} Version {{ deployment.metadata.version }}</h1>
-{% else %}
-<h1>Deployment {{ deployment.metadata.name }}</h1>
-{% endif %}
+<h1>Deployment GenAppCICS Version 1.0.5</h1>
+
 <hr>
 <h2>Deployment Information:</h2>
-<span class='vlabel'>Name </span>: {{ deployment.metadata.name }}</br>
-{% if deployment.metadata.version -%}
-<span class='vlabel'>Version </span>: {{ deployment.metadata.version }}</br>
-{% endif %}
-<span class='vlabel'>Deployment Date </span>: {{ deployment.metadata.annotations.deploy_timestamp }}</br>
-<span class='vlabel'>Environment </span>: {{ deployment.metadata.annotations.environment_name }}</br>
-<span class='vlabel'>Evidence File </span>: {{ deployment.ymli_full_file_path }}</br>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.5</br>
 
-{% if 'Ok' in deployment.status -%}
+<span class='vlabel'>Deployment Date </span>: 20230227.104949.239</br>
+<span class='vlabel'>Environment </span>: zos_host_01</br>
+<span class='vlabel'>Evidence File </span>: data/ansible/zos_host_01_evidences_20230227115311.yml</br>
+
 <span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
-{% elif 'Skipped' in deployment.status -%}
-<span class='vlabel'>Status </span>: <span class='vlabel_skipped'>Skipped</span></br>
-{% else %}
-<span class='vlabel'>Status </span>: <span class='vlabel_ko'>Failed</span><br>
-{% endif %}
-{% if deployment.manifests is defined -%}
+
 <h2>Manifests:</h2>
-{%for manifest in deployment.manifests%}
-<span class='vlabel'>Name </span>: {{ manifest.name }}</br>
-{% if manifest.version is defined -%}
-<span class='vlabel'>Version </span>: {{ manifest.version }}</br>
-{% endif %}
-{% if manifest.description is defined -%}
-<span class='vlabel'>Description </span>: {{ manifest.description }}</br>
-{% endif %}
-{% if manifest.annotations.dbb is defined -%}
-<span class='vlabel'>DBB Build Result </span>: <a href='{{ manifest.annotations.dbb.build_result_uri }}' target=_other>{{ manifest.annotations.dbb.build_result_uri }}</a></br>
-{% endif %}
-{% if manifest.annotations.scm is defined -%}
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.5</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
 <span class='vlabel'>Scm </span>:</br>
-<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='{{manifest.annotations.scm.uri  | replace("git@github.com:","https://github.com/") }}/commit/{{manifest.annotations.scm.short_commit}}' target=_other>{{manifest.annotations.scm.uri | replace("git@github.com:","https://github.com/") }}</a></br>
-<span class='vlabel'>&nbsp;&nbsp;Branch </span>: {{manifest.annotations.scm.branch }}</br>
-<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: {{manifest.annotations.scm.short_commit}}</br>
-{% endif %}
-{% if manifest.annotations.package is defined -%}
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
 <span class='vlabel'>Package </span>:</br>
-<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='{{manifest.annotations.package.uri }}' target=_other>{{manifest.annotations.package.uri }}</a></br>
-{% endif %}
-{% endfor %}
-{% endif %}
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
 
 <p><h2>Deployment Details:</h2>
 <table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
-{%for activity in deployment.activities -%}
 <tr>
 <td>
-{{ activity.name }}
+PACKAGE
 </td>
 <td>
-{%for action in activity.actions -%}
-{{ action.name }}
+PACKAGE
 </td>
 <td>
 <table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
-{%for step in action.steps -%}
 <tr>
 <td style='width:200px;'>
-{{ step.name }}
+PACKAGE
 </td>
 <td style='width:200px;'>
-{%for artifact in step.artifacts -%}
-{{ artifact.name }}{%for property in artifact.properties -%}{% if 'type' in property.key %}.{{  property.value }}<br>{% endif %}{% endfor %}{% endfor %}
+
 </td>
 <td>
 <b>Status: </b>
-{% if 'Ok' in step.step_result.status %}
+
 <span class='vlabel_ok'>Success</span>
-{% elif 'Skipped' in step.step_result.status %}
-<span class='vlabel_skipped'>Skipped</span><br>
-{% else %}
-<span class='vlabel_ko'><b>Failed</b></span><br>
-{% endif %}
-{% if 'Failed' in step.step_result.status %}
-<br><br><b>Details:</b>
-{%for result in step.step_result.results -%}
-{% if 'Failed' in result.status %}
-{% call render_result(result) %}{% endcall %}
-{% endif %}
-{% endfor %}
-{% endif %}
+
+
 </td>
 </tr>
-{% endfor %}
+
 </table>
-{% endfor %}
+
 </tr>
 </td>
-{% endfor %}
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PLAN
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
 </table>
 <p>&nbsp;</p>
-{% endfor %}
+
+<a id="20230224.142743.061"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 2.0.2</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 2.0.2</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230224.142743.061</br>
+<span class='vlabel'>Environment </span>: tivlp02.svl.ibm.com</br>
+<span class='vlabel'>Evidence File </span>: data/python/tivlp02.svl.ibm.com_evidences_20230224_092743.yml</br>
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 2.0.2</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PLAN
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
+<a id="20230224.135128.328"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 1.0.4</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.4</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230224.135128.328</br>
+<span class='vlabel'>Environment </span>: zos_host_01</br>
+<span class='vlabel'>Evidence File </span>: data/ansible/zos_host_01_evidences_20230224145522.yml</br>
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.4</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PLAN
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
+<a id="20230224.134524.257"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 2.0.1</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 2.0.1</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230224.134524.257</br>
+<span class='vlabel'>Environment </span>: tivlp02.svl.ibm.com</br>
+<span class='vlabel'>Evidence File </span>: data/python/tivlp02.svl.ibm.com_evidences_20230224_084524.yml</br>
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 2.0.1</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PLAN
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
+<a id="20230224.134121.522"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 1.0.3</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.3</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230224.134121.522</br>
+<span class='vlabel'>Environment </span>: zos_host_01</br>
+<span class='vlabel'>Evidence File </span>: data/ansible/zos_host_01_evidences_20230224144409.yml</br>
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.3</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PLAN
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
+<a id="20230224.131103.428"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 1.0.2</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.2</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230224.131103.428</br>
+<span class='vlabel'>Environment </span>: zos_host_01</br>
+<span class='vlabel'>Evidence File </span>: data/ansible/zos_host_01_evidences_20230224141344.yml</br>
+
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ko'>Failed</span><br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.2</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ko'><b>Failed</b></span><br>
+
+
+<br><br><b>Details:</b>
+
+
+
+
+
+
+<ul style="margin-left: 0px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>msg</b></span>:
+
+task_zos_job_submit.yml line 18 : ibm.ibm_zos_wazi_deploy.zos_deploy : [db2&gt;update&gt;db2_bind_package]: Submit JCL /tmp/wd_deploy/jby/zos_host_01/ansible.uv1ef9qi/zos_host_01.bindpkg.0.jcl<br>
+
+
+
+<span class='vlabel_ko'><b>results</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>args</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>encoding</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>from</b></span>:
+
+UTF-8<br>
+
+
+
+<span class='vlabel_ko'><b>to</b></span>:
+
+IBM-1047<br>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>location</b></span>:
+
+LOCAL<br>
+
+
+
+<span class='vlabel_ko'><b>max_rc</b></span>:
+
+9999999<br>
+
+
+
+<span class='vlabel_ko'><b>src</b></span>:
+
+/tmp/wd_deploy/jby/zos_host_01/ansible.uv1ef9qi/zos_host_01.bindpkg.0.jcl<br>
+
+
+
+<span class='vlabel_ko'><b>wait</b></span>:
+
+true<br>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>register</b></span>:
+
+wd_zos_module_result<br>
+
+
+
+<span class='vlabel_ko'><b>result</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>checksum</b></span>:
+
+ac0fef437171bfc6227d05e91290f051ec70fa21<br>
+
+
+
+<span class='vlabel_ko'><b>dest</b></span>:
+
+/tmp/ansible.wh264_6w<br>
+
+
+
+<span class='vlabel_ko'><b>duration</b></span>:
+
+0<br>
+
+
+
+<span class='vlabel_ko'><b>failed_when_result</b></span>:
+
+true<br>
+
+
+
+<span class='vlabel_ko'><b>gid</b></span>:
+
+100<br>
+
+
+
+<span class='vlabel_ko'><b>group</b></span>:
+
+OMVS<br>
+
+
+
+<span class='vlabel_ko'><b>invocation</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>module_args</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>encoding</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>from</b></span>:
+
+UTF-8<br>
+
+
+
+<span class='vlabel_ko'><b>to</b></span>:
+
+IBM-1047<br>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>from_encoding</b></span>:
+
+UTF-8<br>
+
+
+
+<span class='vlabel_ko'><b>location</b></span>:
+
+LOCAL<br>
+
+
+
+<span class='vlabel_ko'><b>max_rc</b></span>:
+
+9999999<br>
+
+
+
+<span class='vlabel_ko'><b>return_output</b></span>:
+
+true<br>
+
+
+
+<span class='vlabel_ko'><b>src</b></span>:
+
+/tmp/wd_deploy/jby/zos_host_01/ansible.uv1ef9qi/zos_host_01.bindpkg.0.jcl<br>
+
+
+
+<span class='vlabel_ko'><b>temp_file</b></span>:
+
+/tmp/ansible.wh264_6w<br>
+
+
+
+<span class='vlabel_ko'><b>to_encoding</b></span>:
+
+IBM-1047<br>
+
+
+
+<span class='vlabel_ko'><b>wait</b></span>:
+
+true<br>
+
+
+
+<span class='vlabel_ko'><b>wait_time_s</b></span>:
+
+10<br>
+
+
+
+</ul>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>jobs</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>class</b></span>:
+
+A<br>
+
+
+
+<span class='vlabel_ko'><b>content_type</b></span>:
+
+<br>
+
+
+
+<span class='vlabel_ko'><b>ddnames</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>byte_count</b></span>:
+
+133<br>
+
+
+
+<span class='vlabel_ko'><b>content</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+
+1                    J E S 2  J O B  L O G  --  S Y S T E M  I P O 1  --  N O D E  T I V L P 0 2<br>
+
+
+
+
+0     <br>
+
+
+
+
+ 08.13.43 JOB04248 ---- FRIDAY,    24 FEB 2023 ----<br>
+
+
+
+
+ 08.13.43 JOB04248  IRR010I  USERID JENKINS  IS ASSIGNED TO THIS JOB.<br>
+
+
+
+
+ 08.13.43 JOB04248  ICH70001I JENKINS  LAST ACCESS AT 08:11:09 ON FRIDAY, FEBRUARY 24, 2023<br>
+
+
+
+
+ 08.13.43 JOB04248  $HASP373 BINDPKG  STARTED - INIT F    - CLASS A        - SYS IPO1<br>
+
+
+
+
+ 08.13.43 JOB04248  -                                                --TIMINGS (MINS.)--            ----PAGING COUNTS---<br>
+
+
+
+
+ 08.13.43 JOB04248  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP   CONN    TCB    SRB  CLOCK   SERV  PG  PAGE  SWAP   VIO SWAPS<br>
+
+
+
+
+ 08.13.43 JOB04248  -BINDPKG  PKGBIND              08    170      5    .00    .00     .0    615   0     0     0     0     0<br>
+
+
+
+
+ 08.13.43 JOB04248  -BINDPKG  ENDED.  NAME-                     TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0<br>
+
+
+
+
+ 08.13.43 JOB04248  $HASP395 BINDPKG  ENDED - RC=0008<br>
+
+
+
+
+0------ JES2 JOB STATISTICS ------<br>
+
+
+
+
+-  24 FEB 2023 JOB EXECUTION DATE<br>
+
+
+
+
+-           21 CARDS READ<br>
+
+
+
+
+-           75 SYSOUT PRINT RECORDS<br>
+
+
+
+
+-            0 SYSOUT PUNCH RECORDS<br>
+
+
+
+
+-            8 SYSOUT SPOOL KBYTES<br>
+
+
+
+
+-         0.00 MINUTES EXECUTION TIME<br>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>ddname</b></span>:
+
+JESMSGLG<br>
+
+
+
+<span class='vlabel_ko'><b>id</b></span>:
+
+2<br>
+
+
+
+<span class='vlabel_ko'><b>record_count</b></span>:
+
+18<br>
+
+
+
+<span class='vlabel_ko'><b>stepname</b></span>:
+
+JES2<br>
+
+
+
+</ul>
+
+
+
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>byte_count</b></span>:
+
+136<br>
+
+
+
+<span class='vlabel_ko'><b>content</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+
+        1 //BINDPKG JOB &#39;WD-PKGBIND&#39;,MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&amp;SYSUID     JOB04248<br>
+
+
+
+
+          IEFC653I SUBSTITUTION JCL - &#39;WD-PKGBIND&#39;,MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=JENKINS<br>
+
+
+
+
+        2 //JOBLIB   DD  DISP=SHR,<br>
+
+
+
+
+          //             DSN=DSN.V12R1M0.SDSNLOAD<br>
+
+
+
+
+        3 //PKGBIND EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)<br>
+
+
+
+
+        4 //SYSTSPRT DD  SYSOUT=*<br>
+
+
+
+
+        5 //SYSPRINT DD  SYSOUT=*<br>
+
+
+
+
+        6 //SYSUDUMP DD  SYSOUT=*<br>
+
+
+
+
+        7 //SYSIN    DD  DUMMY<br>
+
+
+
+
+        8 //SYSTSIN  DD  *<br>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>ddname</b></span>:
+
+JESJCL<br>
+
+
+
+<span class='vlabel_ko'><b>id</b></span>:
+
+3<br>
+
+
+
+<span class='vlabel_ko'><b>record_count</b></span>:
+
+10<br>
+
+
+
+<span class='vlabel_ko'><b>stepname</b></span>:
+
+JES2<br>
+
+
+
+</ul>
+
+
+
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>byte_count</b></span>:
+
+137<br>
+
+
+
+<span class='vlabel_ko'><b>content</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+
+ ICH70001I JENKINS  LAST ACCESS AT 08:11:09 ON FRIDAY, FEBRUARY 24, 2023<br>
+
+
+
+
+ IEFA111I BINDPKG IS USING THE FOLLOWING JOB RELATED SETTINGS:<br>
+
+
+
+
+          SWA=BELOW,TIOT SIZE=32K,DSENQSHR=DISALLOW,GDGBIAS=JOB<br>
+
+
+
+
+ IEF236I ALLOC. FOR BINDPKG PKGBIND<br>
+
+
+
+
+ IEF237I 360C ALLOCATED TO JOBLIB<br>
+
+
+
+
+ IEF237I JES2 ALLOCATED TO SYSTSPRT<br>
+
+
+
+
+ IEF237I JES2 ALLOCATED TO SYSPRINT<br>
+
+
+
+
+ IEF237I JES2 ALLOCATED TO SYSUDUMP<br>
+
+
+
+
+ IEF237I DMY  ALLOCATED TO SYSIN<br>
+
+
+
+
+ IEF237I JES2 ALLOCATED TO SYSTSIN<br>
+
+
+
+
+ IGD103I SMS ALLOCATED TO DDNAME SYS00001<br>
+
+
+
+
+ IGD104I NAZARE.WDEPLOY.ANSIBLE.DBRM                  RETAINED,  DDNAME=SYS00001<br>
+
+
+
+
+ IEF142I BINDPKG PKGBIND - STEP WAS EXECUTED - COND CODE 0008<br>
+
+
+
+
+ IEF285I   JENKINS.BINDPKG.JOB04248.D0000102.?          SYSOUT<br>
+
+
+
+
+ IEF285I   JENKINS.BINDPKG.JOB04248.D0000103.?          SYSOUT<br>
+
+
+
+
+ IEF285I   JENKINS.BINDPKG.JOB04248.D0000104.?          SYSOUT<br>
+
+
+
+
+ IEF285I   JENKINS.BINDPKG.JOB04248.D0000101.?          SYSIN<br>
+
+
+
+
+ IEF373I STEP/PKGBIND /START 2023055.0813<br>
+
+
+
+
+ IEF032I STEP/PKGBIND /STOP  2023055.0813<br>
+
+
+
+
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC<br>
+
+
+
+
+         VIRT:   496K  SYS:   388K  EXT:      464K  SYS:    11836K<br>
+
+
+
+
+         ATB- REAL:                    32K  SLOTS:                     0K<br>
+
+
+
+
+              VIRT- ALLOC:      12M SHRD:       0M<br>
+
+
+
+
+ IEF285I   DSN.V12R1M0.SDSNLOAD                         KEPT<br>
+
+
+
+
+ IEF285I   VOL SER NOS= PP0M1P.<br>
+
+
+
+
+ IEF375I  JOB/BINDPKG /START 2023055.0813<br>
+
+
+
+
+ IEF033I  JOB/BINDPKG /STOP  2023055.0813<br>
+
+
+
+
+         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC<br>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>ddname</b></span>:
+
+JESYSMSG<br>
+
+
+
+<span class='vlabel_ko'><b>id</b></span>:
+
+4<br>
+
+
+
+<span class='vlabel_ko'><b>record_count</b></span>:
+
+28<br>
+
+
+
+<span class='vlabel_ko'><b>stepname</b></span>:
+
+JES2<br>
+
+
+
+</ul>
+
+
+
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>byte_count</b></span>:
+
+137<br>
+
+
+
+<span class='vlabel_ko'><b>content</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+
+1READY<br>
+
+
+
+
+ DSN SYSTEM (DBC1)<br>
+
+
+
+
+ DSN  <br>
+
+
+
+
+ BIND  PACKAGE(GENASA1) MEMBER(LGACDB02) LIBRARY(&#39;NAZARE.WDEPLOY.ANSIBLE.DBRM&#39;) QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(ADD) ISOLATI<br>
+
+
+
+
+ ON(CS) RELEASE(COMMIT) ENCODING(EBCDIC)<br>
+
+
+
+
+ DSNT237I  -DBC1 DSNTBCM2 BIND ADD ERROR<br>
+
+
+
+
+            USING JENKINS AUTHORITY<br>
+
+
+
+
+            PACKAGE = DBC1.GENASA1.LGACDB02.()<br>
+
+
+
+
+            ALREADY EXISTS<br>
+
+
+
+
+ DSNT233I  -DBC1 UNSUCCESSFUL BIND FOR<br>
+
+
+
+
+            PACKAGE = DBC1.GENASA1.LGACDB02.()<br>
+
+
+
+
+ DSN  <br>
+
+
+
+
+ END  <br>
+
+
+
+
+ READY<br>
+
+
+
+
+ END  <br>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>ddname</b></span>:
+
+SYSTSPRT<br>
+
+
+
+<span class='vlabel_ko'><b>id</b></span>:
+
+102<br>
+
+
+
+<span class='vlabel_ko'><b>record_count</b></span>:
+
+15<br>
+
+
+
+<span class='vlabel_ko'><b>stepname</b></span>:
+
+PKGBIND<br>
+
+
+
+</ul>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>duration</b></span>:
+
+1<br>
+
+
+
+<span class='vlabel_ko'><b>job_id</b></span>:
+
+JOB04248<br>
+
+
+
+<span class='vlabel_ko'><b>job_name</b></span>:
+
+BINDPKG<br>
+
+
+
+<span class='vlabel_ko'><b>owner</b></span>:
+
+JENKINS<br>
+
+
+
+<span class='vlabel_ko'><b>ret_code</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>code</b></span>:
+
+8<br>
+
+
+
+<span class='vlabel_ko'><b>msg</b></span>:
+
+CC 0008<br>
+
+
+
+<span class='vlabel_ko'><b>msg_code</b></span>:
+
+0008<br>
+
+
+
+<span class='vlabel_ko'><b>msg_text</b></span>:
+
+CC<br>
+
+
+
+<span class='vlabel_ko'><b>steps</b></span>:
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+
+<ul style="margin-left: 10px;padding-left: 0;">
+
+<span class='vlabel_ko'><b>ymli_full_file_path</b></span>:
+
+data/ansible/zos_host_01_evidences_20230224141344.yml<br>
+
+
+
+<span class='vlabel_ko'><b>step_cc</b></span>:
+
+8<br>
+
+
+
+<span class='vlabel_ko'><b>step_name</b></span>:
+
+PKGBIND<br>
+
+
+
+</ul>
+
+
+
+</ul>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>subsystem</b></span>:
+
+TIVLP02<br>
+
+
+
+<span class='vlabel_ko'><b>system</b></span>:
+
+IPO1<br>
+
+
+
+</ul>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>md5sum</b></span>:
+
+7ad48ad78ed8b2040c55da2c0a1bf474<br>
+
+
+
+<span class='vlabel_ko'><b>mode</b></span>:
+
+0600<br>
+
+
+
+<span class='vlabel_ko'><b>owner</b></span>:
+
+JENKINS<br>
+
+
+
+<span class='vlabel_ko'><b>size</b></span>:
+
+1228<br>
+
+
+
+<span class='vlabel_ko'><b>src</b></span>:
+
+/u/jenkins/.ansible/tmp/ansible-tmp-1677244409.4934428-25756-103035277674627/source<br>
+
+
+
+<span class='vlabel_ko'><b>state</b></span>:
+
+file<br>
+
+
+
+<span class='vlabel_ko'><b>uid</b></span>:
+
+10030<br>
+
+
+
+</ul>
+
+
+
+</ul>
+
+
+
+<span class='vlabel_ko'><b>status</b></span>:
+
+Failed<br>
+
+
+
+</ul>
+
+
+
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
+<a id="20230224.130557.202"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 1.0.1</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.1</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230224.130557.202</br>
+<span class='vlabel'>Environment </span>: zos_host_01</br>
+<span class='vlabel'>Evidence File </span>: data/ansible/zos_host_01_evidences_20230224140852.yml</br>
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.1</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PLAN
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
+<a id="20230224.115633.229"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 1.0.0</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.0</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230224.115633.229</br>
+<span class='vlabel'>Environment </span>: tivlp02.svl.ibm.com</br>
+<span class='vlabel'>Evidence File </span>: data/python/tivlp02.svl.ibm.com_evidences_20230224_065633.yml</br>
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.0</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_VALIDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_skipped'>Skipped</span><br>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_ARCHIVE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PLAN
+</td>
+<td style='width:200px;'>
+LGACDB02.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGIPOL01.CICSLOAD<br>LGACDB02.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
+<a id="20230128.112109.203"></a>
+<hr>
+<h1>Deployment GenAppCICS Version 1.0.0</h1>
+
+<hr>
+<h2>Deployment Information:</h2>
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.0</br>
+
+<span class='vlabel'>Deployment Date </span>: 20230128.112109.203</br>
+<span class='vlabel'>Environment </span>: zos_host_01</br>
+<span class='vlabel'>Evidence File </span>: data/ansible/zos_host_01_evidences_20230128123021.yml</br>
+
+<span class='vlabel'>Status </span>: <span class='vlabel_ok'>Success</span></br>
+
+<h2>Manifests:</h2>
+
+<span class='vlabel'>Name </span>: GenAppCICS</br>
+<span class='vlabel'>Version </span>: 1.0.0</br>
+
+<span class='vlabel'>Description </span>: GenAppCICS</br>
+
+<span class='vlabel'>DBB Build Result </span>: <a href='https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164' target=_other>https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/40164</a></br>
+
+<span class='vlabel'>Scm </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='https://github.com/jbyibm/cics-genapp/commit/7c612fce' target=_other>https://github.com/jbyibm/cics-genapp.git</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Branch </span>: HEAD</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: 7c612fce</br>
+
+<span class='vlabel'>Package </span>:</br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>: <a href='https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1' target=_other>https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2F%2Fcics-genapp-plum-demo-zdevops-main/1</a></br>
+
+
+
+
+<p><h2>Deployment Details:</h2>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Activities</th><th id=\"commands\">Actions</th><th id=\"rc\">Steps</th></tr>
+<tr>
+<td>
+PACKAGE
+</td>
+<td>
+PACKAGE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PACKAGE
+</td>
+<td style='width:200px;'>
+
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DEPLOY_MODULES
+</td>
+<td>
+ADD
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+MEMBER_COPY
+</td>
+<td style='width:200px;'>
+LGDPDB01.DBRM<br>LGAPVS01.CICSLOAD<br>LGACDB01.CICSLOAD<br>LGDPDB01.CICSLOAD<br>LGSTSQ.CICSLOAD<br>LGIPDB01.CICSLOAD<br>LGACVS01.CICSLOAD<br>LGICVS01.CICSLOAD<br>LGUCUS01.CICSLOAD<br>LGDPVS01.CICSLOAD<br>LGUCDB01.CICSLOAD<br>LGUPOL01.CICSLOAD<br>LGAPOL01.CICSLOAD<br>LGSETUP.CICSLOAD<br>LGUCVS01.CICSLOAD<br>LGUPVS01.CICSLOAD<br>LGICUS01.CICSLOAD<br>LGIPDB01.DBRM<br>LGUPDB01.CICSLOAD<br>LGICDB01.DBRM<br>LGIPVS01.CICSLOAD<br>LGICDB01.CICSLOAD<br>LGACDB02.DBRM<br>LGACDB01.DBRM<br>LGACUS01.CICSLOAD<br>LGIPOL01.CICSLOAD<br>LGDPOL01.CICSLOAD<br>LGUPDB01.DBRM<br>SSMAP.MAPLOAD<br>LGAPDB01.DBRM<br>LGACDB02.CICSLOAD<br>LGAPDB01.CICSLOAD<br>LGUCDB01.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+DB2
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+DB2_BIND_PACKAGE
+</td>
+<td style='width:200px;'>
+LGDPDB01.DBRM<br>LGIPDB01.DBRM<br>LGICDB01.DBRM<br>LGACDB02.DBRM<br>LGACDB01.DBRM<br>LGUPDB01.DBRM<br>LGAPDB01.DBRM<br>LGUCDB01.DBRM<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+<tr>
+<td>
+CICS
+</td>
+<td>
+UPDATE
+</td>
+<td>
+<table border='1px solid #A9A9A9' style='width:100%;'><tr><th id=\"name\">Steps</th><th id=\"commands\">Artifacts</th><th id=\"rc\">Status</th></tr>
+<tr>
+<td style='width:200px;'>
+PROG_UPDATE
+</td>
+<td style='width:200px;'>
+LGAPVS01.CICSLOAD<br>LGACDB01.CICSLOAD<br>LGDPDB01.CICSLOAD<br>LGSTSQ.CICSLOAD<br>LGIPDB01.CICSLOAD<br>LGACVS01.CICSLOAD<br>LGICVS01.CICSLOAD<br>LGUCUS01.CICSLOAD<br>LGDPVS01.CICSLOAD<br>LGUCDB01.CICSLOAD<br>LGUPOL01.CICSLOAD<br>LGAPOL01.CICSLOAD<br>LGSETUP.CICSLOAD<br>LGUCVS01.CICSLOAD<br>LGUPVS01.CICSLOAD<br>LGICUS01.CICSLOAD<br>LGUPDB01.CICSLOAD<br>LGIPVS01.CICSLOAD<br>LGICDB01.CICSLOAD<br>LGACUS01.CICSLOAD<br>LGIPOL01.CICSLOAD<br>LGDPOL01.CICSLOAD<br>SSMAP.MAPLOAD<br>LGACDB02.CICSLOAD<br>LGAPDB01.CICSLOAD<br>
+</td>
+<td>
+<b>Status: </b>
+
+<span class='vlabel_ok'>Success</span>
+
+
+</td>
+</tr>
+
+</table>
+
+</tr>
+</td>
+
+</table>
+<p>&nbsp;</p>
+
 
 </div></body></html>
