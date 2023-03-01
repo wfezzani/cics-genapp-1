@@ -208,8 +208,8 @@ pipeline {
                             # Where LGACDB02 is deployed
                             CMD="plum-evidence\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
-                              --template ${WORKSPACE}/cics-genapp/plum-samples/evidences/templates/deployed-lgacdb02-where.yml\
-                              --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/deployed-component-where.csv\
+                              --template ${WORKSPACE}/cics-genapp/plum-samples/evidences/templates/deployed-component-where.yml\
+                              --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/deployed-lgacdb02-where.csv\
                               r\
                               renderer=${WORKSPACE}/cics-genapp/plum-samples/evidences/renderers/deployed-component-where.csv"
                             echo $CMD
