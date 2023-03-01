@@ -160,9 +160,9 @@ span.vlabel_ko {
 {% endif %}
 {% if manifest.annotations.scm is defined -%}
 <span class='vlabel'>Scm </span>:</br>
-<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='{{manifest.annotations.scm.uri | replace("git@github.com:","https://github.com/") }}' target=_other>{{manifest.annotations.scm.uri | replace("git@github.com:","https://github.com/") }}</a></br>
+<span class='vlabel'>&nbsp;&nbsp;Uri </span>:  <a href='{{manifest.annotations.scm.uri  | replace("git@github.com:","https://github.com/") }}/commit/{{manifest.annotations.scm.short_commit}}' target=_other>{{manifest.annotations.scm.uri | replace("git@github.com:","https://github.com/") }}</a></br>
 <span class='vlabel'>&nbsp;&nbsp;Branch </span>: {{manifest.annotations.scm.branch }}</br>
-<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: {{manifest.annotations.scm.short_commit }}</br>
+<span class='vlabel'>&nbsp;&nbsp;Short Commit </span>: {{manifest.annotations.scm.short_commit}}</br>
 {% endif %}
 {% if manifest.annotations.package is defined -%}
 <span class='vlabel'>Package </span>:</br>
