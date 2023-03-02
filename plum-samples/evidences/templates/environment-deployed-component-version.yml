@@ -18,7 +18,7 @@ select:
      ymli_level: 0
 output:
   fields:
-    name: 1
+    name: true
     hash: true
     properties:
        key: true
@@ -32,7 +32,7 @@ output:
               annotations:
                  deploy_timestamp: true
   unique:
-    hash: true 
+    name: true
 #{% if renderer is defined %}
 renderer: {{renderer}}
 #{% endif %}
