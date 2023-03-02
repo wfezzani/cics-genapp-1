@@ -32,7 +32,7 @@ output:
               annotations:
                  deploy_timestamp: true
   unique:
-    name: true
+    hash: true
 #{% if renderer is defined %}
 renderer: {{renderer}}
 #{% endif %}
