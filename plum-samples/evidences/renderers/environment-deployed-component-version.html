@@ -71,7 +71,7 @@ span.vlabel_ko {
 </head>
 <body>
 <div id="main">
-{% set components = results | list |sort(attribute='name')%}
+{% set components = results | list %}
 <hr>
 <h1>Components deployed in the environment {{environment_name}}</h1>
 <hr>

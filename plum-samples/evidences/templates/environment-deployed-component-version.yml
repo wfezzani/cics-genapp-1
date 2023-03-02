@@ -18,7 +18,7 @@ select:
      ymli_level: 0
 output:
   fields:
-    name: true
+    name: 1
     hash: true
     properties:
        key: true
