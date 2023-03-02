@@ -1,0 +1,143 @@
+apiVersion: deploy.ibm.com/v1
+kind: Evidence
+metadata:
+  annotations:
+    creation_timestamp: 20230302.121158.012
+    engine:
+      build: '885'
+      date: Thu Mar  2 11:04:04 UTC 2023
+      version: v0.8.11
+    environment_name: zos_host_01
+    deploy_timestamp: 20230302.121203.567
+    inventory_hostname: zos_host_01
+    ansible_host: 9.30.222.103
+  description: GenAppCICS
+  name: GenAppCICS
+  version: 1.0.508
+status: Ok
+activities:
+- name: PACKAGE
+  actions:
+  - name: PACKAGE
+    steps:
+    - name: PACKAGE
+      step_result:
+        status: Ok
+        msg: 'package.yml : Ok'
+        results:
+        - status: Skipped
+          msg: 'package.yml line 15 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Set the package location'
+          results:
+            register: None
+            args:
+              plum_package_file: '{{ plum_deployment_plan.metadata.annotations.package.path
+                if plum_deployment_plan.metadata.annotations.package is defined else
+                None }}'
+            result:
+              skip_reason: Conditional result was False
+        - status: Ok
+          msg: 'package.yml line 20 : ibm.ibm_zos_plum_deploy.zos_deploy : [package>package>package]:
+            Check if /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-630/package.tar
+            exists'
+          results:
+            register: plum_payload_st
+            args:
+              checksum_algorithm: sha256
+              path: /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-630/package.tar
+            result:
+              invocation:
+                module_args:
+                  checksum_algorithm: sha256
+                  follow: false
+                  get_attributes: true
+                  get_checksum: true
+                  get_md5: false
+                  get_mime: true
+                  path: /var/lib/jenkins/workspace/PLUM_CONTINUOUS_DEPLOYMENT_PROJECT/BUILD-630/package.tar
+              stat:
+                exists: false
+        - status: Skipped
+          msg: 'package.yml line 27 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Verify the deployment plan package section {{ plum_package_file }}'
+          results:
+            register: None
+            args:
+              msg: The deployment plan package section is not resent in the deployment
+                plan!!
+            result:
+              skip_reason: Conditional result was False
+        - status: Skipped
+          msg: 'package.yml line 34 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Verify the checksum of the package {{ plum_package_file }}'
+          results:
+            register: None
+            args:
+              msg: The current package checksum {{ plum_payload_st.stat.checksum }}
+                differ from the checksum in the deployment plan {{ plum_deployment_plan.metadata.annotations.package.sha256
+                }}
+            result:
+              skip_reason: Conditional result was False
+        - status: Skipped
+          msg: 'package.yml line 41 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Create USS working folder {{plum_deploy_dir_uss}}'
+          results:
+            register: None
+            args:
+              _raw_params: task_create_uss_folders.yml
+            result:
+              skip_reason: Conditional result was False
+        - status: Skipped
+          msg: 'package.yml line 45 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Send {{ plum_package_file }} to USS: {{ plum_env.uss_dir }}'
+          results:
+            register: None
+            args:
+              dest: '{{ plum_deploy_dir_uss }}'
+              src: '{{ plum_package_file }}'
+            result:
+              skip_reason: Conditional result was False
+        - status: Skipped
+          msg: 'package.yml line 51 : ibm.ibm_zos_plum_deploy.zos_deploy : [{{current_step_name}}]:
+            Extract {{ plum_package_file }}'
+          results:
+            register: None
+            args:
+              _raw_params: |-
+                set +e
+                tar -C {{ plum_deploy_dir_uss }} -xf {{ plum_deploy_dir_uss }}/*.tar -L T 2>{{ plum_deploy_dir_uss }}/{{inventory_hostname}}.tar.log
+                if [ $(grep -v "cannot set uid.gid" {{ plum_deploy_dir_uss }}/{{inventory_hostname}}.tar.log | wc -w) -eq 0 ]
+                then
+                   exit 0
+                else
+                   cat {{ plum_deploy_dir_uss }}/{{inventory_hostname}}.tar.log | iconv -f ibm-1047 -t utf-8
+                   exit -1
+                fi
+            result:
+              skip_reason: Conditional result was False
+manifests:
+- annotations:
+    creation_timestamp: 20230302.114416.569
+    dbb:
+      build_result_uri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/51061
+    package:
+      name: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
+      properties:
+      - key: repository_path
+        value: plum/dynamic
+      - key: repository
+        value: sys-wazi-deploy-team-pentest-generic-local
+      - key: build_name
+        value: sys-wazi-deploy-team/cics-genapp-plum-dynamic-build
+      - key: build_number
+        value: '16'
+      type: ARTIFACTORY
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-plum-dynamic-build/16
+    scm:
+      branch: main
+      short_commit: a4dc3923
+      type: git
+      uri: git@github.com:jbyibm/cics-genapp.git
+  description: GenAppCICS
+  name: GenAppCICS
+  version: 1.0.508

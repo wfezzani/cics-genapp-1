@@ -5,7 +5,7 @@ metadata:
   description: GenAppCICS
   version: 1.0.508
   annotations:
-    creation_timestamp: 20230302.115504.746
+    creation_timestamp: 20230302.121158.012
 manifests:
 - name: GenAppCICS
   description: GenAppCICS
@@ -44,7 +44,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 07c83b85658f25b24b28cb6e854f3e88398a7cdab91e161664a584f1085960ec
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACDB02
   description: LGACDB02.CICSLOAD
   properties:
@@ -56,7 +56,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 098ec93e6be76c12f5380fcfaf7fb428208a6cc744a440535c3190705ec0e808
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGSTSQ
   description: LGSTSQ.CICSLOAD
   properties:
@@ -68,7 +68,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 168f3bd3ea549305f3b7e0439f43d37bb6bb692cbd8e4769da3c5f31e412a459
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUPVS01
   description: LGUPVS01.CICSLOAD
   properties:
@@ -80,7 +80,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 19c2f8ee128edef793bfaf968f02e8c3b803714a4229af705df2c1c7b286ea26
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGDPVS01
   description: LGDPVS01.CICSLOAD
   properties:
@@ -92,7 +92,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 24411f925afb9ed73ab9fc9e0b61242d0e01e0220d5d18ebb1ca099afcef4715
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUCUS01
   description: LGUCUS01.CICSLOAD
   properties:
@@ -104,7 +104,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 24df22645986c055db79b24986e2ff00a5e45cd6abd23662966323a634d4cff2
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGAPVS01
   description: LGAPVS01.CICSLOAD
   properties:
@@ -116,7 +116,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 265c4a93dd77b1f7c86f344ee020f03bf4178fdafc2b3a91680de93e164e57d7
-  state: MODIFIED
+  state: UNMODIFIED
 - name: HELLO2
   description: HELLO2.JCL
   properties:
@@ -140,7 +140,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 300d2e8f14444ed8cbf7d57e99e7fb8de39264dc3660242f7a752915c2230cce
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGAPDB01
   description: LGAPDB01.DBRM
   properties:
@@ -152,7 +152,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 39cb1f79a2f65a73cf7b802f001c2081eb1a8931a0f6e56bf412daf16e8f5216
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGICDB01
   description: LGICDB01.DBRM
   properties:
@@ -164,7 +164,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 3ad8cc9103a5be7ad4adf7e8c0e18d410fb0c0619ecafbfc96cb91375e16ab0c
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACUS01
   description: LGACUS01.CICSLOAD
   properties:
@@ -176,7 +176,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 4e39468e93e491173005c1aacae84dd0ab5fd7fa691616321d783d6fcce8a1f2
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACDB01
   description: LGACDB01.DBRM
   properties:
@@ -188,7 +188,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 6029eadf59fda59e16bac9fa2c776a9b2311c478bf856d72cba547be6896f61a
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUCDB01
   description: LGUCDB01.DBRM
   properties:
@@ -200,7 +200,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 6f81ba2a1328f2931ec6dd20a641fa2b23bfc367249cabfbda43ee6d3c7b7346
-  state: MODIFIED
+  state: UNMODIFIED
 - name: HELLO1
   description: HELLO1.JCL
   properties:
@@ -224,7 +224,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 737999e3f36b246f50c39160f8ec9f8d573014b57dacec54145f4a008ccdbe11
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGAPOL01
   description: LGAPOL01.CICSLOAD
   properties:
@@ -236,7 +236,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 7c19e23f3394aea9d01515b515d612d2dc2e9e11e3ce1c22f35589ed9352158e
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGSETUP
   description: LGSETUP.CICSLOAD
   properties:
@@ -248,7 +248,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 7c2396cb45d7a92f3daac349fe4e6d72c8b281871fc8da619d1e55fd68379f50
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACDB02
   description: LGACDB02.DBRM
   properties:
@@ -260,7 +260,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 810dc32cb943449a1a77aafe353441262f1185c8462f71e730aa0d72def5b538
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACDB03
   description: LGACDB03.CICSLOAD
   properties:
@@ -284,7 +284,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 892b315fa8777d1137eed3fad78f9988f0753fd731592c5c0100d216f456bebb
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGDPDB01
   description: LGDPDB01.DBRM
   properties:
@@ -296,7 +296,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 94324f01aef4f16ee52eb221371a1c7dc8defe2ec5a84b0e662a6cfcef4de547
-  state: MODIFIED
+  state: UNMODIFIED
 - name: SSMAP
   description: SSMAP.MAPLOAD
   properties:
@@ -308,7 +308,7 @@ artifacts:
     value: 0
   type: MAPLOAD
   hash: 956b43bbb509a7d3c4dc9cc57ff455fcd88959bdac7e386facde297ef1f3e68a
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGIPVS01
   description: LGIPVS01.CICSLOAD
   properties:
@@ -320,7 +320,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 99f5da03240658c282c6975e87025c2260ac0ccd6c902f76f6e19055983c15b7
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGIPOL01
   description: LGIPOL01.CICSLOAD
   properties:
@@ -332,7 +332,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 9afd5bc989ec1049523869f5d14bcb544ed99bda7da3b3371aa280f760f74069
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUPDB01
   description: LGUPDB01.DBRM
   properties:
@@ -344,7 +344,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: 9d2eae11a4977a6d791ffc17e58973c5d4f426c63891ba69f599f0b369ff94cd
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACVS01
   description: LGACVS01.CICSLOAD
   properties:
@@ -356,7 +356,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: a3fdd74d7404a19b2ed1422a4ea556c28a249672075edae4bbcd7a53393bc3f5
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACDB03
   description: LGACDB03.DBRM
   properties:
@@ -380,7 +380,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: a82c8557587371dbcd9bc77edd9c145dc697b35afd5a1da4be40db2e4a69667d
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUPDB01
   description: LGUPDB01.CICSLOAD
   properties:
@@ -392,7 +392,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: ab1af621f432918c5947d58f62ef11948ffb55652185b64f75cbfc8dee5605e8
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGDPDB01
   description: LGDPDB01.CICSLOAD
   properties:
@@ -404,7 +404,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: b071c39c4a906e114cb21e356e8e5c9c6c57039ee4d5807615d55a8860b054fa
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGAPDB01
   description: LGAPDB01.CICSLOAD
   properties:
@@ -416,7 +416,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: dbd76cdd22598b97676ef1563d1ab17f5acacdeb7c39801eacc6308b1b97d1cc
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGICUS01
   description: LGICUS01.CICSLOAD
   properties:
@@ -428,7 +428,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: e217c733a2945794ea3b05ad66824184790cc4bc2c349e0e7229b06209a88df4
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUCVS01
   description: LGUCVS01.CICSLOAD
   properties:
@@ -440,7 +440,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: e4b75d62289428f658a0d4de7e2ebf1112cde3c03e159a7191918bf04e51ae06
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGUPOL01
   description: LGUPOL01.CICSLOAD
   properties:
@@ -452,7 +452,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: ea5137c7b1f022bdc9ab9c601c80af062e49db206135224a79837a582e2a1aa3
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGACDB01
   description: LGACDB01.CICSLOAD
   properties:
@@ -464,7 +464,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: ebb6687dbdfa456f54371b15141e3d0570aee142736a7a3d96914fa8241c7b23
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGIPDB01
   description: LGIPDB01.DBRM
   properties:
@@ -476,4 +476,4 @@ artifacts:
     value: 0
   type: DBRM
   hash: edbda4ed14aaf8e2b7210a5e450c1b99df1b1934666a72639937323c11341ddf
-  state: MODIFIED
+  state: UNMODIFIED
