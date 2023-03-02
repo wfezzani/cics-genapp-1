@@ -178,9 +178,10 @@ pipeline {
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports
                             # Index Evidences
-                            CMD="plum-evidence i\
+                            CMD="plum-evidence\
                                 --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
-                                --dataFolder ${WORKSPACE}/cics-genapp/plum-samples/external-repos/evidences"
+                                --dataFolder ${WORKSPACE}/cics-genapp/plum-samples/external-repos/evidences\
+                                i"
                             echo $CMD
                             $CMD
                             rc=$? 
