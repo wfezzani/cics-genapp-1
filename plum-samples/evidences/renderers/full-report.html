@@ -92,6 +92,21 @@ span.vlabel_ko {
 </style>
 </head>
 <body>
+<script type="text/javascript">
+function toggle(log, text)
+{
+    if (document.getElementById(text).text == 'Show Log')
+        document.getElementById(text).text = 'Hide Log';
+    else
+        document.getElementById(text).text = 'Show Log';
+
+    if (document.getElementById(log).style.display == 'none')
+        document.getElementById(log).style.display = 'block';
+    else
+        document.getElementById(log).style.display = 'none';
+};
+</script>
+
 <div id="main">
 {% set deployments = results | list %}
 <hr>
@@ -202,14 +217,13 @@ span.vlabel_ko {
 {% else %}
 <span class='vlabel_ko'><b>Failed</b></span><br>
 {% endif %}
-{% if 'Failed' in step.step_result.status %}
-<br><br><b>Details:</b>
+<br><a id='showDep{{ deployment.metadata.annotations.deploy_timestamp }}{{ activity.name }}{{ action.name }}{{ step.name }}' class='bottomRight' href='javascript:onclick=toggle("dep{{ deployment.metadata.annotations.deploy_timestamp }}{{ activity.name }}{{ action.name }}{{ step.name }}","showDep{{ deployment.metadata.annotations.deploy_timestamp }}{{ activity.name }}{{ action.name }}{{ step.name }}")'>Show Log</a>
+<div id='dep{{ deployment.metadata.annotations.deploy_timestamp }}{{ activity.name }}{{ action.name }}{{ step.name }}' style='display:none' class='dep'>
+<br><b>Details:</b>
 {%for result in step.step_result.results -%}
-{% if 'Failed' in result.status %}
 {% call render_result(result) %}{% endcall %}
-{% endif %}
 {% endfor %}
-{% endif %}
+</div>
 </td>
 </tr>
 {% endfor %}
