@@ -9,6 +9,7 @@ def dbbGitBranch = 'main'
 def gitCredId = 'git_hub_cred'
 
 // Private
+def appName="cics-genapp"
 def verbose = false
 def hasBuildFiles = true
 def hasDeletedFiles = false
@@ -20,7 +21,7 @@ pipeline {
     agent { label zOsAgentLabel }
     
      environment {
-        APP_NAME = "GenAppCICS"
+        APP_NAME = appName
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         DBB_HOME = "${env.DBB_HOME ? env.DBB_HOME : '/usr/lpp/IBM/dbb'}"
         DBB_URL = "${env.DBB_URL ? env.DBB_URL : 'https://example.com:9443/dbb'}"
@@ -34,7 +35,7 @@ pipeline {
         ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"
         ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
         ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'plum/dynamic'}"
-        ARTIFACTORY_DYNAMIC_BUILD_NAME = "${env.ARTIFACTORY_DYNAMIC_BUILD_NAME ? env.ARTIFACTORY_DYNAMIC_BUILD_NAME : 'cics-genapp-plum-dynamic-build'}"
+        ARTIFACTORY_DYNAMIC_BUILD_NAME = "${env.ARTIFACTORY_DYNAMIC_BUILD_NAME ? env.ARTIFACTORY_DYNAMIC_BUILD_NAME : appName + '-plum-dynamic-build'}"
         PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
      }
      
@@ -56,7 +57,7 @@ pipeline {
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
-                    dir('cics-genapp') {
+                    dir(appName) {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name
                         if ( env.APP_GIT_BRANCH == null || env.APP_GIT_BRANCH == "") {
@@ -96,7 +97,7 @@ pipeline {
                                 ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
                                 --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ} --url ${DBB_URL}\
                                 ${DBB_CRED} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
-                                --application cics-genapp --sourceDir ${WORKSPACE}"
+                                --application ${APP_NAME} --sourceDir ${WORKSPACE}"
                             echo $CMD
                             $CMD
                             rc=$?
@@ -163,7 +164,7 @@ pipeline {
                             
                             cd ${WORKSPACE}
                             CMD="${PYTHON_INTERPRETER}\
-                                   ${WORKSPACE}/cics-genapp/plum-samples/python/dbb/dbb_prepare_folder.py\
+                                   ${WORKSPACE}/${APP_NAME}/plum-samples/python/dbb/dbb_prepare_folder.py\
                                    --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package"
                             echo $CMD
@@ -183,7 +184,7 @@ pipeline {
                                     --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
-                                    --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml\
+                                    --manifest ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml\
                                     --uploadType delta"
                             echo ""
                             echo $CMD
@@ -194,10 +195,10 @@ pipeline {
                             fi
                             
                             CMD="${PYTHON_INTERPRETER}\
-                                ${WORKSPACE}/cics-genapp/plum-samples/python/dbb/dbb_update_manifest.py\
+                                ${WORKSPACE}/${APP_NAME}/plum-samples/python/dbb/dbb_update_manifest.py\
                                --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
-                               --sourceFolder ${WORKSPACE}/cics-genapp\
-                               --manifest ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml"
+                               --sourceFolder ${WORKSPACE}/${APP_NAME}\
+                               --manifest ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml"
                             echo $CMD
                             $CMD
                             if [ $? -ne 0 ]
@@ -214,12 +215,12 @@ pipeline {
                             rc = sh (returnStatus: true, script: '''#!/bin/sh
                                 chtag -t -c ISO8859-1 $SSH_KEY
                                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
-                                cd ${WORKSPACE}/cics-genapp
+                                cd ${WORKSPACE}/${APP_NAME}
                                 git add plum-samples/application-manifest/application-manifest.yml > git.log 2>&1
                                 git commit -am "Commit the new application state into ${GIT_BRANCH}" >> git.log 2>&1
                                 git push origin HEAD:${GIT_BRANCH} >> git.log 2>&1
                                 # For jenkins artifact upload
-                                chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml >> git.log 2>&1
+                                chtag -r ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml >> git.log 2>&1
                                cat git.log
                             ''')
                             if ( rc != 0 )
@@ -232,9 +233,9 @@ pipeline {
                 always {
                     //steps {
                         script {
-                             dir("${WORKSPACE}/cics-genapp/plum-samples/application-manifest") {
+                             dir("${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest") {
                                     rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                        chtag -r ${WORKSPACE}/cics-genapp/plum-samples/application-manifest/application-manifest.yml
+                                        chtag -r ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml
                                     ''')
                                     archiveArtifacts allowEmptyArchive: true,
                                                     artifacts: '**/application-manifest.yml',
