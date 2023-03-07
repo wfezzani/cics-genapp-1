@@ -10,7 +10,7 @@
 
 {% macro render_result(result, indent=0, class='result') -%}
 {% if result is string %}
-{{result | replace("\n","<br>") }}<br>
+{{result | replace("\n","<br>") | safe }}<br>
 {% elif result is mapping %}
 <ul style="margin-left: {{indent}}px;padding-left: 0;">
 {% for key, value in result.items() %}
