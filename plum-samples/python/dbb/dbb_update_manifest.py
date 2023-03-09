@@ -45,7 +45,7 @@ def dbb_update_manifest(**kwargs):
     manifest_dic['metadata']['annotations']['scm'] = scm
         
     for record in buildResult['records']:
-        if record.get('url') != None:
+        if record.get('url') is not None:
             manifest_dic['metadata']['annotations']['dbb'] = {}
             manifest_dic['metadata']['annotations']['dbb']['build_result_uri'] = record.get('url')
             break

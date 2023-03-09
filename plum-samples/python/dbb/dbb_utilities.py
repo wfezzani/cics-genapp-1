@@ -107,13 +107,13 @@ class DBBUtilities(object):
         
     @staticmethod
     def get_copy_mode(deployType:str = "LOAD", **kwargs) -> str:
-        if kwargs.get('copyModeProperties') != None:
+        if kwargs.get('copyModeProperties') is not None:
             props = {}
             props_yaml_file = kwargs['copyModeProperties']
             try:
                 with open(props_yaml_file, 'r') as stream:
                     props = dict (yaml.safe_load(stream))
-                    if props.get(deployType) != None:
+                    if props.get(deployType) is not None:
                         return props.get(deployType)
             except IOError as error: 
                 print(error, file=sys.stderr)
