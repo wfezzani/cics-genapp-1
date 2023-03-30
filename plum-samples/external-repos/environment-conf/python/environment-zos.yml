@@ -45,7 +45,8 @@ spec:
      package_action: "{{env.spec.default_db2_action}}"
      plan_action: "{{env.spec.default_db2_action}}"
      sdsnload: "{{env.spec.default_db2_sdsnload}}"
-
+     plan_pklist: '*.GENASA1.*'
+ 
   common_pds_load_spec:
      type: LIBRARY
      primary_space: 10CYL
@@ -153,27 +154,31 @@ spec:
       spec: "{{env.spec.seq_spec_a}}"
 
 # Variables for system_command template
-system_command_cmd_default: "D T"
+  system_command_cmd_default: "D T"
 
 # Variables for shell_command template
-shell_command_cmd_default: |
- #!/bin/sh
- echo "shell command"
+  shell_command_cmd_default: |
+   #!/bin/sh
+   echo "hello world"
+
+# Variables for job_submit template
+  job_submit_default:
+     src: '{{ env.spec.hlq }}.JCL(HELLO1)'
+     max_rc: 4
+#     wait_time_s: 30
 
 # Variables for ds_create template
-ds_create_lsds_default:
-- name: '{{ env.spec.hlq  }}.LIB01'
-  spec: '{{env.spec.common_pds_load_spec}}'
-- name: '{{ env.spec.hlq  }}.SEQ01'
-  spec: '{{env.spec.seq_spec}}'
-- name: '{{ env.spec.hlq  }}.PDS01'
-  spec: '{{env.spec.common_pds_load_spec}}'
+  ds_create_lsds_default:
+  - name: '{{ env.spec.hlq  }}.LIB01'
+    spec: '{{env.spec.common_pds_load_spec}}'
+  - name: '{{ env.spec.hlq  }}.SEQ01'
+    spec: '{{env.spec.seq_spec}}'
+  - name: '{{ env.spec.hlq  }}.PDS01'
+    spec: '{{env.spec.common_pds_load_spec}}'
 
 # Variables for ds_delete template
-ds_delete_lsds_default:
-- name: '{{ env.spec.hlq  }}.LIB01(MBR1)'
-  type: MEMBER
-- name: '{{ env.spec.hlq  }}.SEQ01'
-- name: '{{ env.spec.hlq  }}.PDS01'
-
- 
+  ds_delete_lsds_default:
+  - name: '{{ env.spec.hlq  }}.LIB01(MBR1)'
+    type: MEMBER
+  - name: '{{ env.spec.hlq  }}.SEQ01'
+  - name: '{{ env.spec.hlq  }}.PDS01'
