@@ -22,7 +22,6 @@ spec:
      cmci_url: "http://127.0.0.1:1490"
      cmci_user: ""
      cmci_password: ""
-     cmci_action: "{{env.spec.default_cics_cmci_action}}"
      csd_group: "GENASAP"
 
   default_db2_sdsnload: "DSN.V12R1M0.SDSNLOAD"

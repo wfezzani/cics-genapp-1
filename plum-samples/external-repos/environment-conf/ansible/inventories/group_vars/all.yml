@@ -140,7 +140,6 @@ cics_sys_def:
    cmci_key: null
    cmci_user: "{{ansible_user}}"
    cmci_password: "{{ansible_password if ansible_password is defined else None}}"
-   cmci_action: "{{default_cics_cmci_action}}"
    context: CICS01
    scheme: http
    scope: ''
