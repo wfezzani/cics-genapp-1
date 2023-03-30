@@ -169,9 +169,10 @@ pipeline {
                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package"
                             echo $CMD
                             $CMD
-                            if [ $? -ne 0 ]
+                            rc=$?
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
                             echo ""
                             CMD="plum-package\
@@ -189,11 +190,11 @@ pipeline {
                             echo ""
                             echo $CMD
                             $CMD
-                            if [ $? -ne 0 ]
+                            rc=$?
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
-                            
                             CMD="${PYTHON_INTERPRETER}\
                                 ${WORKSPACE}/${APP_NAME}/plum-samples/python/dbb/dbb_update_manifest.py\
                                --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
@@ -201,9 +202,10 @@ pipeline {
                                --manifest ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml"
                             echo $CMD
                             $CMD
-                            if [ $? -ne 0 ]
+                            rc=$?
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
                         ''')
                         if ( rc != 0 )
