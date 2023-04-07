@@ -115,8 +115,6 @@ activities:
           steps:
           - name: PROG_UPDATE
             properties:
-            - key: "cmci_action"
-              value: "NEWCOPY"
             - key: "template"
               value: "cics_cmci_prog_update"
         - name: DELETE
@@ -155,4 +153,4 @@ activities:
       - name: 'JCL'
     is_artifact: True
     tags:
-    - delete_modules
+    - delete_modules    
