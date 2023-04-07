@@ -30,7 +30,7 @@ activities:
           steps:
           - name: PACKAGE
     tags:
-    - always
+    - package
     
   - name: DEPLOY_MODULES
     description: |
