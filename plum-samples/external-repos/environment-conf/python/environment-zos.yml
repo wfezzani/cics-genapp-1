@@ -26,7 +26,7 @@ spec:
 
   default_db2_sdsnload: "DSN.V12R1M0.SDSNLOAD"
   default_pkg_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
-  default_plan_jobcard: | 
+  default_plan_jobcard: |
     BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
     /* ---
   default_db2_user: "{{ extra_vars.db2_user if extra_vars.db2_user is defined else 'JENKINS' }}"
@@ -45,7 +45,7 @@ spec:
      plan_action: "{{env.spec.default_db2_action}}"
      sdsnload: "{{env.spec.default_db2_sdsnload}}"
      plan_pklist: '*.GENASA1.*'
- 
+
   common_pds_load_spec:
      type: LIBRARY
      primary_space: 10CYL
@@ -69,7 +69,7 @@ spec:
      primary_space: 5TRK
      secondary_space: 2TRK
      record_format: FB
-     record_length: 20  
+     record_length: 20
 #     replace: yes
   seq_spec_a:
      type: SEQ
@@ -138,7 +138,7 @@ spec:
       dataset_backup_prefix: "{{ env.spec.hlq }}.BACK.SEQ"
       encoding:
         from: UTF-8
-        to: IBM-1047
+        to: IBM-037
       is_binary: False
       is_sequential: True
       spec: "{{env.spec.seq_spec}}"
@@ -147,7 +147,7 @@ spec:
       dataset_backup_prefix: "{{ env.spec.hlq }}.BACK.SEQ"
       encoding:
         from: UTF-8
-        to: IBM-1047
+        to: IBM-037
       is_binary: False
       is_sequential: True
       spec: "{{env.spec.seq_spec_a}}"
@@ -181,3 +181,9 @@ spec:
     type: MEMBER
   - name: '{{ env.spec.hlq  }}.SEQ01'
   - name: '{{ env.spec.hlq  }}.PDS01'
+
+# Variables for template building block
+  template_name_default:
+     src: "HELLO-jcl.j2"
+     dest: "/tmp/my_jcl/HELLO.jcl"
+     mode: 0755

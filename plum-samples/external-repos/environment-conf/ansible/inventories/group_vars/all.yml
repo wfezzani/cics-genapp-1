@@ -1,4 +1,3 @@
-#*******************************************************************************
 # Licensed Materials - Property of IBM
 # (c) Copyright IBM Corp. 2023. All Rights Reserved.
 #
@@ -15,7 +14,8 @@ environment_vars:
   _BPXK_AUTOCVT: "ON"
   ZOAU_HOME: "{{ ZOAU }}"
   #PYTHONPATH: "{{ ZOAU }}/lib"
-  LIBPATH: "{{ ZOAU }}/lib:{{ PYZ }}/lib:/lib:/usr/lib:."
+  #PYTHONSTDINENCODING: "cp1047" 
+  LIBPATH: "{{ ZOAU }}/lib:{{ PYZ }}/lib:/lib:/usr/lib:/lib"
   PATH: "{{ ZOAU }}/bin:{{ PYZ }}/bin:/bin:/var/bin"
   _CEE_RUNOPTS: "FILETAG(AUTOCVT,AUTOTAG) POSIX(ON)"
   _TAG_REDIR_ERR: "txt"
@@ -27,7 +27,7 @@ environment_vars:
 ################################################################################
 # Description of the properties used in this configuration:
 # - Property `PYZ` is the python installation home path on the z/OS managed node (target),
-#    e.g, pyz: "/usr/lpp/IBM/cyp/v3r10/pyz"
+#    e.g, pyz: "/usr/lpp/IBM/cyp/v3r11/pyz"
 # - Property `ZOAU` is the ZOAU installation home on the z/OS managed node (target),
 #    e.g, zoau: "/usr/lpp/IBM/zoautil"
 # - property `ansible_python_interpreter` is the z/OS managed node (target) Python
@@ -35,7 +35,7 @@ environment_vars:
 #
 # Note, PYZ and ZOAU environment variables must be configured.
 ################################################################################
-PYZ: "/usr/lpp/IBM/cyp/v3r10/pyz"
+PYZ: "/usr/lpp/IBM/cyp/v3r11/pyz"
 ZOAU: "/usr/lpp/IBM/zoautil"
 
   
@@ -53,9 +53,9 @@ ansible_python_interpreter: "{{ PYZ }}/bin/python3"
 # - Property PYTHONPATH is the ZOA Utilities Python library path; e.g., PYTHONPATH: "/usr/lpp/IBM/zoautil/lib"
 # - Property LIBPATH is both the path to the Python libraries on the target
 #   and the ZOA Utilities Python library path separated by semi-colons; e.g.,
-#   LIBPATH: "/usr/lpp/IBM/zoautil/lib/:/usr/lpp/IBM/cyp/v3r10/pyz/lib:/usr/lib:/lib:."
+#   LIBPATH: "/usr/lpp/IBM/zoautil/lib/:/usr/lpp/IBM/cyp/v3r11/pyz/lib:/usr/lib:/lib:."
 # - Property PATH is the ZOA utilities BIN path and Python interpreter path, e.g.,
-#   PATH: "/usr/lpp/IBM/zoautil/bin:/usr/lpp/IBM/cyp/v3r10/pyz/bin:/bin"
+#   PATH: "/usr/lpp/IBM/zoautil/bin:/usr/lpp/IBM/cyp/v3r11/pyz/bin:/bin"
 # - Property _CEE_RUNOPTS is the invocation Language Environment® runtime
 #   options for programs and used by Python. e.g.,
 #   _CEE_RUNOPTS: "FILETAG(AUTOCVT,AUTOTAG) POSIX(ON)"
@@ -136,16 +136,18 @@ default_cics_cmci_action: 'PHASEIN'
 cics_sys_def:
    cmci_host: "{{ ansible_host }}"
    cmci_port: 1490
-   cmci_cert: null
-   cmci_key: null
+#   cmci_cert: 
+#   cmci_key: 
    cmci_user: "{{ansible_user}}"
    cmci_password: "{{ansible_password if ansible_password is defined else None}}"
    context: CICS01
    scheme: http
-   scope: ''
+#   scope: 
    insecure: true
    csd_group: GENASAP
 
+# types to manage
+default_types: 'types'
 types:
   - type: 'load'
     pds: 
@@ -217,7 +219,7 @@ types:
     is_sequential: True
     encoding:
       from: UTF-8
-      to: IBM-1047
+      to: IBM-037
     ds: 
       prefix: "{{ hlq }}.SEQ"
       backup_prefix: "{{ hlq }}.BACK.SEQ"
@@ -228,7 +230,7 @@ types:
     is_sequential: True
     encoding:
       from: UTF-8
-      to: IBM-1047
+      to: IBM-037
     ds: 
       prefix: "{{ hlq }}.SEQ"
       backup_prefix: "{{ hlq }}.BACK.SEQ"
@@ -257,13 +259,19 @@ system_command_default:
 shell_command_default:
    cmd: |
     #!/bin/sh
-    echo "hello world"
+    echo "hello world from $(whoami)"
    delegate: True
+   #become: True
+   #become_user: "root"
+   #become_method: "sudo"
+   #become_flags: ""
+
 
 # Variables for include_vars template
 include_file_must_exist_default: True
 include_file_name_default:
-- /mnt/c/tmp/vars1t.yml
+- "vars/vars_wd_test.yml"
+#- "vars_wd_host01.yml"
 
 # Variables for job_submit template
 job_submit_default:
@@ -283,3 +291,13 @@ ds_create_lsds_default:
   spec: '{{common_pds_load_spec}}'
 ds_delete_lsds_default:
 - name: '{{ hlq }}.LIB'
+
+
+# Variables for template building block    #
+template_name_default:
+   src: "spec_templates/ex01-sh.j2"
+   dest: "{{wd_deploy_dir_local}}/{{inventory_hostname}}_ex01.sh"
+#   owner:
+#   group:
+   mode: 0755
+
