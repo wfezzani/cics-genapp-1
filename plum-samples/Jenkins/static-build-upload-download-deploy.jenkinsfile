@@ -206,7 +206,7 @@ pipeline {
                             fi
                             cd ${WORKSPACE}
                             CMD="plum-generate\
-                                   --deploymentMethod  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method.yml\
+                                   --deploymentMethod  ${WORKSPACE}/cics-genapp/plum-samples/external-repos/deployment-method/deployment-method-static.yml\
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
