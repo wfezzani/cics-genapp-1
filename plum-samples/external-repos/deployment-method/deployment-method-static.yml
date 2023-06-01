@@ -30,6 +30,9 @@ activities:
           states:
              - UNDEFINED
           steps:
+          - name: MEMBER_COPY
+            description: |
+              This step do the copy of artifacts into PDSs
     types:
       - name: 'DBRM'
       - name: 'LOAD'
