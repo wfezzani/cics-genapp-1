@@ -10,11 +10,10 @@
 apiVersion: deploy.ibm.com/v1
 kind: Environment
 metadata:
-  name: "tivlp02.svl.ibm.com"
+  name: "zos_env_test"
   version: 1.0.0
 
 spec:
-
   default_cics_cmci_action: "NEWCOPY"
 
   cics_sys_def:
