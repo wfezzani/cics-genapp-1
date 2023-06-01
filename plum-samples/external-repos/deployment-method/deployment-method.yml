@@ -68,7 +68,7 @@ activities:
       - name: 'LOAD'
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
-      - name: 'JCL'
+      #- name: 'JCL'
     is_artifact: True
     properties:
       - key: "my_prop"
