@@ -42,6 +42,9 @@ activities:
           states:
              - NEW
              - UNDEFINED
+          properties:
+          - key: "my_action_prop"
+            value: "my_value"
           steps:
           - name: MEMBER_COPY
             description: |
@@ -51,6 +54,9 @@ activities:
             This action is applicable when we update artifacts
           states:
              - MODIFIED
+          properties:
+          - key: "my_action_prop"
+            value: "my_value"
           steps:
           - name: MEMBER_VALIDATE
             description: |
@@ -68,10 +74,10 @@ activities:
       - name: 'LOAD'
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
-      #- name: 'JCL'
+      - name: 'JCL'
     is_artifact: True
     properties:
-      - key: "my_prop"
+      - key: "my_activity_prop"
         value: "my_value"
     tags:
     - deploy_modules

@@ -84,31 +84,6 @@ common_pds_binary_spec:
   space_type: CYL
   record_format: FB
   record_length: 80
-  
-common_pds_text_spec:
-  type: LIBRARY
-  space_primary: 5
-  space_secondary: 10
-  space_type: CYL
-  record_format: FB
-  record_length: 80
-  
-seq_spec:
-  type: SEQ
-  space_primary: 5
-  space_secondary: 2
-  space_type: TRK
-  record_format: FB
-  record_length: 20  
-
-seq_spec_a:
-  type: SEQ
-  space_primary: 2
-  space_secondary: 1
-  space_type: TRK
-  record_format: FB
-  record_length: 15
-  
 
 hlq: 'NAZARE.WDEPLOY.ANSIBLE'
 uss_root_folder: '/tmp/uss_root'
@@ -179,62 +154,6 @@ types:
     is_load: True
     cics_systems:
     - "{{ cics_sys_def }}"
-  - type: 'jcl'
-    pds: 
-      name: '{{ hlq }}.JCL'
-      spec: "{{common_pds_text_spec}}"
-      backup: '{{ hlq }}.BACK.JCL'
-#    encoding:
-#      from: UTF-8
-#      to: IBM-1047
-  - type: 'copy'
-    pds: 
-      name: '{{ hlq }}.COPY'
-      spec: "{{common_pds_text_spec}}"
-      backup: '{{ hlq }}.BACK.COPY'
-  - type: 'bin'
-    uss: 
-      dest: "{{ uss_root_folder }}/bin/"
-      backup_dest: "{{ uss_root_folder }}/bin/back/"
-      dest_mode: '0777'
-      artifact_mode: '0755'
-  - type: 'txt'
-    encoding:
-      from: UTF-8
-      to: IBM-1047
-    uss: 
-      dest: "{{ uss_root_folder }}/txt/"
-      backup_dest: "{{ uss_root_folder }}/txt/back/"
-      dest_mode: '0777'
-      artifact_mode: '0755'
-  - type: 'sh'
-    uss: 
-      dest: "{{ uss_root_folder }}/sh/"
-      backup_dest: "{{ uss_root_folder }}/sh/back/"
-      dest_mode: '0777'
-      artifact_mode: '0755'
-
-  - type: 'seq'
-    is_binary: False
-    is_sequential: True
-    encoding:
-      from: UTF-8
-      to: IBM-037
-    ds: 
-      prefix: "{{ hlq }}.SEQ"
-      backup_prefix: "{{ hlq }}.BACK.SEQ"
-      spec: "{{seq_spec}}"
-
-  - type: 'seqa'
-    is_binary: False
-    is_sequential: True
-    encoding:
-      from: UTF-8
-      to: IBM-037
-    ds: 
-      prefix: "{{ hlq }}.SEQ"
-      backup_prefix: "{{ hlq }}.BACK.SEQ"
-      spec: "{{seq_spec_a}}"
 
 # Default folders and logging values
 wd_env:
@@ -247,57 +166,3 @@ plum_env:
    uss_dir: "/tmp/plum_deploy/{{ansible_user|lower}}/{{inventory_hostname}}"
    local_dir: "/tmp/plum_deploy/{{lookup('env','USER')|lower}}/{{inventory_hostname}}"
 plum_no_log_flag: "{{ plum_log | bool  if plum_log is defined  else False}}"
-
-# Variables for system_command template
-system_command_default:
-   cmd: "D SYMBOLS"
-   verbose: False
-   wait_time_s: 5
-   wait: True
-
-# Variables for shell_command template
-shell_command_default:
-   cmd: |
-    #!/bin/sh
-    echo "hello world from $(whoami)"
-   delegate: True
-   #become: True
-   #become_user: "root"
-   #become_method: "sudo"
-   #become_flags: ""
-
-
-# Variables for include_vars template
-include_file_must_exist_default: True
-include_file_name_default:
-- "vars/vars_wd_test.yml"
-#- "vars_wd_host01.yml"
-
-# Variables for job_submit template
-job_submit_default:
-   src: '{{ hlq }}.JCL(HELLO1)'
-   location: "DATA_SET"
-#   return_output: True
-#   max_rc: 4
-#   encoding:
-#     from: UTF-8
-#     to: IBM-1047
-#   volume: ""
-#   wait_time_s: 10
-
-# Variables for ds_create and ds_delete templates
-ds_create_lsds_default:
-- name: '{{ hlq }}.LIB'
-  spec: '{{common_pds_load_spec}}'
-ds_delete_lsds_default:
-- name: '{{ hlq }}.LIB'
-
-
-# Variables for template building block    #
-template_name_default:
-   src: "spec_templates/ex01-sh.j2"
-   dest: "{{wd_deploy_dir_local}}/{{inventory_hostname}}_ex01.sh"
-#   owner:
-#   group:
-   mode: 0755
-
