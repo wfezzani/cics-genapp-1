@@ -1,6 +1,6 @@
 ---
 collections:
   # Install a collection from Ansible Galaxy.
-  - name: geerlingguy.php_roles
-    version: ">=0.9.3"
+  - name: ibm.ibm_zos_core
+    version: "1.5.0"
     source: https://galaxy.ansible.com
