@@ -34,3 +34,10 @@
         
       - import_role:
           name: ibm.ibm_zos_plum_deploy.zos_deploy
+          
+      - name: Display Evidences
+        shell: |
+          #!/bin/bash
+          cat /runner/project/evidences/tivlp02.svl.ibm.com*
+        delegate_to: localhost
+          
