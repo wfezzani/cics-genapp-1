@@ -22,7 +22,7 @@
           cd /runner/project
           plum-generate\
             --deploymentMethod ./plum-samples/external-repos/deployment-method/deployment-method.yml\
-            --currentDeploymentState /plum-samples/external-repos/deployment-state/deployment-state.ymld
+            --currentDeploymentState /plum-samples/external-repos/deployment-state/deployment-state.yml\
             --manifests ./plum-samples/application-manifest/application-manifest.yml\
             --deploymentPlan ./deployment-plan.yml\
             --deploymentPlanReport ./deployment-plan-report.html\
