@@ -15,5 +15,22 @@
         ansible.builtin.pip:
           name: /runner/project/plum_py-0.9.1.tar.gz 
         delegate_to: localhost
+        
+      - name: Generate Package and Deployment Plan
+        shell: |
+          #!/bin/bash
+          cd /runner/project
+          plum-generate\
+            --deploymentMethod ./plum-samples/external-repos/deployment-method/deployment-method.yml\
+            --currentDeploymentState /plum-samples/external-repos/deployment-state/deployment-state.ymld
+            --manifests ./plum-samples/application-manifest/application-manifest.yml\
+            --deploymentPlan ./deployment-plan.yml\
+            --deploymentPlanReport ./deployment-plan-report.html\
+            --deploymentState ./merged-deployment-state.yml\
+            --packageOutputFile ./package.tar\
+            --configFile ./config.yml
+           
+        delegate_to: localhost
+        
       - import_role:
           name: ibm.ibm_zos_plum_deploy.zos_deploy
