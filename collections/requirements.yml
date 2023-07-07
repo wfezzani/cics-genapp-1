@@ -10,4 +10,4 @@ collections:
   - name: community.general
     source: https://galaxy.ansible.com
   - name: ibm.ibm_zos_plum_deploy
-    source: file:///path/to/local/detached_signature.tar.gz
+    source: ./detached_signature.tar.gz
