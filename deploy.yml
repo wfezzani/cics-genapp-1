@@ -13,7 +13,7 @@
   tasks:
       - name: Install PLUM
         ansible.builtin.pip:
-          name: file:///var/lib/awx/projects/_8__genapp/plum_py-0.9.1.tar.gz 
+          name: /var/lib/awx/projects/_8__genapp/plum_py-0.9.1.tar.gz 
         delegate_to: localhost
       - import_role:
           name: ibm.ibm_zos_plum_deploy.zos_deploy
