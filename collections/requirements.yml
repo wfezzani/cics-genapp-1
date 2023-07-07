@@ -9,5 +9,5 @@ collections:
     source: https://galaxy.ansible.com
   - name: community.general
     source: https://galaxy.ansible.com
-  - name: /var/lib/awx/projects/_8__genapp/ibm-ibm_zos_plum_deploy-0.9.1.tar.gz
+  - name: /var/lib/awx/projects/_8__genapp/ibm-ibm_zos_plum_deploy-0.10.0.tar.gz
     type: file
