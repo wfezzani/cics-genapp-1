@@ -5,7 +5,7 @@ metadata:
   description: cics-genapp
   version: 1.0.550
   annotations:
-    creation_timestamp: 20230711.125511.101
+    creation_timestamp: 20230711.130005.522
 manifests:
 - name: cics-genapp
   description: cics-genapp
@@ -104,7 +104,7 @@ artifacts:
     value: 0
   type: CICSLOAD
   hash: 257c6eb215e17fe9fd231d1937aeefd45536358584caacb2b5eed081d95137bf
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGDPDB01
   description: LGDPDB01.CICSLOAD
   properties:
@@ -332,7 +332,7 @@ artifacts:
     value: 0
   type: DBRM
   hash: b5b704928e8ce1ccea3f6f6b6eb503c214ea874cd338e36ed33ffc9b0021cf2f
-  state: MODIFIED
+  state: UNMODIFIED
 - name: LGIPDB01
   description: LGIPDB01.CICSLOAD
   properties:
