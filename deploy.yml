@@ -39,6 +39,6 @@
         shell: |
           #!/bin/bash
           cat /runner/project/ansible.cfg
-          cat /runner/project/evidences/tivlp02.svl.ibm.com*
+          cat {{plum_evidence_file}}
         delegate_to: localhost
           
