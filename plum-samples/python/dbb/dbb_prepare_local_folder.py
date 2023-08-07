@@ -14,9 +14,7 @@ import platform
 import re
 import json
 import subprocess
-
 from pathlib import Path
-
 
 class DBBUtilities(object):
 
@@ -147,7 +145,6 @@ def main():
         kwargs=vars(args)
 
         copy_dbb_build_result_to_local_folder (**kwargs)
-
 
 if __name__ == '__main__':
     main()
