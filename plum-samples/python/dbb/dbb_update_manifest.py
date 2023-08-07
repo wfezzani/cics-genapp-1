@@ -49,28 +49,7 @@ def dbb_update_manifest(**kwargs):
             manifest_dic['metadata']['annotations']['dbb'] = {}
             manifest_dic['metadata']['annotations']['dbb']['build_result_uri'] = record.get('url')
             break
-    
-    #===========================================================================
-    # zAppBuild not ready for that. Example if we delete a COBOL DB2 the related DBRM
-    # will not be in the deletion list.  
-    # # Handle deleted records
-    # deleted_records = list(filter(lambda record: DBBUtilities().filter_deleted_records(record),buildResult['records']))
-    # if len(deleted_records) > 0 :
-    #     deleted_artifacts = []
-    #     for artifact in manifest_dic['artifacts']:
-    #         path_prop = list(filter(lambda prop: ('path' == prop['key']), artifact['properties']))
-    #         path = path_prop[0]['value']
-    #         dataset = path.replace('/', '(')[0:path.rindex('.')]+')'
-    #         for deleted_record in deleted_records:
-    #             if len(list(filter(lambda output: (output == dataset), deleted_record['deletedBuildOutputs']))) > 0:
-    #                 if not artifact in deleted_artifacts:
-    #                     deleted_artifacts.append(artifact)
-    #     if len(deleted_artifacts) > 0:
-    #         artifacts = manifest_dic['artifacts']
-    #         for deleted_artifact in deleted_artifacts:
-    #             artifacts.remove(deleted_artifact)
-    #===========================================================================
-    
+
     for record in records:
         dataset = record['dataset']
         deploy_type = record['deployType']
@@ -103,10 +82,9 @@ def dbb_update_manifest(**kwargs):
                         artifact['properties'].append(
                             {"key": "fingerprint",
                              "value": f"{fingerprint}"})
-            
+
     Utilities.dump_to_yaml_file(manifest_dic, manifest_file)
 
-    
 def main(): 
     
         parser = argparse.ArgumentParser(description="DBB Update Manifest")
@@ -119,11 +97,9 @@ def main():
             return
 
         args = parser.parse_args()
-        
         kwargs=vars(args)
 
         dbb_update_manifest (**kwargs)
-        
 
 if __name__ == '__main__':
     main()
