@@ -16,12 +16,8 @@ import re
 from pathlib import Path
 
 
-sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
-
-from plum_py.service.utilities import Utilities
-
 class DBBUtilities(object):
-    
+
     @staticmethod
     def filter_deployable_records(record) -> bool:
         try:
@@ -46,13 +42,12 @@ class DBBUtilities(object):
         except:
             pass
         return False
-    
+
     @staticmethod
     def read_build_result(read_build_result_file) -> dict:
         with open(read_build_result_file) as read_file:
             return dict(json.load(read_file))
-        
-        
+
     @staticmethod
     def get_copy_mode(deployType:str = "LOAD", **kwargs) -> str:
         if kwargs.get('copyModeProperties') is not None:
@@ -133,7 +128,7 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
                 msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
                 print(msgstr)
                 sys.exit(-1)
-    
+
 def main(): 
 
         parser = argparse.ArgumentParser(description="DBB Prepare Package")
@@ -150,7 +145,7 @@ def main():
         kwargs=vars(args)
 
         copy_dbb_build_result_to_local_folder (**kwargs)
-        
+
 
 if __name__ == '__main__':
     main()
