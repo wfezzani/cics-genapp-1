@@ -109,7 +109,7 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
         os.makedirs(f"{working_folder}/{pds_name}", exist_ok=True)
         copyMode = DBBUtilities.get_copy_mode(deploy_type, **kwargs)
         if copyMode == 'LOAD':
-            cmd = f"cp -X //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
+            cmd = f"cp -XI //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
 
         elif copyMode == 'BINARY':
             cmd = f"cp -F bin //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
