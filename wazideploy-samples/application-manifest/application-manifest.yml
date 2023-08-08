@@ -1,0 +1,344 @@
+apiVersion: deploy.ibm.com/v1
+kind: ManifestState
+metadata:
+  name: cics-genapp
+  description: cics-genapp
+  version: 1.0.5
+  annotations:
+    creation_timestamp: 20230808.152423.340
+    scm:
+      type: git
+      uri: git@github.com:jbyibm/cics-genapp.git
+      branch: wazideploy
+      short_commit: 565e5d90
+    package:
+      name: sys-wazi-deploy-team/cics-genapp-wazideploy-dynamic-build
+      properties:
+      - key: repository_path
+        value: wazideploy/dynamic/cics-genapp
+      - key: repository
+        value: sys-wazi-deploy-team-pentest-generic-local
+      - key: build_name
+        value: sys-wazi-deploy-team/cics-genapp-wazideploy-dynamic-build
+      - key: build_number
+        value: '2'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-wazideploy-dynamic-build/2
+      type: ARTIFACTORY
+    dbb:
+      build_result_uri: https://zdevops-demo1.fyre.ibm.com:9443/dbb/rest/buildResult/52450
+artifacts:
+- name: LGUCVS01
+  description: LGUCVS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCVS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112334
+  type: CICSLOAD
+  hash: 018ee493879dbc3d332087d786b6de3f722db30a99b737870d55b9e23dcddbd7
+- name: LGICVS01
+  description: LGICVS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICVS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112337
+  type: CICSLOAD
+  hash: 0ce09233a86efd7038759eeb8a532700fecf7464a56c33eeed9af3acbc3c68b7
+- name: LGICUS01
+  description: LGICUS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICUS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112333
+  type: CICSLOAD
+  hash: 136f3e460da73fe5776f2bef4b315f01635675d1c41f1c014e171f895b2510cf
+- name: LGACDB01
+  description: LGACDB01.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB01.DBRM
+  - key: fingerprint
+    value: 1a559f7a49b54fc40b19da020ba56debb7f863fbd2be44f53cdc08511aaf6c24
+  type: DBRM
+  hash: 1a559f7a49b54fc40b19da020ba56debb7f863fbd2be44f53cdc08511aaf6c24
+- name: LGAPDB01
+  description: LGAPDB01.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGAPDB01.DBRM
+  - key: fingerprint
+    value: 1bd2a0b0ca1c92d744a89df1b6a48c57e5421c8b03dc87ff0d2fb84cc3ea2ddd
+  type: DBRM
+  hash: 1bd2a0b0ca1c92d744a89df1b6a48c57e5421c8b03dc87ff0d2fb84cc3ea2ddd
+- name: HELLO2
+  description: HELLO2.JCL
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO2.JCL
+  - key: fingerprint
+    value: 2a305ee5391a1f7f687177e712e9eb8d3747ff1992630b36438e3bbefc162488
+  type: JCL
+  hash: 2a305ee5391a1f7f687177e712e9eb8d3747ff1992630b36438e3bbefc162488
+- name: LGIPVS01
+  description: LGIPVS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPVS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112352
+  type: CICSLOAD
+  hash: 372e17beabdb2c47f675da444642477f094de4f260ce6fd6485f26959751b296
+- name: LGDPOL01
+  description: LGDPOL01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPOL01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112336
+  type: CICSLOAD
+  hash: 3b132cadb024a9555a04827888c5f5bec831d8896626965214dd59bdc6a5d471
+- name: LGUCUS01
+  description: LGUCUS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCUS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112332
+  type: CICSLOAD
+  hash: 3d9b0d8c44abce416dc5b4e421ef09e4bd0124845b34331bbc323af5a8cfd508
+- name: LGACUS01
+  description: LGACUS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACUS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112339
+  type: CICSLOAD
+  hash: 52575820b2b7398036fb71368175dfbb80c51d89907d5b519a8ebc5e10a36361
+- name: LGACVS01
+  description: LGACVS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACVS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112340
+  type: CICSLOAD
+  hash: 61a5e6ee5d2d54c0116dc85a07f87bc45ccb64691002f84398c2a263d3bd15e8
+- name: LGAPDB01
+  description: LGAPDB01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPDB01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112338
+  type: CICSLOAD
+  hash: 62efc8cd2bc3449f58c720d7d9444a6ccb02f9763579ef127229665b0df8e125
+- name: LGUCDB01
+  description: LGUCDB01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCDB01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112346
+  type: CICSLOAD
+  hash: 70772937b37a4d2ced023d426569d66718e614936a13e0f6c7f1202f75fe9e91
+- name: HELLO1
+  description: HELLO1.JCL
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO1.JCL
+  - key: fingerprint
+    value: 7178851f630501f1dde713b408e2d8ed2b4147638e5b818e8200851ed1a203b9
+  type: JCL
+  hash: 7178851f630501f1dde713b408e2d8ed2b4147638e5b818e8200851ed1a203b9
+- name: LGACDB02
+  description: LGACDB02.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+  - key: fingerprint
+    value: 7357c85fd3d3664aa235f581fa83310cc4dcfb13174ef20e1abff3799c21ef9d
+  type: DBRM
+  hash: 7357c85fd3d3664aa235f581fa83310cc4dcfb13174ef20e1abff3799c21ef9d
+- name: LGSETUP
+  description: LGSETUP.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSETUP.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112348
+  type: CICSLOAD
+  hash: 790edd1d565e259e1af804c5b60baae687649a140da7d947086b608c8b3eb354
+- name: LGUPDB01
+  description: LGUPDB01.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUPDB01.DBRM
+  - key: fingerprint
+    value: 8934dbe07a6a396e9207d86c24a6642a990131fa065f7d862577498dcae287d2
+  type: DBRM
+  hash: 8934dbe07a6a396e9207d86c24a6642a990131fa065f7d862577498dcae287d2
+- name: LGACDB01
+  description: LGACDB01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112352
+  type: CICSLOAD
+  hash: 8b4d1f7ad7e07b4f7c853982f66b0d3bbc08ba1228ee4512d2ca893d184e8b91
+- name: LGUPVS01
+  description: LGUPVS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPVS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112342
+  type: CICSLOAD
+  hash: 8e3d3a098f6711598f043cb1ceac8672ba5008be1a71c45403fe537ac7205659
+- name: LGDPDB01
+  description: LGDPDB01.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGDPDB01.DBRM
+  - key: fingerprint
+    value: 90db5a1718c5fadc998b7410ac1b2d25d99bf68c747eeaa737f977f81360e2ab
+  type: DBRM
+  hash: 90db5a1718c5fadc998b7410ac1b2d25d99bf68c747eeaa737f977f81360e2ab
+- name: LGUPDB01
+  description: LGUPDB01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPDB01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112351
+  type: CICSLOAD
+  hash: 92c91034e520dbec18192c38d4d622445cf7cbf49bdd0f2027e20e395a2cdb4e
+- name: SSMAP
+  description: SSMAP.MAPLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/SSMAP.MAPLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112330
+  type: MAPLOAD
+  hash: a336d9b42ed2e45bf01391caec327c0f10bfdf131e3c6d92624054d6a54d3df7
+- name: LGICDB01
+  description: LGICDB01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICDB01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112349
+  type: CICSLOAD
+  hash: a4398a47c12bf773679b05f112bf4fc5bee939b411499833a43fbb8eef035d4c
+- name: LGSTSQ
+  description: LGSTSQ.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSTSQ.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112339
+  type: CICSLOAD
+  hash: b06a673511ffbed47cb9366ee5c9e2c4c8ad4ecffba02afad5e66797bbe4d24e
+- name: LGICDB01
+  description: LGICDB01.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGICDB01.DBRM
+  - key: fingerprint
+    value: b4173649a0b09e5a5ac3d3f174bd2d0973508a456b253e6826bc9b63224e6d9b
+  type: DBRM
+  hash: b4173649a0b09e5a5ac3d3f174bd2d0973508a456b253e6826bc9b63224e6d9b
+- name: LGACDB02
+  description: LGACDB02.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112345
+  type: CICSLOAD
+  hash: b90d9ba97f7e1dd03186c0a03c246031c9d3e473496928f9194d336dedfe3564
+- name: LGUPOL01
+  description: LGUPOL01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPOL01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112347
+  type: CICSLOAD
+  hash: bf9cbefd444c100efcdaec8fdb69927b025853287ca22559eedc2d7c21d03ea7
+- name: LGIPOL01
+  description: LGIPOL01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112344
+  type: CICSLOAD
+  hash: bfc0e1a2136ea31a5e95d97451c93484e52d8043d5be822c10ce57f5b1dc059a
+- name: LGAPOL01
+  description: LGAPOL01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPOL01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112343
+  type: CICSLOAD
+  hash: c5bc7692d95ff68723e853b8944e0566a00a510d9368b7d1d80cd43dc5c0ab20
+- name: LGUCDB01
+  description: LGUCDB01.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUCDB01.DBRM
+  - key: fingerprint
+    value: cf39a160fec1da4436757357ed0b7ad68acd97ba8a417025a030a9ad6665c55c
+  type: DBRM
+  hash: cf39a160fec1da4436757357ed0b7ad68acd97ba8a417025a030a9ad6665c55c
+- name: LGDPVS01
+  description: LGDPVS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPVS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112346
+  type: CICSLOAD
+  hash: d3a25a0ad21d282ad47e89075eca6881922e30e119763ab46ee9fb16f7260f1b
+- name: LGAPVS01
+  description: LGAPVS01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPVS01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112350
+  type: CICSLOAD
+  hash: d3b8ecbe62c56a36631f2b941760fe977a5147e17f0d96d01d777553b0cd4db9
+- name: LGIPDB01
+  description: LGIPDB01.DBRM
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGIPDB01.DBRM
+  - key: fingerprint
+    value: df117aa81c12e121aec0b3425552e6840785da062c32d851a56c07fc5cb2c183
+  type: DBRM
+  hash: df117aa81c12e121aec0b3425552e6840785da062c32d851a56c07fc5cb2c183
+- name: LGDPDB01
+  description: LGDPDB01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPDB01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112335
+  type: CICSLOAD
+  hash: ec816757daba71ef0051214b72ab7ac1fa3dcb46401185b7513f07f24fa20bc0
+- name: LGIPDB01
+  description: LGIPDB01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPDB01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042023220112341
+  type: CICSLOAD
+  hash: f06fb257134c8fb8c45d73eebac481421e15a73986a3315f54abaf62e6c75c30
