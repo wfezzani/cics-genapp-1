@@ -196,7 +196,7 @@ pipeline {
                               exit $rc
                             fi
                             CMD="${PYTHON_INTERPRETER}\
-                                ${WORKSPACE}/${APP_NAME}/plum-samples/python/dbb/dbb_update_manifest.py\
+                                ${WORKSPACE}/${APP_NAME}/plum-samples/python/dbb/dbb_update_manifest_fingerprints.py\
                                --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
                                --sourceFolder ${WORKSPACE}/${APP_NAME}\
                                --manifest ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml"
