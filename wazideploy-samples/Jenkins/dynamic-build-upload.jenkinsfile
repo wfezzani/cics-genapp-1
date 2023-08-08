@@ -1,5 +1,5 @@
 // Agent labels
-def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'plum-e2e-pipeline'
+def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
 
 // DBB Git repositories (For DBB 1.X)
 def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
@@ -34,8 +34,8 @@ pipeline {
         ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
         ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"
         ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
-        ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'plum/dynamic/' + appName}"
-        ARTIFACTORY_DYNAMIC_BUILD_NAME = "${env.ARTIFACTORY_DYNAMIC_BUILD_NAME ? env.ARTIFACTORY_DYNAMIC_BUILD_NAME : appName + '-plum-dynamic-build'}"
+        ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'wazideploy/dynamic/' + appName}"
+        ARTIFACTORY_DYNAMIC_BUILD_NAME = "${env.ARTIFACTORY_DYNAMIC_BUILD_NAME ? env.ARTIFACTORY_DYNAMIC_BUILD_NAME : appName + '-wazideploy-dynamic-build'}"
         PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
      }
      
@@ -164,7 +164,7 @@ pipeline {
                             
                             cd ${WORKSPACE}
                             CMD="${PYTHON_INTERPRETER}\
-                                   ${WORKSPACE}/${APP_NAME}/plum-samples/python/dbb/dbb_prepare_local_folder.py\
+                                   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/python/dbb/dbb_prepare_local_folder.py\
                                    --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package"
                             echo $CMD
@@ -175,7 +175,7 @@ pipeline {
                               exit $rc
                             fi
                             echo ""
-                            CMD="plum-package\
+                            CMD="wazideploy-package\
                                     --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
                                     --repository  ${ARTIFACTORY_REPO}\
@@ -185,7 +185,7 @@ pipeline {
                                     --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
-                                    --manifest ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml\
+                                    --manifest ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest.yml\
                                     --uploadType delta"
                             echo ""
                             echo $CMD
@@ -196,10 +196,10 @@ pipeline {
                               exit $rc
                             fi
                             CMD="${PYTHON_INTERPRETER}\
-                                ${WORKSPACE}/${APP_NAME}/plum-samples/python/dbb/dbb_update_manifest_fingerprints.py\
+                                ${WORKSPACE}/${APP_NAME}/wazideploy-samples/python/dbb/dbb_update_manifest_fingerprints.py\
                                --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
                                --sourceFolder ${WORKSPACE}/${APP_NAME}\
-                               --manifest ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml"
+                               --manifest ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest.yml"
                             echo $CMD
                             $CMD
                             rc=$?
@@ -218,11 +218,11 @@ pipeline {
                                 chtag -t -c ISO8859-1 $SSH_KEY
                                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
                                 cd ${WORKSPACE}/${APP_NAME}
-                                git add plum-samples/application-manifest/application-manifest.yml > git.log 2>&1
+                                git add wazideploy-samples/application-manifest/application-manifest.yml > git.log 2>&1
                                 git commit -am "Commit the new application state into ${GIT_BRANCH}" >> git.log 2>&1
                                 git push origin HEAD:${GIT_BRANCH} >> git.log 2>&1
                                 # For jenkins artifact upload
-                                chtag -r ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml >> git.log 2>&1
+                                chtag -r ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest.yml >> git.log 2>&1
                                cat git.log
                             ''')
                             if ( rc != 0 )
@@ -235,9 +235,9 @@ pipeline {
                 always {
                     //steps {
                         script {
-                             dir("${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest") {
+                             dir("${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest") {
                                     rc = sh (returnStatus: true, script: '''#!/bin/sh
-                                        chtag -r ${WORKSPACE}/${APP_NAME}/plum-samples/application-manifest/application-manifest.yml
+                                        chtag -r ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest.yml
                                     ''')
                                     archiveArtifacts allowEmptyArchive: true,
                                                     artifacts: '**/application-manifest.yml',
