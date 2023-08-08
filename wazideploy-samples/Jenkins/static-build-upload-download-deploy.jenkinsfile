@@ -154,7 +154,7 @@ pipeline {
                             
                             cd ${WORKSPACE}
                             CMD="${PYTHON_INTERPRETER}\
-                                   ${WORKSPACE}/cics-genapp/wazideploy-samples/python/dbb/dbb_prepare_folder.py\
+                                   ${WORKSPACE}/cics-genapp/wazideploy-samples/python/dbb/dbb_prepare_local_folder.py\
                                    --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package"
                             echo $CMD
