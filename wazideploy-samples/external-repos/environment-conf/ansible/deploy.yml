@@ -7,9 +7,9 @@
 # Contract with IBM Corp.
 #*******************************************************************************
 ---
-- hosts: "{{ plum_hosts if plum_hosts is defined else 'all' }}"
-  gather_facts: "{{ plum_gather_facts if plum_gather_facts is defined else 'no' }}"
-  serial: "{{ plum_serial if plum_serial is defined else 5 }}"
+- hosts: "{{ wd_hosts if wd_hosts is defined else 'all' }}"
+  gather_facts: "{{ wd_gather_facts if wd_gather_facts is defined else 'no' }}"
+  serial: "{{ wd_serial if wd_serial is defined else 5 }}"
   tasks:
       - import_role:
-          name: ibm.ibm_zos_plum_deploy.zos_deploy
+          name: ibm.ibm_zos_wazi_deploy.zos_deploy

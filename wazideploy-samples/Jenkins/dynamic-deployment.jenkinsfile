@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
-                    env.ANSIBLE_VERBOSE_OPTS = verbose ? '-vvvvv -e plum_log=True' : ''
+                    env.ANSIBLE_VERBOSE_OPTS = verbose ? '-vvvvv -e wd_log=True' : ''
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
@@ -97,7 +97,7 @@ pipeline {
                         else
                            export PATH=$PATH:$HOME/.local/bin
                         fi
-                        CMD="plum-generate\
+                        CMD="wazideploy-generate\
                                --deploymentMethod  ${WORKSPACE}/cics-genapp/wazideploy-samples/external-repos/deployment-method/deployment-method.yml\
                                --manifests ${WORKSPACE}/cics-genapp/wazideploy-samples/application-manifest/application-manifest.yml\
                                --deploymentPlan ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
@@ -129,8 +129,8 @@ pipeline {
                         echo $PWD
                         rm -rf evidences
                         CMD="ansible-playbook deploy.yml -i inventories\
-                                -e plum_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
-                                -e plum_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
+                                -e wd_deployment_plan_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
+                                -e wd_package_file=${WORKSPACE}/BUILD-${BUILD_NUMBER}/package.tar\
                                 ${ANSIBLE_PLAYBOOK_OPTS} ${ANSIBLE_VERBOSE_OPTS}"
                         echo $CMD
                         $CMD
@@ -178,7 +178,7 @@ pipeline {
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports
                             # Index Evidences
-                            CMD="plum-evidence\
+                            CMD="wazideploy-evidence\
                                 --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                                 --dataFolder ${WORKSPACE}/cics-genapp/wazideploy-samples/external-repos/evidences\
                                 i"
@@ -191,7 +191,7 @@ pipeline {
                             fi
                             
                             # Full Report
-                            CMD="plum-evidence\
+                            CMD="wazideploy-evidence\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/cics-genapp/wazideploy-samples/evidences/templates/full-report.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/deployment-report.html\
@@ -206,7 +206,7 @@ pipeline {
                             fi
                             
                             # Where LGACDB02 is deployed
-                            CMD="plum-evidence\
+                            CMD="wazideploy-evidence\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/cics-genapp/wazideploy-samples/evidences/templates/deployed-component-where.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/deployed-lgacdb02-where.csv\
@@ -222,7 +222,7 @@ pipeline {
                             fi
                             
                             # Versions of the deployed components for the current environnment
-                            CMD="plum-evidence\
+                            CMD="wazideploy-evidence\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/cics-genapp/wazideploy-samples/evidences/templates/environment-deployed-component-version.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports/environment-deployed-component-version.html\

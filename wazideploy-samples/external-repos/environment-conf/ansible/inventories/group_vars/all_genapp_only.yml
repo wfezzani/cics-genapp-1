@@ -160,9 +160,3 @@ wd_env:
    uss_dir: "/tmp/wd_deploy/{{ansible_user|lower}}/{{inventory_hostname}}"
    local_dir: "/tmp/wd_deploy/{{lookup('env','USER')|lower}}/{{inventory_hostname}}"
 wd_no_log_flag: "{{ wd_log | bool  if wd_log is defined  else False}}"
-
-# Close Beta Backward compatibility
-plum_env:
-   uss_dir: "/tmp/plum_deploy/{{ansible_user|lower}}/{{inventory_hostname}}"
-   local_dir: "/tmp/plum_deploy/{{lookup('env','USER')|lower}}/{{inventory_hostname}}"
-plum_no_log_flag: "{{ plum_log | bool  if plum_log is defined  else False}}"
