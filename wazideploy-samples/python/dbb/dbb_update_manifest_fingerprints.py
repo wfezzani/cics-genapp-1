@@ -15,7 +15,7 @@ import yaml
 import json
 import re
 
-from plum_py.service.utilities import Utilities
+from wazideploy.service.utilities import Utilities
 
 class GitUtilities(object):
      
