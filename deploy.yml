@@ -21,9 +21,9 @@
           #!/bin/bash
           cd /runner/project
           plum-generate\
-            --deploymentMethod ./plum-samples/external-repos/deployment-method/deployment-method.yml\
-            --currentDeploymentState /plum-samples/external-repos/deployment-state/deployment-state.yml\
-            --manifests ./plum-samples/application-manifest/application-manifest.yml\
+            --deploymentMethod ./wazideploy-samples/external-repos/deployment-method/deployment-method.yml\
+            --currentDeploymentState /wazideploy-samples/external-repos/deployment-state/deployment-state.yml\
+            --manifests ./wazideploy-samples/application-manifest/application-manifest.yml\
             --deploymentPlan ./deployment-plan.yml\
             --deploymentPlanReport ./deployment-plan-report.html\
             --deploymentState ./merged-deployment-state.yml\
