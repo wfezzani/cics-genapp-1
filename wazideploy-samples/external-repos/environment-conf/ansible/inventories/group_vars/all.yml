@@ -149,7 +149,7 @@ cics_sys_def:
 
 # types to manage
 default_types: 'types'
-default_copy_by_folder: False
+default_copy_by_folder: True
 types:
   - type: 'load'
     copy_by_folder: '{{default_copy_by_folder}}'
