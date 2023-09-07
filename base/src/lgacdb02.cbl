@@ -7,7 +7,7 @@
       *                                                                *
       *   To add customer's password to the security table with        *
       *  details. Default password is BD5 checksum                     *
-      *  NODIF: 01                                                     *
+      *  NODIF: 02                                                     *
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. LGACDB02.
