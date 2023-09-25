@@ -248,7 +248,7 @@ types:
 wd_env:
    uss_dir: "/tmp/wd_deploy/{{ansible_user|lower}}/{{inventory_hostname}}"
    local_dir: "/tmp/wd_deploy/{{lookup('env','USER')|lower}}/{{inventory_hostname}}"
-wd_no_log_flag: "{{ wd_log | bool  if wd_log is defined  else False}}"
+wd_log: False
 
 # Variables for system_command template
 system_command_default:
