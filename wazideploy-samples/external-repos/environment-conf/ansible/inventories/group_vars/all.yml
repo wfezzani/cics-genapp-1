@@ -68,6 +68,7 @@ ansible_python_interpreter: "{{ PYZ }}/bin/python3"
 # - Property LANG is the name of the default locale; value
 #   C specifies the POSIX locale; for example: ``LANG: "C"``.
 ################################################################################
+wd_no_log_flag: False
 
 # Deploy specific variables
 common_pds_load_spec:
