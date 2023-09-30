@@ -85,8 +85,15 @@ common_pds_binary_spec:
   record_format: FB
   record_length: 80
 
+common_pds_text_spec:
+  type: LIBRARY
+  space_primary: 5
+  space_secondary: 10
+  space_type: CYL
+  record_format: FB
+  record_length: 80
+  
 hlq: 'NAZARE.WDEPLOY.ANSIBLE'
-uss_root_folder: '/tmp/uss_root'
 
 default_package_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
 default_plan_jobcard: "BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
@@ -154,6 +161,15 @@ types:
     is_load: True
     cics_systems:
     - "{{ cics_sys_def }}"
+  - type: 'jcl'
+    copy_by_folder: '{{default_copy_by_folder}}'
+    pds: 
+      name: '{{ hlq }}.JCL'
+      spec: "{{common_pds_text_spec}}"
+      backup: '{{ hlq }}.BACK.JCL'
+    encoding:
+      from: UTF-8
+      to: IBM-1047
 
 # Default folders and logging values
 wd_env:
