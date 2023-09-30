@@ -58,6 +58,11 @@ pipeline {
                     dir('cics-genapp') {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name
+                        if ( env.APP_GIT_BRANCH == null || env.APP_GIT_BRANCH == "") {
+                            srcGitBranch = scm.branches[0].name
+                            env.GIT_BRANCH = srcGitBranch
+                        } else
+                            srcGitBranch =  env.GIT_BRANCH
                         def scmVars = null
                         scmVars = checkout([$class: 'GitSCM', branches: [[name: srcGitBranch]],
                                                 doGenerateSubmoduleConfigurations: false,
