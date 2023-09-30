@@ -34,9 +34,12 @@
             --deploymentState ./merged-deployment-state.yml\
             --packageOutputFile ./package.tar\
             --configFile ./config.yml
-           
         delegate_to: localhost
-        
+
+      - set_fact:
+          wd_deployment_plan_file: ./deployment-plan.yml
+          wd_package_file: ./package.tar
+
       - import_role:
           name: ibm.ibm_zos_wazi_deploy.zos_deploy
           
