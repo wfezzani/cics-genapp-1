@@ -26,9 +26,8 @@
           #!/bin/bash
           cd /runner/project
           wazideploy-generate\
-            --deploymentMethod ./wazideploy-samples/external-repos/deployment-method/deployment-method.yml\
-            --currentDeploymentState /wazideploy-samples/external-repos/deployment-state/deployment-state.yml\
-            --manifests ./wazideploy-samples/application-manifest/application-manifest.yml\
+            --deploymentMethod ./wazideploy-samples/external-repos/deployment-method/deployment-method-static.yml\
+            --manifests ./wazideploy-samples/application-manifest/application-manifest-static.yml\
             --deploymentPlan ./deployment-plan.yml\
             --deploymentPlanReport ./deployment-plan-report.html\
             --deploymentState ./merged-deployment-state.yml\
