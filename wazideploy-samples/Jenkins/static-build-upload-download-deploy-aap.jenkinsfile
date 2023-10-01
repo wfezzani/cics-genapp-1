@@ -200,6 +200,7 @@ pipeline {
                                 chtag -t -c ISO8859-1 $SSH_KEY
                                 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
                                 cd ${WORKSPACE}/${APP_NAME}
+                                echo $PWD
                                 git add wazideploy-samples/application-manifest/application-manifest-static.yml > git.log 2>&1
                                 git commit -am "Commit the new application state into ${GIT_BRANCH}" >> git.log 2>&1
                                 git push origin HEAD:${GIT_BRANCH} >> git.log 2>&1
@@ -215,26 +216,6 @@ pipeline {
             }
         }
         
-        stage('Deploy: AAP Project Sync') {
-            steps {
-                script {
-                    if ( hasBuildFiles ) {
-                        ansibleTowerProjectSync async: false, importTowerLogs: false, project: 'GenApp', 
-                            removeColor: false, throwExceptionWhenFail: false, towerCredentialsId: 'wazi-deploy-app', towerServer: 'Wazi Deploy APP', verbose: false
-                     }
-                }
-            }
-        }
 
-        stage('Deploy: AAP Run Job') {
-            steps {
-                script {
-                    if ( hasBuildFiles ) {
-                        ansibleTower jobTemplate: 'GenAppJobTemplate', jobType: 'run', throwExceptionWhenFail: false, 
-                            towerCredentialsId: 'wazi-deploy-app', towerLogLevel: 'full', towerServer: 'Wazi Deploy APP'
-                     }
-                }
-            }
-        }
     }
 }
