@@ -18,8 +18,7 @@ def srcGitBranch = null
 pipeline {
 
     agent { label linuxAgentLabel }
-    
-     environment {
+    environment {
         APP_NAME = "${appName}"
         ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
         ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"

@@ -18,8 +18,10 @@ def srcGitBranch = null
 pipeline {
 
     agent { label zOsAgentLabel }
-    
-     environment {
+    options {
+        ansiColor('xterm')
+    }
+    environment {
         APP_NAME = "${appName}"
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         DBB_HOME = "${env.DBB_HOME ? env.DBB_HOME : '/usr/lpp/IBM/dbb'}"
