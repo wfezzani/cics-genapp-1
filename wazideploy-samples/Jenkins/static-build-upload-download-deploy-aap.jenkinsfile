@@ -18,9 +18,6 @@ def srcGitBranch = null
 pipeline {
 
     agent { label zOsAgentLabel }
-    options {
-        ansiColor('xterm')
-    }
     environment {
         APP_NAME = "${appName}"
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
@@ -46,7 +43,10 @@ pipeline {
        choice(choices: ["--impactBuild", "--fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
     }
 
-    options { skipDefaultCheckout(true) }
+    options { 
+        skipDefaultCheckout(true) 
+        ansiColor('xterm')
+    }
 
     stages {
         
