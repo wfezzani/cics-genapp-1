@@ -9,6 +9,7 @@ def dbbGitBranch = 'main'
 def gitCredId = 'git_hub_cred'
 
 // Private
+def appName="cics-genapp"
 def verbose = false
 def hasBuildFiles = true
 def srcGitRepo =  null
@@ -19,7 +20,7 @@ pipeline {
     agent { label zOsAgentLabel }
     
      environment {
-        APP_NAME = "GenAppCICS"
+        APP_NAME = "${appName}"
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         DBB_HOME = "${env.DBB_HOME ? env.DBB_HOME : '/usr/lpp/IBM/dbb'}"
         DBB_URL = "${env.DBB_URL ? env.DBB_URL : 'https://example.com:9443/dbb'}"
@@ -32,8 +33,8 @@ pipeline {
         ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
         ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"
         ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
-        ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'wazideploy/static'}"
-        ARTIFACTORY_STATIC_BUILD_NAME = "${env.ARTIFACTORY_STATIC_BUILD_NAME ? env.ARTIFACTORY_STATIC_BUILD_NAME : 'cics-genapp-wazideploy-static-build'}"
+        ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'wazideploy/static' + appName}"
+        ARTIFACTORY_STATIC_BUILD_NAME = "${env.ARTIFACTORY_STATIC_BUILD_NAME ? env.ARTIFACTORY_STATIC_BUILD_NAME : appName + '-wazideploy-static-build'}"
         PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
      }
      
@@ -55,9 +56,14 @@ pipeline {
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
-                    dir('cics-genapp') {
+                    dir(appName) {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name
+                        if ( env.APP_GIT_BRANCH == null || env.APP_GIT_BRANCH == "") {
+                            srcGitBranch = scm.branches[0].name
+                            env.GIT_BRANCH = srcGitBranch
+                        } else
+                            srcGitBranch =  env.GIT_BRANCH
                         def scmVars = null
                         scmVars = checkout([$class: 'GitSCM', branches: [[name: srcGitBranch]],
                                                 doGenerateSubmoduleConfigurations: false,
@@ -90,7 +96,7 @@ pipeline {
                                 ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
                                 --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ} --url ${DBB_URL}\
                                 ${DBB_CRED} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
-                                --application cics-genapp --sourceDir ${WORKSPACE}"
+                                --application ${APP_NAME} --sourceDir ${WORKSPACE}"
                             echo $CMD
                             $CMD
                             exit $?
@@ -154,7 +160,7 @@ pipeline {
                             
                             cd ${WORKSPACE}
                             CMD="${PYTHON_INTERPRETER}\
-                                   ${WORKSPACE}/cics-genapp/wazideploy-samples/python/dbb/dbb_prepare_local_folder.py\
+                                   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/python/dbb/dbb_prepare_local_folder.py\
                                    --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package"
                             echo $CMD
@@ -206,7 +212,7 @@ pipeline {
                             fi
                             cd ${WORKSPACE}
                             CMD="wazideploy-generate\
-                                   --deploymentMethod  ${WORKSPACE}/cics-genapp/wazideploy-samples/external-repos/deployment-method/deployment-method.yml\
+                                   --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/deployment-method.yml\
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
@@ -246,7 +252,7 @@ pipeline {
                             CMD="wazideploy-deploy\
                                 --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                 --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
-                                --envFile   ${WORKSPACE}/cics-genapp/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
+                                --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
                                 --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
                             echo $CMD
@@ -301,10 +307,10 @@ pipeline {
                             # Query Index
                             CMD="wazideploy-evidence\
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
-                              --template ${WORKSPACE}/cics-genapp/wazideploy-samples/evidences/templates/full-report.yml\
+                              --template ${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/templates/full-report.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html\
                               r\
-                              renderer=${WORKSPACE}/cics-genapp/wazideploy-samples/evidences/renderers/full-report.html"
+                              renderer=${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/renderers/full-report.html"
                             echo $CMD
                             $CMD 
                             if [ $? -ne 0 ]
