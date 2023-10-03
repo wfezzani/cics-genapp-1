@@ -31,7 +31,7 @@ activities:
           states:
              - UNDEFINED
           steps:
-          - name: MEMBER_BACKUP
+          - name: MEMBER_ARCHIVE
             description: |
               This step do the copy of artifacts into PDSs
           - name: MEMBER_RESTORE
