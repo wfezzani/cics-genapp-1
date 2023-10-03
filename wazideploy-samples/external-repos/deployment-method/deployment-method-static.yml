@@ -17,8 +17,9 @@ activities:
         - name: PACKAGE
           steps:
           - name: PACKAGE
-    tags:
+    plan_tags:
     - package
+    - restore
     
   - name: DEPLOY_MODULES
     description: |
@@ -30,6 +31,15 @@ activities:
           states:
              - UNDEFINED
           steps:
+          - name: MEMBER_BACKUP
+            description: |
+              This step do the copy of artifacts into PDSs
+          - name: MEMBER_RESTORE
+            description: |
+              This step do the copy of artifacts into PDSs
+            tags:
+            - restore
+            - never
           - name: MEMBER_COPY
             description: |
               This step do the copy of artifacts into PDSs
@@ -59,6 +69,7 @@ activities:
     is_artifact: True
     tags:
     - db2
+    - restore
         
   - name: CICS
     description: |
@@ -78,3 +89,4 @@ activities:
     is_artifact: True
     tags:
     - cics
+    - restore

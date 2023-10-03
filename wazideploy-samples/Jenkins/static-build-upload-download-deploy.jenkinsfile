@@ -212,7 +212,7 @@ pipeline {
                             fi
                             cd ${WORKSPACE}
                             CMD="wazideploy-generate\
-                                   --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/deployment-method.yml\
+                                   --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/deployment-method-static.yml\
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
