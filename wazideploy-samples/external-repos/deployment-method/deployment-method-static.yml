@@ -60,7 +60,7 @@ activities:
           description: |
             This action is applicable when we update a DBRM modules
           states:
-             - MODIFIED
+             - UNDEFINED
           steps:
           - name: DB2_BIND_PACKAGE
           - name: DB2_BIND_PLAN
