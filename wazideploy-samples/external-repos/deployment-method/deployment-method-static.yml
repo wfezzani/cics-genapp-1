@@ -17,9 +17,7 @@ activities:
         - name: PACKAGE
           steps:
           - name: PACKAGE
-    plan_tags:
-    - package
-    
+
   - name: DEPLOY_MODULES
     description: |
       This activity is dedicated to the deployment of the artifacts into the PDS 
@@ -48,8 +46,6 @@ activities:
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
     is_artifact: True
-    plan_tags:
-    - deploy_modules
 
   - name: DB2
     description: |
@@ -67,7 +63,6 @@ activities:
       - name: 'DBRM'
     is_artifact: True
     plan_tags:
-    - db2
     - restore
         
   - name: CICS
@@ -87,5 +82,4 @@ activities:
       - name: 'MAPLOAD'
     is_artifact: True
     plan_tags:
-    - cics
     - restore

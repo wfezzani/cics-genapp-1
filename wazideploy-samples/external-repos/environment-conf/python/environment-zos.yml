@@ -25,7 +25,7 @@ spec:
      csd_group: "GENASAP"
 
   default_db2_sdsnload: "DSN.V12R1M0.SDSNLOAD"
-  default_pkg_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
+  default_package_jobcard: "BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
   default_plan_jobcard: |
     BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
     /* ---
@@ -39,7 +39,7 @@ spec:
      plan: GENAONE
      qualifier: GENADB0
      subsys: DBC1
-     package_jobcard: "{{env.spec.default_pkg_jobcard}}"
+     package_jobcard: "{{env.spec.default_package_jobcard}}"
      plan_jobcard: "{{env.spec.default_plan_jobcard}}"
      package_action: "{{env.spec.default_db2_action}}"
      plan_action: "{{env.spec.default_db2_action}}"
