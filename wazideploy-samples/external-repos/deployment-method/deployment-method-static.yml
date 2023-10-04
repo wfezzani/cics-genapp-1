@@ -19,7 +19,6 @@ activities:
           - name: PACKAGE
     plan_tags:
     - package
-    - restore
     
   - name: DEPLOY_MODULES
     description: |
@@ -37,7 +36,7 @@ activities:
           - name: MEMBER_RESTORE
             description: |
               This step do the copy of artifacts into PDSs
-            tags:
+            plan_tags:
             - restore
             - never
           - name: MEMBER_COPY
@@ -49,7 +48,7 @@ activities:
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
     is_artifact: True
-    tags:
+    plan_tags:
     - deploy_modules
 
   - name: DB2
@@ -67,7 +66,7 @@ activities:
     types:
       - name: 'DBRM'
     is_artifact: True
-    tags:
+    plan_tags:
     - db2
     - restore
         
@@ -87,6 +86,6 @@ activities:
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
     is_artifact: True
-    tags:
+    plan_tags:
     - cics
     - restore
