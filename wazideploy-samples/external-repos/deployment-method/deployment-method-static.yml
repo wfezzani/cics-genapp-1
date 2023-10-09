@@ -34,7 +34,7 @@ activities:
           - name: MEMBER_RESTORE
             description: |
               This step do the copy of artifacts into PDSs
-            tags:
+            plan_tags:
             - restore
             - never
           - name: MEMBER_COPY
@@ -62,7 +62,7 @@ activities:
     types:
       - name: 'DBRM'
     is_artifact: True
-    tags:
+    plan_tags:
     - restore
         
   - name: CICS
@@ -81,5 +81,5 @@ activities:
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
     is_artifact: True
-    tags:
+    plan_tags:
     - restore
