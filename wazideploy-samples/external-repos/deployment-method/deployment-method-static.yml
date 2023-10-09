@@ -25,8 +25,6 @@ activities:
         - name: UPDATE
           description: |
             This action is applicable when we udpate artifacts.
-          states:
-             - UNDEFINED
           steps:
           - name: MEMBER_ARCHIVE
             description: |
@@ -54,8 +52,6 @@ activities:
         - name: UPDATE
           description: |
             This action is applicable when we update a DBRM modules
-          states:
-             - UNDEFINED
           steps:
           - name: DB2_BIND_PACKAGE
           - name: DB2_BIND_PLAN
@@ -70,8 +66,6 @@ activities:
        This activity is dedicated to CICS load modules
     actions:
         - name: UPDATE
-          states:
-             - UNDEFINED
           steps:
           - name: PROG_UPDATE
             properties:
