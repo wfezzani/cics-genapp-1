@@ -114,6 +114,9 @@ spec:
       #encoding:
       #  from: UTF-8
       #  to: IBM-1047
+      text_subs:
+      - pattern: "H.*D"
+        replace: "HELLO, {{env.spec.default_cics_cmci_action}}"
     - pattern: .*.BIN$
       directory: "{{ env.spec.uss_root }}/bin/"
       directory_backup: "{{ env.spec.uss_root }}/bin/back/"
