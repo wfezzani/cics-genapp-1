@@ -195,13 +195,13 @@ types:
 #    encoding:
 #      from: UTF-8
 #      to: IBM-1047
-      text_subs:
-      - pattern: "#SUB1"
-        replace: "01"
-      - pattern: "#SUB2"
-        replace: "02"
-      - pattern: "#SUB3"
-        replace: "03"
+    text_subs:
+    - pattern: "#SUB1"
+      replace: "01"
+    - pattern: "#SUB2"
+      replace: "02"
+    - pattern: "#SUB3"
+      replace: "03"
   - type: 'copy'
     copy_by_folder: '{{default_copy_by_folder}}'
     pds: 
