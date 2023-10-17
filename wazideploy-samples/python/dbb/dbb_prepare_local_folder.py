@@ -99,6 +99,9 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
         dataset = record['dataset']
         deploy_type = record['deployType']
         parts = re.split('\\(|\\)',dataset)
+        if len(parts) < 2 :
+            print(f"**! WARNING: {parts[0]} has no members!!!")
+            continue
         member_name = parts[1]
         pds_name = parts[0]
     
