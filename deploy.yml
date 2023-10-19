@@ -18,7 +18,7 @@
         delegate_to: localhost
       - name: Install Wazi Deploy
         ansible.builtin.pip:
-          name: /runner/project/wazideploy-0.10.0-py3.9-none-any.whl 
+          name: /runner/project/wazideploy-0.10.1-py3.9-none-any.whl 
         delegate_to: localhost
         
       - name: Generate Package and Deployment Plan
