@@ -11,6 +11,7 @@ def gitCredId = 'git_hub_cred'
 // Private
 def appName="cics-genapp"
 def verbose = false
+def rollingBack = false
 def hasBuildFiles = true
 def srcGitRepo =  null
 def srcGitBranch = null
@@ -39,23 +40,35 @@ pipeline {
      }
      
      parameters {
-       string(defaultValue: "1.0.0", description: 'Realese Version.', name: 'RELEASE_VERSION')
-       booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
+       string(defaultValue: "1.0.0", description: 'Release Version.', name: 'RELEASE_VERSION')
        choice(choices: ["--impactBuild", "--fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
+       booleanParam(defaultValue: false, description: 'Rolling back the prevouis deployment', name: 'ROLLING_BACK')
+       booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
     }
 
     options { skipDefaultCheckout(true) }
 
     stages {
-        
-        stage('Git Clone/Refresh') {
+        stage('Initialization') {
             steps {
                 script {
                     verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
+                    rollingBack = env.ROLLING_BACK && env.ROLLING_BACK == 'true' ? true : false
                     env.BUILD_VERBOSE = verbose ? '-v' : ''
+                    env.ROLLING_BACK = rollingBack ? '-pt restore' : ''
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
+                }
+            }
+        }
+        stage('Git Clone/Refresh') {
+            when {
+                rollingBack false 
+            }
+            steps {
+                script {
+
                     dir(appName) {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name
@@ -86,6 +99,9 @@ pipeline {
         }
 
         stage('DBB Build') {
+            when {
+                rollingBack false 
+            }
             steps {
                 script{
                     // DBB Build
@@ -123,6 +139,9 @@ pipeline {
 
 
         stage('Package & Artifactory Upload') {
+            when {
+                rollingBack false 
+            }
            environment {
               ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
             }
@@ -178,7 +197,7 @@ pipeline {
                                     --buildName ${ARTIFACTORY_STATIC_BUILD_NAME}\
                                     --buildNumber ${BUILD_NUMBER}\
                                     --buildUrl "${BUILD_URL}"\
-                                    --manifestVersion "${RELEASE_VERSION}"\
+                                    --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
                                     --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application-manifest.yml\
@@ -198,6 +217,9 @@ pipeline {
         }
         
         stage('Deploy: Generate The Deployment Plan & Package') {
+            when {
+                rollingBack false 
+            }
             steps {
                 script {
                     if ( hasBuildFiles ) {
