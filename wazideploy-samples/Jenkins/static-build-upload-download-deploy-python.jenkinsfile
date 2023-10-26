@@ -55,7 +55,7 @@ pipeline {
                     verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
                     rollingBack = env.ROLLING_BACK && env.ROLLING_BACK == 'true' ? true : false
                     env.BUILD_VERBOSE = verbose ? '-v' : ''
-                    env.ROLLING_BACK = rollingBack ? '-pt restore' : ''
+                    env.ROLLING_BACK = rollingBack ? 'True' : ''
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
@@ -275,13 +275,22 @@ pipeline {
                             else
                                export PATH=$PATH:$HOME/.local/bin
                             fi
-                            CMD="wazideploy-deploy\
-                                --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
-                                --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
-                                --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
-                                --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
-                                --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
-                                ${ROLLING_BACK}"
+                            if [ "$ROLLING_BACK" != "True" ]
+                            then
+                                CMD="wazideploy-deploy\
+                                    --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
+                                    --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
+                                    --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
+                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
+                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy
+                            else
+                                CMD="wazideploy-deploy\
+                                    --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
+                                    --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
+                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
+                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
+                                    --planTags restore"
+                            fi
                             echo $CMD
                             $CMD 
                             rc=$?
