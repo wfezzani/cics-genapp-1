@@ -244,7 +244,7 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         ansibleTowerProjectSync async: false, importTowerLogs: false, project: 'GenApp', 
-                            removeColor: false, throwExceptionWhenFail: false, extraVars: env.ROLLING_BACK, towerCredentialsId: 'wazi-deploy-app', towerServer: 'Wazi Deploy APP', verbose: false
+                            removeColor: false, throwExceptionWhenFail: false, towerCredentialsId: 'wazi-deploy-app', towerServer: 'Wazi Deploy APP', verbose: false
                      }
                 }
             }
@@ -255,7 +255,7 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         ansibleTower jobTemplate: 'GenAppJobTemplate', jobType: 'run', throwExceptionWhenFail: false, 
-                            towerCredentialsId: 'wazi-deploy-app', towerLogLevel: 'full', towerServer: 'Wazi Deploy APP'
+                            towerCredentialsId: 'wazi-deploy-app', towerLogLevel: 'full', towerServer: 'Wazi Deploy APP', extraVars: env.ROLLING_BACK
                      }
                 }
             }
