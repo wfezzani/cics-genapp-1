@@ -274,7 +274,7 @@ pipeline {
                             fi
                             CMD="wazideploy-deploy\
                                 --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
-                                --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
+                                --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                 --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
                                 --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
