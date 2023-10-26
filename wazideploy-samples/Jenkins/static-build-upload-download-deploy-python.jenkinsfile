@@ -334,7 +334,7 @@ pipeline {
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/templates/full-report.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html\
-                              ${ROLLING_BACK}\
+                              r\
                               renderer=${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/renderers/full-report.html"
                             echo $CMD
                             $CMD 
