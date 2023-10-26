@@ -99,7 +99,7 @@ pipeline {
                            export PATH=$PATH:$HOME/.local/bin
                         fi
                         CMD="wazideploy-generate\
-                               --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/deployment-method.yml\
+                               --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/dynamic-beta-deployment-method.yml\
                                --manifests ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest.yml\
                                --deploymentPlan ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\

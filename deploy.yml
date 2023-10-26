@@ -26,7 +26,7 @@
           #!/bin/bash
           cd /runner/project
           wazideploy-generate\
-            --deploymentMethod ./wazideploy-samples/external-repos/deployment-method/deployment-method-static.yml\
+            --deploymentMethod ./wazideploy-samples/external-repos/deployment-method/static-deployment-method.yml\
             --manifests ./wazideploy-samples/application-manifest/application-manifest-static.yml\
             --deploymentPlan ./deployment-plan.yml\
             --deploymentPlanReport ./deployment-plan-report.html\
