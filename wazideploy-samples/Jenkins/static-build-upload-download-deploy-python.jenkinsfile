@@ -238,6 +238,9 @@ pipeline {
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
+                                   --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
+                                   --manifestName "${APP_NAME}"\
+                                   --manifestDescription "${APP_NAME}"\
                                    --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar
                                    --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar"
                             echo $CMD
