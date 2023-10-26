@@ -278,7 +278,7 @@ pipeline {
                                 --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
                                 --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
-                                ${WORKSPACE}"
+                                ${ROLLING_BACK}"
                             echo $CMD
                             $CMD 
                             rc=$?
