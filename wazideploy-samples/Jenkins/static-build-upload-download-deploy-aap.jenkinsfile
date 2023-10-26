@@ -239,7 +239,7 @@ pipeline {
                 }
             }
         }
-         extraVars: 'planTags: restore'
+        //extraVars: 'planTags: restore'
         stage('Deploy: AAP Project Sync') {
             steps {
                 script {
