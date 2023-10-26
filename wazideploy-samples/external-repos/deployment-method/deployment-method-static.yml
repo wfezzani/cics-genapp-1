@@ -84,3 +84,27 @@ activities:
     is_artifact: True
     plan_tags:
     - restore
+
+  - name: DELETE_MODULES
+    description: |
+      This activity is dedicated to the deletion of the artifacts from the PDS(E)s 
+    actions:
+        - name: DELETE
+          description: |
+            This action is applicable when the artifacts are deleted
+          states:
+             - DELETED
+          steps:
+          - name: MEMBER_ARCHIVE
+            description: |
+              This step backs up already installed artifacts into the backup PDS
+          - name: MEMBER_DELETE
+            description: |
+              This step deletes the artifacts 
+    types:
+      - name: 'DBRM'
+      - name: 'LOAD'
+      - name: 'CICSLOAD'
+      - name: 'MAPLOAD'
+      - name: 'JCL'
+    is_artifact: True
