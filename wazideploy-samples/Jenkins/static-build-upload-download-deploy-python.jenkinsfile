@@ -64,7 +64,7 @@ pipeline {
         }
         stage('Git Clone/Refresh') {
             when {
-                rollingBack false 
+                expression { rollingBack == false } 
             }
             steps {
                 script {
@@ -100,7 +100,7 @@ pipeline {
 
         stage('DBB Build') {
             when {
-                rollingBack false 
+                expression { rollingBack == false } 
             }
             steps {
                 script{
@@ -140,7 +140,7 @@ pipeline {
 
         stage('Package & Artifactory Upload') {
             when {
-                rollingBack false 
+                expression { rollingBack == false } 
             }
            environment {
               ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
@@ -218,7 +218,7 @@ pipeline {
         
         stage('Deploy: Generate The Deployment Plan & Package') {
             when {
-                rollingBack false 
+                expression { rollingBack == false } 
             }
             steps {
                 script {
