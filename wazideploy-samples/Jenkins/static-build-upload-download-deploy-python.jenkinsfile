@@ -324,9 +324,10 @@ pipeline {
                                 i"
                             echo $CMD
                             $CMD 
-                            if [ $? -ne 0 ]
+                            rc=$?
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
                             # Query Index
                             CMD="wazideploy-evidence\
@@ -337,9 +338,10 @@ pipeline {
                               renderer=${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/renderers/full-report.html"
                             echo $CMD
                             $CMD 
-                            if [ $? -ne 0 ]
+                            rc=$?
+                            if [ $rc -ne 0 ]
                             then
-                              exit $?
+                              exit $rc
                             fi
                             chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html
                       ''')
