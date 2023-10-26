@@ -243,6 +243,7 @@ pipeline {
                             echo $CMD
                             $CMD
                             rc=$?
+                            cp ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml ${WORKSPACE}/deployment-plan.yml
                             exit $rc
                         ''')
                         if ( rc != 0 )
@@ -272,11 +273,12 @@ pipeline {
                                export PATH=$PATH:$HOME/.local/bin
                             fi
                             CMD="wazideploy-deploy\
-                                --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
+                                --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
                                 --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.tar\
                                 --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                 --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
-                                --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
+                                --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
+                                ${WORKSPACE}"
                             echo $CMD
                             $CMD 
                             rc=$?
@@ -331,7 +333,7 @@ pipeline {
                               --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
                               --template ${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/templates/full-report.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html\
-                              r\
+                              ${ROLLING_BACK}\
                               renderer=${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/renderers/full-report.html"
                             echo $CMD
                             $CMD 
