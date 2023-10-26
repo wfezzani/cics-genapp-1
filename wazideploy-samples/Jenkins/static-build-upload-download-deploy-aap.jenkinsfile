@@ -20,10 +20,6 @@ pipeline {
 
     agent { label zOsAgentLabel }
     
-    options {
-        ansiColor('xterm')
-    }
-    
     environment {
         APP_NAME = "${appName}"
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
@@ -50,7 +46,10 @@ pipeline {
        booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
     }
 
-    options { skipDefaultCheckout(true) }
+    options { 
+        skipDefaultCheckout(true) 
+        ansiColor('xterm')
+    }
 
     stages {
         stage('Initialization') {
