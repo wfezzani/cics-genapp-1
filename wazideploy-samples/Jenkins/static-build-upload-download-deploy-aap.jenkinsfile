@@ -58,7 +58,7 @@ pipeline {
                     verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
                     rollingBack = env.ROLLING_BACK && env.ROLLING_BACK == 'true' ? true : false
                     env.BUILD_VERBOSE = verbose ? '-v' : ''
-                    env.ROLLING_BACK = rollingBack ? 'True' : ''
+                    env.ROLLING_BACK = rollingBack ? 'env.ROLLING_BACK' : ''
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
@@ -244,7 +244,7 @@ pipeline {
                 script {
                     if ( hasBuildFiles ) {
                         ansibleTowerProjectSync async: false, importTowerLogs: false, project: 'GenApp', 
-                            removeColor: false, throwExceptionWhenFail: false, towerCredentialsId: 'wazi-deploy-app', towerServer: 'Wazi Deploy APP', verbose: false
+                            removeColor: false, throwExceptionWhenFail: false, extraVars: env.ROLLING_BACK, towerCredentialsId: 'wazi-deploy-app', towerServer: 'Wazi Deploy APP', verbose: false
                      }
                 }
             }
