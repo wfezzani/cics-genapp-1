@@ -20,6 +20,10 @@ pipeline {
 
     agent { label zOsAgentLabel }
     
+    options {
+        ansiColor('xterm')
+    }
+    
     environment {
         APP_NAME = "${appName}"
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
@@ -235,7 +239,7 @@ pipeline {
                 }
             }
         }
-        
+         extraVars: 'planTags: restore'
         stage('Deploy: AAP Project Sync') {
             steps {
                 script {
