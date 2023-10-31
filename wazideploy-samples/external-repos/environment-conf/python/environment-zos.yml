@@ -86,11 +86,6 @@ spec:
       dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
-    - pattern: .*\.LOAD$
-      dataset: "{{ env.spec.hlq }}.LOADLIB2"
-      dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB2"
-      spec: "{{ env.spec.common_pds_load_spec }}"
-      is_load: True
     - pattern: .*\.CICSLOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
       dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
