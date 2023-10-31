@@ -115,12 +115,8 @@ spec:
       #  from: UTF-8
       #  to: IBM-1047
       text_subs:
-      - pattern: "#SUB1"
-        replace: "01"
-      - pattern: "#SUB2"
-        replace: "02"
-      - pattern: "#SUB3"
-        replace: "03"
+      - pattern: "#SUB([0-9])"
+        replace: "\\1"
     - pattern: .*.BIN$
       directory: "{{ env.spec.uss_root }}/bin/"
       directory_backup: "{{ env.spec.uss_root }}/bin/back/"
