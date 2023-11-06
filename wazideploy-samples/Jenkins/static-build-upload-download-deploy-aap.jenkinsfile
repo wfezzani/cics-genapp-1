@@ -203,7 +203,7 @@ pipeline {
                                     --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
-                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application-manifest.yml\
+                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application-manifest-static.yml.yml\
                                     --uploadType static"
                             echo $CMD
                             $CMD
