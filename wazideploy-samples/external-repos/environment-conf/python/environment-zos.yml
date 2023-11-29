@@ -146,9 +146,9 @@ spec:
       dataset: "{{ env.spec.hlq }}.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
       spec: "{{ env.spec.common_pds_txt_spec }}"
-      encoding:
-        from: UTF-8
-        to: IBM-1047
+      #encoding:
+      #  from: UTF-8
+      #  to: IBM-1047
       text_subs:
       - pattern: "#SUB([0-9])"
         replace: "\\1"
