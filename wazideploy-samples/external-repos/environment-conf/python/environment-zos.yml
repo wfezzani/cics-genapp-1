@@ -46,6 +46,13 @@ spec:
      sdsnload: "{{env.spec.default_db2_sdsnload}}"
      plan_pklist: '*.GENASA1.*'
 
+  default_mfsutl_jobcard: "MFSUTL  JOB 'WD-MFSUTL',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID"
+  default_mfsutl_procname: "MFSUTL"
+  ims_mfsutl:
+     max_rc: 4
+     jobcard: "{{env.spec.default_mfsutl_jobcard}}"
+     procname: "{{env.spec.default_mfsutl_procname}}"
+
   common_pds_load_spec:
      type: LIBRARY
      primary_space: 10CYL
@@ -79,7 +86,11 @@ spec:
      record_length: 15
 
   hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.WDEPLOY.PYTHON' }}"
-  uss_root: "{{ extra_vars.uss_root if extra_vars.uss_root is defined else '/tmp/uss_root' }}"
+  hlq_cics: "{{ extra_vars.hlq_cics if extra_vars.hlq_cics is defined else 'NAZARE.WDEPLOY.PYTHON' }}"
+  hlq_ims: "{{ extra_vars.hlq_ims if extra_vars.hlq_ims is defined else 'IMSBANK.IMS1' }}"
+  hlq_ims_steplib: "{{ extra_vars.hlq_ims_steplib if extra_vars.hlq_ims_steplib is defined else env.spec.hlq_ims }}"
+  hlq_ims_pgmlib: "{{ extra_vars.hlq_ims_pgmlib if extra_vars.hlq_ims_pgmlib is defined else env.spec.hlq_ims }}"
+  uss_root: "{{ extra_vars.uss_root if extra_vars.uss_root is defined else '{{args.workingFolder}}/uss_root' }}"
   types:
     - pattern: .*\.LOAD$
       dataset: "{{ env.spec.hlq }}.LOADLIB"
@@ -87,22 +98,46 @@ spec:
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
     - pattern: .*\.CICSLOAD$
-      dataset: "{{ env.spec.hlq }}.LOADLIB"
-      dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
+      dataset: "{{ env.spec.hlq_cics }}.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq_cics }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
+    - pattern: .*\.IMSLOAD$
+      dataset: "{{ env.spec.hlq_ims_pgmlib }}.PGMLIB"
+      dataset_backup: "{{ env.spec.hlq_ims_pgmlib }}.BACK.PGMLIB"
+      spec: "{{ env.spec.common_pds_load_spec }}"
+      is_load: True
+    - pattern: .*\.PSB$
+      dataset: "{{ env.spec.hlq_ims }}.PSBLIB"
+      dataset_backup: "{{ env.spec.hlq_ims }}.BACK.PSBLIB"
+      spec: "{{ env.spec.common_pds_load_spec }}"
+      is_load: True
+      is_ims_psb: True
+    - pattern: .*\.DBD$
+      dataset: "{{ env.spec.hlq_ims }}.DBDLIB"
+      dataset_backup: "{{ env.spec.hlq_ims }}.BACK.DBDLIB"
+      spec: "{{ env.spec.common_pds_load_spec }}"
+      is_load: True
+      is_ims_dbd: True
+    - pattern: .*.MFSSOURCE$
+      dataset: "{{ env.spec.hlq_ims }}.MFS"
+      dataset_backup: "{{ env.spec.hlq_ims }}.BACK.MFS"
+      spec: "{{ env.spec.common_pds_txt_spec }}"
+      #encoding:
+      #  from: UTF-8
+      #  to: IBM-1047
     - pattern: .*\.MAPLOAD$
-      dataset: "{{ env.spec.hlq }}.LOADLIB"
-      dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
+      dataset: "{{ env.spec.hlq_cics }}.LOADLIB"
+      dataset_backup: "{{ env.spec.hlq_cics }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*.DBRM$
-      dataset: "{{ env.spec.hlq }}.DBRM"
-      dataset_backup: "{{ env.spec.hlq }}.BACK.DBRM"
+      dataset: "{{ env.spec.hlq_cics }}.DBRM"
+      dataset_backup: "{{ env.spec.hlq_cics }}.BACK.DBRM"
       spec: "{{ env.spec.common_pds_binary_spec }}"
       is_binary: True
       db2_systems:
@@ -111,9 +146,9 @@ spec:
       dataset: "{{ env.spec.hlq }}.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
       spec: "{{ env.spec.common_pds_txt_spec }}"
-      #encoding:
-      #  from: UTF-8
-      #  to: IBM-1047
+      encoding:
+        from: UTF-8
+        to: IBM-1047
       text_subs:
       - pattern: "#SUB([0-9])"
         replace: "\\1"
@@ -188,5 +223,268 @@ spec:
 # Variables for template building block
   template_name_default:
      src: "HELLO-jcl.j2"
-     dest: "/tmp/my_jcl/HELLO.jcl"
+     dest: "{{args.workingFolder}}/my_jcl/HELLO.jcl"
      mode: 0755
+
+# Global variables for IMS
+  ims_id: "{{ extra_vars.ims_id if extra_vars.ims_id is defined else 'IVP1' }}"
+  ims_plex: "{{ extra_vars.ims_plex if extra_vars.ims_plex is defined else 'PLEX1' }}"
+
+# Variables for template building block
+  olcutl_template:
+     src: "nazare-demo-imsapp/wazideploy-samples/external-repos/environment-conf/python/oclutil.j2"
+     dest: "{{args.workingFolder}}/oclutil.jcl"
+     mode: 0755
+
+  olcutl_job:
+     src: '{{args.workingFolder}}/oclutil.jcl'
+     max_rc: 4
+
+# Variables for ims_acb_gen building block 
+  ims_acb_gen_default:
+     acb_lib: '{{ env.spec.hlq_ims  }}.ACBLIB'
+     command_input: "BUILD"
+     steplib :  
+       - '{{ env.spec.hlq_ims_steplib  }}.SDFSRESL'
+     reslib: 
+       - '{{ env.spec.hlq_ims_steplib  }}.SDFSRESL'
+     psb_lib:
+       - '{{ env.spec.hlq_ims  }}.PSBLIB'
+#       - '{{ env.spec.hlq_ims  }}.PSBLIBA'
+     dbd_lib: 
+       - '{{ env.spec.hlq_ims  }}.DBDLIB'
+#     build_psb: False
+#     compression: PRECOMP,POSTCOMP
+#     all_psb: True
+
+# Variables for ims_catalog_populate building block 
+  ims_catalog_populate_default:
+     acb_lib: 
+       - '{{ env.spec.hlq_ims }}.ACBLIB'
+     mode: "READ"
+     ims_id: "{{ env.spec.ims_id }}"
+     steplib : 
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     reslib: 
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     proclib: 
+       - '{{ env.spec.hlq_ims }}.PROCLIB'
+     psb_lib: 
+       - '{{ env.spec.hlq_ims }}.PSBLIB'
+#     - '{{ env.spec.hlq_ims }}.PSBLIB'
+     dbd_lib: 
+       - '{{ env.spec.hlq_ims }}.DBDLIB'
+     online_batch: False
+     buffer_pool_param_dataset: '{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMDC)'
+     primary_log_dataset: 
+       dataset_name: '{{ env.spec.hlq_ims }}.IMSLOG'
+       disposition: "SHR"
+#       record_format: "VB"
+#       record_length: 6140
+#       block_size: 6144
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#         - VOL001
+#       type: "???"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+#     bootstrap_dataset: 
+#       dataset_name: '{{ env.spec.hlq_ims }}.IMSBST'
+#       disposition: "NEW"
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#        - VOL001
+#       type: "SEQ"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+#     check_timestamp: False
+#     control_statements: "UPDATE"
+#     dbrc: False
+#     directory_dataset: 
+#       dataset_name: '{{ env.spec.hlq_ims }}.IMSDIR'
+#       disposition: "NEW"
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#        - VOL001
+#       type: "SEQ"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+#     directory_staging_dataset: 
+#       dataset_name: '{{ env.spec.hlq_ims }}.IMSSTG'
+#       disposition: "NEW"
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#        - VOL001
+#       type: "SEQ"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+#     irlm_id: "The IRLM ID if IRLM is enabled. Cannot be specified when online_batch is true."
+#     modstat: '{{ env.spec.hlq_ims }}.MODSTAT'
+#     secondary_log_dataset: 
+#       dataset_name: '{{ env.spec.hlq_ims }}.IMSLOG2'
+#       disposition: "SHR"
+#       record_format: "VB"
+#       record_length: 6140
+#       block_size: 6144
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#         - VOL001
+#       type: "???"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+#     sysabend: "*"
+#     temp_acb_dataset:
+#       dataset_name: '{{ env.spec.hlq_ims }}.TMPACB"
+#       disposition: "NEW"
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#        - VOL001
+#       type: "SEQ"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+  ims_catalog_purge_default:
+     mode: "ANALYSIS"
+     online_batch: False
+     ims_id: "{{ env.spec.ims_id }}"
+#     dbrc: False
+#     irlm_id: "The IRLM ID if IRLM is enabled. Cannot be specified when online_batch is true."
+     reslib: 
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     steplib: 
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     proclib: 
+       - '{{ env.spec.hlq_ims }}.PROCLIB'
+     psb_lib: 
+       - '{{ env.spec.hlq_ims }}.PSBLIB'
+#       - '{{ env.spec.hlq_ims }}.PSBLIBA'
+     dbd_lib: 
+       - '{{ env.spec.hlq_ims }}.DBDLIB'
+     buffer_pool_param_dataset: '{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMDC)'
+     primary_log_dataset: 
+       dataset_name: '{{ env.spec.hlq_ims }}.IMSLOG'
+       disposition: "SHR"
+#       record_format: "VB"
+#       record_length: 6140
+#       block_size: 6144
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#         - VOL001
+#       type: "???"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+#     delete_by_dbd_version:
+#     - member_name: DBDABCDE
+#       version_number: 02
+#     - member_name: xxx
+#       version_number: 03
+#     update_retention_criteria:
+#     - resource: DBD
+#       member_name: DBDNAMEA
+#       instances: 10
+#       days: 03
+#     - resource: PSB
+#       member_name: PSBNAMEA
+#       instances: 10
+#       days: 03
+#     delete:
+#     - resource: DBD
+#       member_name: DBDNAMEA
+#       time_stamp: 10
+#       days: 03
+#     managed_acbs: False
+#     resource_chkp_freq: 150
+#     sysut1: 
+#       dataset_name: '{{ env.spec.hlq_ims }}.SYSPUR'
+#       disposition: "NEW"
+#       block_size: 10000
+#       primary: 10
+#       primary_unit: "TRK" 
+#       secondary: 10
+#       secondary_unit: "TRK" 
+#       normal_disposition: "CATLG"
+#       abnomal_disposition: "DELETE"
+#       volumes:
+#         - VOL001
+#       type: "SEQ"  
+#       storage_class: ""
+#       management_class: ""
+#       data_class: ""
+    
+# Variables for ims_command building block 
+  ims_command_default:
+     command: "QUERY PGM SHOW(ALL)"
+     plex: "{{ env.spec.ims_plex }}"
+     route: 
+       - "{{ env.spec.ims_id }}"
+#     batch:
+#       - command: "QUERY PGM SHOW(ALL)"
+#         plex: "{{ env.spec.ims_plex }}" 
+#       - command: "DISPLAY STATUS"
+#         plex: "{{ env.spec.ims_plex }}"
+
+# Variables for ims_command ALL Switch building block
+  ims_switch_all:
+     route: 
+       - "{{ env.spec.ims_id }}"  
+     batch:
+       - command: "DISPLAY MODIFY ALL"
+         plex: "{{ env.spec.ims_plex }}"
+       - command: "MODIFY PREPARE ALL"
+         plex: "{{ env.spec.ims_plex }}" 
+       - command: "MODIFY COMMIT"
+         plex: "{{ env.spec.ims_plex }}" 
+       - command: "DISPLAY MODIFY ALL"
+         plex: "{{ env.spec.ims_plex }}"
+
+
+# Variables for ims_dbrc building block 
+  ims_dbrc_default:
+     command: 
+       - "LIST.RECON STATUS"
+     steplib : 
+       - "{{ env.spec.hlq_ims  }}.SDFSRESL" 
+     recon1: "{{ env.spec.hlq_ims  }}.RECON1"
+     recon2: "{{ env.spec.hlq_ims  }}.RECON2"
+     recon3: "{{ env.spec.hlq_ims  }}.RECON3" 
