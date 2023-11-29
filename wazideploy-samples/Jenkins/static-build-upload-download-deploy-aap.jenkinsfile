@@ -203,7 +203,7 @@ pipeline {
                                     --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
-                                    --manifest ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest-static.yml\
+                                    --manifest ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest-static.yml\
                                     --uploadType static"
                             echo $CMD
                             $CMD
