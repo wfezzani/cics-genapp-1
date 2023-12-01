@@ -128,13 +128,15 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
                 msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
                 print(msgstr)
                 sys.exit(-1)
-            if not copyMode == 'TEXT':
+            if copyMode == 'TEXT':
+                cmd = f"chtag -r {working_folder}/{pds_name}/{member_name}.{deploy_type}"
+            else:
                 cmd = f"chtag -b {working_folder}/{pds_name}/{member_name}.{deploy_type}"
-                rc, out, err = run_command(cmd)
-                if rc != 0:
-                    msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
-                    print(msgstr)
-                    sys.exit(-1)
+            rc, out, err = run_command(cmd)
+            if rc != 0:
+                msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
+                print(msgstr)
+                sys.exit(-1)
 
 def main(): 
 
