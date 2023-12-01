@@ -65,6 +65,10 @@ class DBBUtilities(object):
             return "LOAD"
         elif re.search('DBRM', deployType, re.IGNORECASE):
             return "BINARY"
+        elif re.search('PSB', deployType, re.IGNORECASE):
+            return "LOAD"
+        elif re.search('DBD', deployType, re.IGNORECASE):
+            return "LOAD"
         elif re.search('TEXT', deployType, re.IGNORECASE):
             return "TEXT"
         elif re.search('COPY', deployType, re.IGNORECASE):
@@ -106,11 +110,10 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
         pds_name = parts[0]
     
         # Build the local_folder from DBB Build Outputs
-        msgstr = f"** Copy //'{dataset}' to {working_folder}/{pds_name}/{member_name}.{deploy_type}"
-        print(msgstr)
-        
         os.makedirs(f"{working_folder}/{pds_name}", exist_ok=True)
         copyMode = DBBUtilities.get_copy_mode(deploy_type, **kwargs)
+        msgstr = f"** Copy //'{dataset}' to {working_folder}/{pds_name}/{member_name}.{deploy_type} ({copyMode})"
+        print(msgstr)
         if copyMode == 'LOAD':
             cmd = f"cp -XI //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
 
@@ -125,12 +128,13 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
                 msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
                 print(msgstr)
                 sys.exit(-1)
-            cmd = f"chtag -b {working_folder}/{pds_name}/{member_name}.{deploy_type}"
-            rc, out, err = run_command(cmd)
-            if rc != 0:
-                msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
-                print(msgstr)
-                sys.exit(-1)
+            if not copyMode == 'TEXT':
+                cmd = f"chtag -b {working_folder}/{pds_name}/{member_name}.{deploy_type}"
+                rc, out, err = run_command(cmd)
+                if rc != 0:
+                    msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
+                    print(msgstr)
+                    sys.exit(-1)
 
 def main(): 
 
