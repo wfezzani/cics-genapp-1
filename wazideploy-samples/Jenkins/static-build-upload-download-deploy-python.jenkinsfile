@@ -332,7 +332,7 @@ pipeline {
                             fi
                             # Index Evidences
                             CMD="wazideploy-evidence\
-                                --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
+                                --indexFolder ${WORKSPACE}/evidences/index\
                                 --dataFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences\
                                 i"
                             echo $CMD
@@ -344,7 +344,7 @@ pipeline {
                             fi
                             # Query Index
                             CMD="wazideploy-evidence\
-                              --indexFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/index\
+                              --indexFolder ${WORKSPACE}/evidences/index\
                               --template ${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/templates/full-report.yml\
                               --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html\
                               r\
