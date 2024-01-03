@@ -97,11 +97,13 @@ spec:
       dataset_backup: "{{ env.spec.hlq }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
+      aliases: True
     - pattern: .*\.CICSLOAD$
       dataset: "{{ env.spec.hlq_cics }}.LOADLIB"
       dataset_backup: "{{ env.spec.hlq_cics }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
+      aliases: True
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*\.IMSLOAD$
@@ -109,6 +111,7 @@ spec:
       dataset_backup: "{{ env.spec.hlq_ims_pgmlib }}.BACK.PGMLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
+      aliases: True
     - pattern: .*\.PSB$
       dataset: "{{ env.spec.hlq_ims }}.PSBLIB"
       dataset_backup: "{{ env.spec.hlq_ims }}.BACK.PSBLIB"
@@ -133,6 +136,7 @@ spec:
       dataset_backup: "{{ env.spec.hlq_cics }}.BACK.LOADLIB"
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
+      aliases: True
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*.DBRM$
@@ -236,6 +240,11 @@ spec:
      dest: "{{args.workingFolder}}/oclutil.jcl"
      mode: 0755
 
+  olcutl_cat_template:
+     src: "nazare-demo-imsapp/wazideploy-samples/external-repos/environment-conf/python/oclutil_cat.j2"
+     dest: "{{args.workingFolder}}/oclutil.jcl"
+     mode: 0755
+
   olcutl_job:
      src: '{{args.workingFolder}}/oclutil.jcl'
      max_rc: 4
@@ -271,11 +280,11 @@ spec:
        - '{{ env.spec.hlq_ims }}.PROCLIB'
      psb_lib: 
        - '{{ env.spec.hlq_ims }}.PSBLIB'
-#     - '{{ env.spec.hlq_ims }}.PSBLIB'
+#     - '{{ env.spec.hlq_ims }}.PSBLIBA'
      dbd_lib: 
        - '{{ env.spec.hlq_ims }}.DBDLIB'
      online_batch: False
-     buffer_pool_param_dataset: '{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMDC)'
+     buffer_pool_param_dataset: '{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMHP)'
      primary_log_dataset: 
        dataset_name: '{{ env.spec.hlq_ims }}.IMSLOG'
        disposition: "SHR"
@@ -395,7 +404,7 @@ spec:
 #       - '{{ env.spec.hlq_ims }}.PSBLIBA'
      dbd_lib: 
        - '{{ env.spec.hlq_ims }}.DBDLIB'
-     buffer_pool_param_dataset: '{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMDC)'
+     buffer_pool_param_dataset: '{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMHP)'
      primary_log_dataset: 
        dataset_name: '{{ env.spec.hlq_ims }}.IMSLOG'
        disposition: "SHR"
@@ -467,7 +476,7 @@ spec:
 # Variables for ims_command ALL Switch building block
   ims_switch_all:
      route: 
-       - "{{ env.spec.ims_id }}"  
+       - "{{ env.spec.ims_id }}"
      batch:
        - command: "DISPLAY MODIFY ALL"
          plex: "{{ env.spec.ims_plex }}"
@@ -478,6 +487,32 @@ spec:
        - command: "DISPLAY MODIFY ALL"
          plex: "{{ env.spec.ims_plex }}"
 
+# Variables for ims_command ALL Switch building block
+  ims_switch_cat_all:
+     route: 
+       - "{{ env.spec.ims_id }}"
+     batch:
+       - command: "DISPLAY MODIFY ALL"
+         plex: "{{ env.spec.ims_plex }}"
+       - command: "IMPORT DEFN SOURCE(CATALOG)"
+         plex: "{{ env.spec.ims_plex }}"
+       - command: "MODIFY PREPARE ALL"
+         plex: "{{ env.spec.ims_plex }}" 
+       - command: "MODIFY COMMIT"
+         plex: "{{ env.spec.ims_plex }}"
+       - command: "DISPLAY MODIFY ALL"
+         plex: "{{ env.spec.ims_plex }}"
+
+# Variables for ims_command to restart a region
+  ims_region: "{{ extra_vars.ims_region if extra_vars.ims_region is defined else 'IMS15M11' }}"
+  ims_restart_reg:
+     route: 
+       - "{{ env.spec.ims_id }}"
+     batch:
+       - command: "STOP REGION JOBNAME {{env.spec.ims_region}}"
+         plex: "{{ env.spec.ims_plex }}"
+       - command: "START REGION {{env.spec.ims_region}}"
+         plex: "{{ env.spec.ims_plex }}"
 
 # Variables for ims_dbrc building block 
   ims_dbrc_default:
@@ -487,4 +522,63 @@ spec:
        - "{{ env.spec.hlq_ims  }}.SDFSRESL" 
      recon1: "{{ env.spec.hlq_ims  }}.RECON1"
      recon2: "{{ env.spec.hlq_ims  }}.RECON2"
-     recon3: "{{ env.spec.hlq_ims  }}.RECON3" 
+     recon3: "{{ env.spec.hlq_ims  }}.RECON3"
+
+# Variables for ims_catalog_populate building block update
+  ims_catalog_populate_stage:
+     acb_lib: 
+       - '{{ env.spec.hlq_ims }}.ACBLIB'
+     mode: "UPDATE"
+     dbrc: True
+     dfsdf_member: 'IVP'
+     irlm_id: 'IRLM'
+     ims_id: "{{ env.spec.ims_id }}"
+     steplib : 
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     reslib: 
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     proclib: 
+       - '{{ env.spec.hlq_ims }}.PROCLIB'
+     psb_lib: 
+       - '{{ env.spec.hlq_ims }}.PSBLIB'
+     dbd_lib: 
+       - '{{ env.spec.hlq_ims }}.DBDLIB'
+     buffer_pool_param_dataset: "{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMHP)"
+     primary_log_dataset:
+       dataset_name: '{{ env.spec.hlq_ims }}.LOG1'
+     check_timestamp: True
+     control_statements:
+       print_duplicate_resources: True
+       managed_acbs:
+        stage:
+          save_acb: "UNCOND"
+          clean_staging_dataset: true
+
+  ims_catalog_populate_update:
+     acb_lib:
+       - '{{ env.spec.hlq_ims }}.ACBLIB'
+     mode: "UPDATE"
+     dbrc: True
+     dfsdf_member: 'IVP'
+     ims_id: "{{ env.spec.ims_id }}"
+     steplib :
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     reslib:
+       - '{{ env.spec.hlq_ims }}.SDFSRESL'
+     proclib:
+       - '{{ env.spec.hlq_ims }}.PROCLIB'
+     psb_lib:
+       - '{{ env.spec.hlq_ims }}.PSBLIB'
+     dbd_lib:
+       - '{{ env.spec.hlq_ims }}.DBDLIB'
+     buffer_pool_param_dataset: "{{ env.spec.hlq_ims }}.PROCLIB(DFSVSMHP)"
+     primary_log_dataset:
+       dataset_name: '{{ env.spec.hlq_ims }}.LOG1'
+     check_timestamp: True
+     control_statements:
+       print_duplicate_resources: True
+       managed_acbs:
+        update:
+          replace_acb: "UNCOND"
+          share_mode: True
+
