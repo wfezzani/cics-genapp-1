@@ -6,9 +6,6 @@
 # Use, duplication or disclosure restricted by GSA ADP Schedule
 # Contract with IBM Corp.
 #*******************************************************************************
-all:
-  hosts:
-    zos_tivlp02:
-      ansible_host: 9.30.222.103
-      ansible_user: JENKINS
-      ansible_ssh_port: 222
+---
+PYZ: "/var/imsapp/python/usr/lpp/IBM/cyp/v3r11/pyz"
+ZOAU: "/var/usr/lpp/IBM/zoautil/v1.2.4.5"
