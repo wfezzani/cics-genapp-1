@@ -168,7 +168,7 @@ cics_sys_def:
 
 # types to manage
 default_types: 'types'
-default_copy_by_folder: False
+default_copy_by_folder: True
 types:
   - type: 'load'
     copy_by_folder: '{{default_copy_by_folder}}'
@@ -246,9 +246,9 @@ types:
       name: '{{ hlq }}.JCL'
       spec: "{{common_pds_text_spec}}"
       backup: '{{ hlq }}.BACK.JCL'
-    encoding:
-      from: UTF-8
-      to: IBM-1047
+#    encoding:
+#      from: UTF-8
+#      to: IBM-1047
     text_subs:
     - pattern: "#SUB1"
       replace: "01"
