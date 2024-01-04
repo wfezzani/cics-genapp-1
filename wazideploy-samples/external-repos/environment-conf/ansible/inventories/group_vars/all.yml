@@ -24,6 +24,7 @@ environment_vars:
   _TAG_REDIR_OUT: "txt"
   LANG: "C"
   STEPLIB : '{{ hlq_ims_steplib }}.SDFSRESL'
+  #DEPLOY_FAST_COPY: True
 
 
 ################################################################################
@@ -145,7 +146,7 @@ default_mfsutl_jobcard: "MFSUTL  JOB 'WD-MFSUTL',MSGLEVEL=(1,1),MSGCLASS=R,NOTIF
 default_mfsutl_procname: "MFSUTL"
 ims_mfsutl:
    max_rc: 4
-   return_output: "{{ default_job_return_output }}"
+   return_output: "{{ mfsutl_job_return_output if mfsutl_job_return_output is defined else False }}"
    procname: "{{default_mfsutl_procname}}"
    jobcard: "{{default_mfsutl_jobcard}}"
    encoding:
@@ -396,7 +397,7 @@ olcutl_job:
    src: '{{wd_deploy_dir_local}}/{{inventory_hostname}}_oclutil.jcl'
    location: 'LOCAL'
    max_rc: 4
-   return_output: "{{ default_job_return_output }}"
+   return_output: "{{ olcutl_job_return_output if olcutl_job_return_output is defined else False }}"
    
 # Variables for ims_acb_gen building block 
 ims_acb_gen_default:
