@@ -178,6 +178,9 @@ pipeline {
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             mkdir -p ${WORKSPACE}/evidences/index
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/reports
+                            # Restore files timestamps
+                            cd ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/evidences
+                            git ls-files | xargs -I{} git log -1 --date=format:%Y%m%d%H%M.%S --format='touch -t %ad "{}"' "{}" | $SHELL
                             # Index Evidences
                             CMD="wazideploy-evidence\
                                 --indexFolder ${WORKSPACE}/evidences/index\
