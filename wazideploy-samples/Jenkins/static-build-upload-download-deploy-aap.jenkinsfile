@@ -1,9 +1,9 @@
 // Agent labels
 def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
 
-// DBB Git repositories (For DBB 1.X)
+// DBB Git repositories (For DBB 2.0.xX)
 def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
-def zAppBuildGitBranch = 'zAppBuild_2_x'
+def zAppBuildGitBranch = 'main'
 def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
 def gitCredId = 'git_hub_cred'
