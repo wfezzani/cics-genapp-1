@@ -267,7 +267,7 @@ pipeline {
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
-                            export DEPLOY_FAST_COPY=True # INTERNAL USE ONLY !!!
+                            #export DEPLOY_FAST_COPY=True # INTERNAL USE ONLY !!!
                             if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
