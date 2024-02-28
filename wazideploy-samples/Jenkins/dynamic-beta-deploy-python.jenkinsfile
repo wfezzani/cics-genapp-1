@@ -240,7 +240,7 @@ pipeline {
                             then
                               exit $rc
                             fi
-                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html
+                            chtag -r ${WORKSPACE}/deploy/deployment-report.html
                       ''')
                       if ( rc != 0 )
                           error("Excecution Of Deployment Report Failed!!!")
@@ -249,7 +249,7 @@ pipeline {
             }
             post {
                 always {
-                    dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                    dir("${WORKSPACE}") {
                         archiveArtifacts allowEmptyArchive: true,
                                         artifacts: '**/deployment-report.html,**/deployed-lgacdb02-where.csv,**/environment-deployed-component-version.html',
                                         onlyIfSuccessful: false
