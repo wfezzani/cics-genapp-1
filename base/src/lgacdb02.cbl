@@ -1,7 +1,7 @@
        PROCESS SQL
       ******************************************************************
       *                                                                *
-      * (C) Copyright IBM Corp. 2011, 2023                             *
+      * (C) Copyright IBM Corp. 2011, 2021                             *
       *                                                                *
       *                    ADD Customer                                *
       *                                                                *
