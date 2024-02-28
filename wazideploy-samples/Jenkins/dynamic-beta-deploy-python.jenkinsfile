@@ -110,7 +110,7 @@ pipeline {
                         echo $CMD
                         $CMD
                         rc=$?
-                        echo ""
+                        cp ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml ${WORKSPACE}/deployment-plan.yml
                         exit $rc
                     ''')
                     if ( rc != 0 )
