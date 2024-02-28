@@ -162,9 +162,9 @@ pipeline {
                             $CMD 
                             rc=$?
                             # For jenkins artifact upload
-                            #chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml
-                            #chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
-                            #chtag -r  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml
+                            chtag -r ${WORKSPACE}/deployment-plan.yml
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
+                            chtag -r  ${WORKSPACE}/evidences/data/evidence.${BUILD_NUMBER}.yml
                             exit $rc
                     ''')
                     if ( rc != 0 )
