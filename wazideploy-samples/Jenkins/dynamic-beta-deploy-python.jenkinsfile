@@ -193,7 +193,7 @@ pipeline {
                     }
                     dir("${WORKSPACE}") {
                         archiveArtifacts allowEmptyArchive: true,
-                                        artifacts: 'deployment-plan.yml',
+                                        artifacts: 'deployment-plan.yml,evidences/data/evidence.${BUILD_NUMBER}.yml',
                                         onlyIfSuccessful: false
                     }
                     dir("${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/ansible/evidences") {
