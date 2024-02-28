@@ -3,14 +3,14 @@ kind: ManifestState
 metadata:
   name: cics-genapp
   description: cics-genapp
-  version: 1.0.57
+  version: 1.0.58
   annotations:
-    creation_timestamp: 20240228.143437.311
+    creation_timestamp: 20240228.143641.011
     scm:
       type: git
       uri: git@github.com:jbyibm/cics-genapp.git
       branch: main
-      short_commit: 6dc0e5ed
+      short_commit: 7caddf11
     package:
       name: sys-wazi-deploy-team/cics-genapp-wazideploy-dynamic-build
       properties:
@@ -21,8 +21,8 @@ metadata:
       - key: build_name
         value: sys-wazi-deploy-team/cics-genapp-wazideploy-dynamic-build
       - key: build_number
-        value: '41'
-      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-wazideploy-dynamic-build/41
+        value: '42'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-wazideploy-dynamic-build/42
       type: ARTIFACTORY
 artifacts:
 - name: LGUCVS01
@@ -133,15 +133,6 @@ artifacts:
     value: 34984c1f7b7685fe579b7eef245b859b681d7dde9aec68c6957e9bfc3ebb1be4
   type: DBRM
   hash: 34984c1f7b7685fe579b7eef245b859b681d7dde9aec68c6957e9bfc3ebb1be4
-- name: LGIPOL01
-  description: LGIPOL01.CICSLOAD
-  properties:
-  - key: path
-    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
-  - key: fingerprint
-    value: 5695PMB01 02042024059092244
-  type: CICSLOAD
-  hash: 4e3ba4a46233a1a7cd1930173b0b09be8dc00d15a3fdb39633c5c1999a3bfe2f
 - name: SSMAP
   description: SSMAP.MAPLOAD
   properties:
@@ -178,6 +169,15 @@ artifacts:
     value: 5695PMB01 02042024059090725
   type: CICSLOAD
   hash: 576640844a1ba06f08557d549fc8d2ee21e567af281350c53b8bef6157c9b7ea
+- name: LGIPOL01
+  description: LGIPOL01.CICSLOAD
+  properties:
+  - key: path
+    value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+  - key: fingerprint
+    value: 5695PMB01 02042024059093636
+  type: CICSLOAD
+  hash: 5ed648c7a056f498c00ca3172e085f3a8121e30872c0aed4c3ca2301e91a9610
 - name: LGIPVS01
   description: LGIPVS01.CICSLOAD
   properties:
