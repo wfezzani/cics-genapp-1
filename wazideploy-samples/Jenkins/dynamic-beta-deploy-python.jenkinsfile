@@ -188,7 +188,12 @@ pipeline {
                 always {
                     dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
                         archiveArtifacts allowEmptyArchive: true,
-                                        artifacts: '**/deployment-plan.yml,**/deployment-plan-report.html,**/package.tar',
+                                        artifacts: '**/deployment-plan-report.html',
+                                        onlyIfSuccessful: false
+                    }
+                    dir("${WORKSPACE}") {
+                        archiveArtifacts allowEmptyArchive: true,
+                                        artifacts: 'deployment-plan.yml',
                                         onlyIfSuccessful: false
                     }
                     dir("${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/ansible/evidences") {
@@ -251,7 +256,7 @@ pipeline {
                 always {
                     dir("${WORKSPACE}") {
                         archiveArtifacts allowEmptyArchive: true,
-                                        artifacts: '**/deployment-report.html,**/deployed-lgacdb02-where.csv,**/environment-deployed-component-version.html',
+                                        artifacts: '**/deployment-report.html',
                                         onlyIfSuccessful: false
                     }
                 }
