@@ -125,6 +125,8 @@ pipeline {
             steps {
                 script {
                     // Deploy
+                    if ( env.WD_DEPLOY_ENV_FILE == null )
+                       env.WD_DEPLOY_ENV_FILE = "environment-zos.yml"
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
