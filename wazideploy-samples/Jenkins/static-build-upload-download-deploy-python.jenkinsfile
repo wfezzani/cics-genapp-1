@@ -333,7 +333,7 @@ pipeline {
                             # Index Evidences
                             CMD="wazideploy-evidence\
                                 --indexFolder ${WORKSPACE}/evidences/index\
-                                --dataFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences\
+                                --dataFolder ${WORKSPACE}/evidences/data\
                                 i"
                             echo $CMD
                             $CMD 
