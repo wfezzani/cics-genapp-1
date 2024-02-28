@@ -105,7 +105,7 @@ pipeline {
                                --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                --deploymentState ${WORKSPACE}/BUILD-${BUILD_NUMBER}/merged_deployment-state.yml\
                                ${CURRENT_DEPLOYMENT_STATE}\
-                               --packageOutputFile${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
+                               --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml"
                         echo $CMD
                         $CMD
