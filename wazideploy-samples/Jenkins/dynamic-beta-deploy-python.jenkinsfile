@@ -98,6 +98,7 @@ pipeline {
                         else
                            export PATH=$PATH:$HOME/.local/bin
                         fi
+                        mkdir ${WORKSPACE}/evidences/data
                         CMD="wazideploy-generate\
                                --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/dynamic-beta-deployment-method.yml\
                                --manifests ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest.yml\
@@ -121,13 +122,14 @@ pipeline {
         }
 
 
-        stage('Deploy: Execute The Deployment With Ansible for z/OS') {
+        stage('Deploy: Execute The Deployment With Python for z/OS') {
             steps {
                 script {
                     // Deploy
                     if ( env.WD_DEPLOY_ENV_FILE == null )
                        env.WD_DEPLOY_ENV_FILE = "environment-zos.yml"
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            mkdir ${WORKSPACE}/evidences/data
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
@@ -146,13 +148,13 @@ pipeline {
                                     --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
                                     --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
-                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
+                                    --evidencesFileName ${WORKSPACE}/evidences/data/evidence.${BUILD_NUMBER}.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
                             else
                                 CMD="wazideploy-deploy\
                                     --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
-                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
+                                    --evidencesFileName ${WORKSPACE}/evidences/data/evidence.${BUILD_NUMBER}.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
                                     --planTags restore"
                             fi
@@ -212,9 +214,10 @@ pipeline {
                                export PATH=$PATH:$HOME/.local/bin
                             fi
                             # Index Evidences
+                            mkdir ${WORKSPACE}/evidences/data
                             CMD="wazideploy-evidence\
                                 --indexFolder ${WORKSPACE}/evidences/index\
-                                --dataFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences\
+                                --dataFolder ${WORKSPACE}/evidences/data\
                                 i"
                             echo $CMD
                             $CMD 
