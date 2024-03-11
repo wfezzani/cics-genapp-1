@@ -267,7 +267,7 @@ pipeline {
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
-                            #export DEPLOY_FAST_COPY=True # INTERNAL USE ONLY !!!
+                            export DEPLOY_FAST_COPY=True # INTERNAL USE ONLY !!!
                             if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
@@ -282,13 +282,13 @@ pipeline {
                                     --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
                                     --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
-                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
+                                    --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
                             else
                                 CMD="wazideploy-deploy\
                                     --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
-                                    --evidencesFileName ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml\
+                                    --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
                                     --planTags restore"
                             fi
