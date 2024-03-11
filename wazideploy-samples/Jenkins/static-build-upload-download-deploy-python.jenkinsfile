@@ -298,7 +298,7 @@ pipeline {
                             # For jenkins artifact upload
                             chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml
                             chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
-                            chtag -r  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/evidences/evidence.yml
+                            chtag -r ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml
                             exit $rc
                       ''')
                       if ( rc != 0 )
