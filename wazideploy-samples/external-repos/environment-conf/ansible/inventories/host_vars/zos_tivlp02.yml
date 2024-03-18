@@ -7,5 +7,5 @@
 # Contract with IBM Corp.
 #*******************************************************************************
 ---
-PYZ: "/var/imsapp/python/usr/lpp/IBM/cyp/v3r11/pyz"
-ZOAU: "/var/usr/lpp/IBM/zoautil/v1.2.4.5"
+PYZ: "/var/imsapp/python/usr/lpp/IBM/cyp/v3r12/pyz"
+ZOAU: "/var/usr/lpp/IBM/zoautil/v1.2.5.4"

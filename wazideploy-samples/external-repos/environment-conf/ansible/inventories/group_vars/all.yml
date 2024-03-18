@@ -30,7 +30,7 @@ environment_vars:
 ################################################################################
 # Description of the properties used in this configuration:
 # - Property `PYZ` is the python installation home path on the z/OS managed node (target),
-#    e.g, pyz: "/usr/lpp/IBM/cyp/v3r11/pyz"
+#    e.g, pyz: "/usr/lpp/IBM/cyp/v3r12/pyz"
 # - Property `ZOAU` is the ZOAU installation home on the z/OS managed node (target),
 #    e.g, zoau: "/usr/lpp/IBM/zoautil"
 # - property `ansible_python_interpreter` is the z/OS managed node (target) Python
@@ -56,9 +56,9 @@ ansible_python_interpreter: "{{ PYZ }}/bin/python3"
 # - Property PYTHONPATH is the ZOA Utilities Python library path; e.g., PYTHONPATH: "/usr/lpp/IBM/zoautil/lib"
 # - Property LIBPATH is both the path to the Python libraries on the target
 #   and the ZOA Utilities Python library path separated by semi-colons; e.g.,
-#   LIBPATH: "/usr/lpp/IBM/zoautil/lib/:/usr/lpp/IBM/cyp/v3r11/pyz/lib:/usr/lib:/lib:."
+#   LIBPATH: "/usr/lpp/IBM/zoautil/lib/:/usr/lpp/IBM/cyp/v3r12/pyz/lib:/usr/lib:/lib:."
 # - Property PATH is the ZOA utilities BIN path and Python interpreter path, e.g.,
-#   PATH: "/usr/lpp/IBM/zoautil/bin:/usr/lpp/IBM/cyp/v3r11/pyz/bin:/bin"
+#   PATH: "/usr/lpp/IBM/zoautil/bin:/usr/lpp/IBM/cyp/v3r12/pyz/bin:/bin"
 # - Property _CEE_RUNOPTS is the invocation Language Environment® runtime
 #   options for programs and used by Python. e.g.,
 #   _CEE_RUNOPTS: "FILETAG(AUTOCVT,AUTOTAG) POSIX(ON)"
