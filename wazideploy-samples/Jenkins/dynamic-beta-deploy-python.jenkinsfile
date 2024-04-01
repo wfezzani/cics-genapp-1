@@ -98,7 +98,7 @@ pipeline {
                         else
                            export PATH=$PATH:$HOME/.local/bin
                         fi
-                        mkdir ${WORKSPACE}/evidences/data
+                        mkdir -p ${WORKSPACE}/evidences/data
                         CMD="wazideploy-generate\
                                --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/dynamic-beta-deployment-method.yml\
                                --manifests ${WORKSPACE}/${APP_NAME}/wazideploy-samples/application-manifest/application-manifest.yml\
@@ -129,7 +129,7 @@ pipeline {
                     if ( env.WD_DEPLOY_ENV_FILE == null )
                        env.WD_DEPLOY_ENV_FILE = "environment-zos.yml"
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            mkdir ${WORKSPACE}/evidences/data
+                            mkdir -p ${WORKSPACE}/evidences/data
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
@@ -173,7 +173,7 @@ pipeline {
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                          echo ""
                          cd ${WORKSPACE}/${APP_NAME}
-                         cp ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/ansible/evidences/* wazideploy-samples/external-repos/evidences
+                         cp ${WORKSPACE}/evidences/data/evidence.${BUILD_NUMBER}.yml wazideploy-samples/external-repos/evidences
                          cp ${WORKSPACE}/BUILD-${BUILD_NUMBER}/merged_deployment-state.yml ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-state/deployment-state.yml
                          git add wazideploy-samples/external-repos/deployment-state/deployment-state.yml
                          git add wazideploy-samples/external-repos/evidences/*
@@ -219,7 +219,7 @@ pipeline {
                                export PATH=$PATH:$HOME/.local/bin
                             fi
                             # Index Evidences
-                            mkdir ${WORKSPACE}/evidences/data
+                            mkdir -p ${WORKSPACE}/evidences/data
                             CMD="wazideploy-evidence\
                                 --indexFolder ${WORKSPACE}/evidences/index\
                                 --dataFolder ${WORKSPACE}/evidences/data\
