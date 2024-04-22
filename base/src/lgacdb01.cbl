@@ -130,7 +130,7 @@
        MAINLINE SECTION.
 
       *----------------------------------------------------------------*
-      * Common code                                                    *
+      * Common code with initialize                                    *
       *----------------------------------------------------------------*
       * initialize working storage variables
            INITIALIZE WS-HEADER.
