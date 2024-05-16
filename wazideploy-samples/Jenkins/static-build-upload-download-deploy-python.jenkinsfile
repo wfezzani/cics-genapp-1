@@ -111,8 +111,8 @@ pipeline {
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                             CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
                                 ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
-                                --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ} --url ${DBB_URL}\
-                                ${DBB_CRED} -d ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
+                                --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
+                                ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
                                 --application ${APP_NAME} --sourceDir ${WORKSPACE}"
                             echo $CMD
                             $CMD
