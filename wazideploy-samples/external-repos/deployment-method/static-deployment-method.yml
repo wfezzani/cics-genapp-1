@@ -47,6 +47,7 @@ activities:
       - name: 'MAPLOAD'
       - name: 'JCL'
       - name: 'LISTING'
+      - name: 'SIDEFILE'
     is_artifact: True
 
   - name: DB2
