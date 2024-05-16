@@ -155,7 +155,7 @@ spec:
     - pattern: .*.LISTING$
       dataset: "{{ env.spec.hlq }}.LISTING"
       dataset_backup: "{{ env.spec.hlq }}.BACK.LISTING"
-      spec: "{{ env.spec.common_listing_txt_spec }}"      
+      spec: "{{ env.spec.common_pds_listing_spec }}"      
     - pattern: .*.JCL$
       dataset: "{{ env.spec.hlq }}.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"
