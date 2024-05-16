@@ -71,6 +71,12 @@ spec:
      secondary_space: 20CYL
      record_format: FB
      record_length: 80
+  common_pds_listing_spec:
+     type: LIBRARY
+     primary_space: 10CYL
+     secondary_space: 20CYL
+     record_format: FB
+     record_length: 250
   seq_spec:
      type: SEQ
      primary_space: 5TRK
@@ -146,6 +152,10 @@ spec:
       is_binary: True
       db2_systems:
       - "{{ env.spec.db2_sys_def }}"
+    - pattern: .*.LISTING$
+      dataset: "{{ env.spec.hlq }}.LISTING"
+      dataset_backup: "{{ env.spec.hlq }}.BACK.LISTING"
+      spec: "{{ env.spec.common_listing_txt_spec }}"      
     - pattern: .*.JCL$
       dataset: "{{ env.spec.hlq }}.JCL"
       dataset_backup: "{{ env.spec.hlq }}.BACK.JCL"

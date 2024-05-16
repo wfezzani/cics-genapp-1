@@ -46,6 +46,7 @@ activities:
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
       - name: 'JCL'
+      - name: 'LISTING'
     is_artifact: True
 
   - name: DB2
