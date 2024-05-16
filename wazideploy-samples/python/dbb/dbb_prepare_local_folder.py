@@ -79,6 +79,8 @@ class DBBUtilities(object):
             return "TEXT"
         elif re.search('JCL', deployType, re.IGNORECASE):
             return "TEXT"
+        elif re.search('SIDEFILE', deployType, re.IGNORECASE):
+            return "BINARY"
         else:
             return "TEXT"
 
