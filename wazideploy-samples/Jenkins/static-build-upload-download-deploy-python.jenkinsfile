@@ -2,10 +2,10 @@
 def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
 
 // DBB Git repositories (For DBB 2.0.xX)
-def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
+//def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
+def zAppBuildGitRepo = 'https://github.com/jbyibm/dbb-zappbuild.git'
 def zAppBuildGitBranch = 'main'
-//def dbbGitRepo = 'https://github.com/IBM/dbb.git'
-def dbbGitRepo = 'https://github.com/jbyibm/dbb-zappbuild.git'
+def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
 def gitCredId = 'git_hub_cred'
 
@@ -268,7 +268,6 @@ pipeline {
                             export ZOAU_HOME=${ZOAU_HOME}
                             export PATH=${ZOAU_HOME}/bin:$PATH
                             export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
-                            export DEPLOY_FAST_COPY=True # INTERNAL USE ONLY !!!
                             if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
                             then
                                echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
