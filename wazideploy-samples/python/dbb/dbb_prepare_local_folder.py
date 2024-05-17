@@ -116,9 +116,10 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
         copyMode = DBBUtilities.get_copy_mode(deploy_type, **kwargs)
         msgstr = f"** Copy //'{dataset}' to {working_folder}/{pds_name}/{member_name}.{deploy_type} ({copyMode})"
         print(msgstr)
-        if copyMode == 'LOAD':
+        if copyMode == 'SIDEFILE':
+            cmd = f"tsocmd \"OPUT '{dataset}' '{working_folder}/{pds_name}/{member_name}.{deploy_type}'\""
+        elif copyMode == 'LOAD':
             cmd = f"cp -XI //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
-
         elif copyMode == 'BINARY':
             cmd = f"cp -F bin //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
         else:
