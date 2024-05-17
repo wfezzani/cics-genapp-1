@@ -80,12 +80,12 @@ class DBBUtilities(object):
         elif re.search('JCL', deployType, re.IGNORECASE):
             return "TEXT"
         elif re.search('SIDEFILE', deployType, re.IGNORECASE):
-            return "BINARY"
+            return "OPUT"
         else:
             return "TEXT"
 
-def run_command (command: str, verbose: bool = True):
-    process = subprocess.run(command.split(), capture_output=True, text=True)
+def run_command (args: list, verbose: bool = True):
+    process = subprocess.run(args, capture_output=True, text=True)
 
     if process.returncode != 0 and verbose:
         print("stdout:", process.stdout, file=sys.stdout)
@@ -116,26 +116,26 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
         copyMode = DBBUtilities.get_copy_mode(deploy_type, **kwargs)
         msgstr = f"** Copy //'{dataset}' to {working_folder}/{pds_name}/{member_name}.{deploy_type} ({copyMode})"
         print(msgstr)
-        if copyMode == 'SIDEFILE':
-            cmd = f"tsocmd \"OPUT '{dataset}' '{working_folder}/{pds_name}/{member_name}.{deploy_type}'\""
+        if copyMode == 'OPUT':
+            args = ["tsocmd", f"OPUT '{dataset}' '{working_folder}/{pds_name}/{member_name}.{deploy_type}'"]
         elif copyMode == 'LOAD':
-            cmd = f"cp -XI //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
+            args = ["cp", "-XI", f"//'{dataset}'", f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
         elif copyMode == 'BINARY':
-            cmd = f"cp -F bin //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
+            args = ["cp", "-F", "bin", f"//'{dataset}'", f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
         else:
-            cmd = f"cp //'{dataset}' {working_folder}/{pds_name}/{member_name}.{deploy_type}"
+            args = ["cp", f"//'{dataset}'", f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
 
         if platform.system() == 'OS/390':
-            rc, out, err = run_command(cmd)
+            rc, out, err = run_command(args)
             if rc != 0:
                 msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
                 print(msgstr)
                 sys.exit(-1)
             if copyMode == 'TEXT':
-                cmd = f"chtag -r {working_folder}/{pds_name}/{member_name}.{deploy_type}"
+                args = ["chtag", "-r", f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
             else:
-                cmd = f"chtag -b {working_folder}/{pds_name}/{member_name}.{deploy_type}"
-            rc, out, err = run_command(cmd)
+                args = ["chtag", "-b",  f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
+            rc, out, err = run_command(args)
             if rc != 0:
                 msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
                 print(msgstr)
