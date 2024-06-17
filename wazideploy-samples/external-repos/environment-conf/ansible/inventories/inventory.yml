@@ -9,6 +9,6 @@
 all:
   hosts:
     zos_tivlp02:
-      ansible_host: 9.30.222.103
+      ansible_host: 9.47.88.130
       ansible_user: JENKINS
-      ansible_ssh_port: 222
+      ansible_ssh_port: 22
