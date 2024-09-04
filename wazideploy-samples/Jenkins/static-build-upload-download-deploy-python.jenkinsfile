@@ -139,6 +139,20 @@ pipeline {
         }
 
 
+        stage('Static Analysis') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script{
+                    def scannerHome = tool 'SonarScanner';
+                    withSonarQubeEnv() {
+                      sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
+
         stage('Package & Artifactory Upload') {
             when {
                 expression { rollingBack == false } 
