@@ -146,7 +146,7 @@ pipeline {
             steps {
                 script{
                     if ( hasBuildFiles ) {
-                        def scannerHome = tool 'SonarScanner';
+                        def scannerHome = tool 'IBM SonarQ Server';
                         withSonarQubeEnv() {
                         sh "${scannerHome}/bin/sonar-scanner"
                         }
