@@ -116,7 +116,7 @@ pipeline {
                                 --application ${APP_NAME} --sourceDir ${WORKSPACE}"
                             echo $CMD
                             $CMD
-                            rc = $?
+                            rc=$?
                             $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
                                -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
                                -cr $PWD/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
@@ -160,7 +160,7 @@ pipeline {
                             exit 0
                         ''')
                         if ( rc != 0 )
-                            error("Uploading Package failed!!!")
+                            error("zCodeScan Static Analysis on z/OS !!!")
                     }
                 }
             }
