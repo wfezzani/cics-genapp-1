@@ -117,8 +117,8 @@ pipeline {
                             echo $CMD
                             $CMD
                             rc = $?
-                            $DBB_HOME/bin/groovyz dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
-                               -w /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DBB_STATIC_PACKAGE_BUILD_AND_PYTHON_DEPLOY/BUILD-155/build.*\
+                            $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
+                               -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
                                -cr $PWD/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
                             exit $rc
                         ''')
