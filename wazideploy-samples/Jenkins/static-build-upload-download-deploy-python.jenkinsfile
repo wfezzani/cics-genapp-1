@@ -119,7 +119,7 @@ pipeline {
                             rc=$?
                             $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
                                -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
-                               -cr $PWD/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
+                               -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
                             exit $rc
                         ''')
                     if ( rc != 0 )
@@ -143,6 +143,27 @@ pipeline {
         }
 
 
+        stage('IDz Static Analysis on z/OS') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script{
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            cd /tmp/zcodescan
+                            $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
+                               -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
+                               -cr /tmp/zcodescan/rules.dat
+                            exit $?
+                        ''')
+                        if ( rc != 0 )
+                            error("IDz Static Analysis on z/OS !!!")
+                    }
+                }
+            }
+        }
+        
         stage('zCodeScan Static Analysis on z/OS') {
             when {
                 expression { rollingBack == false } 
