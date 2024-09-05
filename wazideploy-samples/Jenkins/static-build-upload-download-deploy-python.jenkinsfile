@@ -139,17 +139,24 @@ pipeline {
         }
 
 
-        stage('Static Analysis') {
+        stage('zCodeScan Static Analysis on z/OS') {
             when {
                 expression { rollingBack == false } 
             }
             steps {
                 script{
                     if ( hasBuildFiles ) {
-                        def scannerHome = tool 'IBM SonarQ Server';
-                        withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                        }
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            cd /tmp/zcodescan
+                            ./zcodescan.sh
+                            if [ $? -ne 12 ]
+                            then
+                              exit $?
+                            fi
+                            exit 0
+                        ''')
+                        if ( rc != 0 )
+                            error("Uploading Package failed!!!")
                     }
                 }
             }
