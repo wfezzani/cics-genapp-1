@@ -13,5 +13,6 @@
 	</buildSpec>
 	<natures>
 		<nature>org.python.pydev.pythonNature</nature>
+		<nature>com.ibm.ftt.ui.views.project.navigator.local</nature>
 	</natures>
 </projectDescription>
