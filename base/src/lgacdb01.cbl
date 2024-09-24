@@ -10,7 +10,7 @@
       *                                                                *
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. LGACDB01.
+       PROGRAM-ID. LGACDBXX.
        ENVIRONMENT DIVISION.
        CONFIGURATION SECTION.
       *
