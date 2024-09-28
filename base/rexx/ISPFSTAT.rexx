@@ -17,7 +17,8 @@ if modtime   <> "" then modtime   = "MODTIME("modtime")"
 if version   <> "" then version   = "VERSION("version")"
 if modelevel <> "" then modelevel = "MODLEVEL("modelevel")"
 Address TSO
-  "ISPEXEC LMINIT   DATAID(xx) DATASET('NAZARE.WDEPLOY.DBBBUILD.GENAPP.COBOL')"
-  "ISPEXEC LMMSTATS DATAID(xx) MEMBER(IBACSUM)" userid crdate moddate modtime version modelevel
+  "ISPEXEC LMINIT DATAID(xx) DATASET('NAZARE.WDEPLOY.DBBBUILD.GENAPP.COBOL')"
+  "ISPEXEC LMMSTATS DATAID(xx) MEMBER(IBACSUM)",
+     userid crdate moddate modtime version modelevel
   "ISPEXEC LMFREE   DATAID(xx)"
 Exit
