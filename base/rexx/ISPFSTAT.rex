@@ -1,5 +1,6 @@
 /* rexx */
-Member = 'NAZARE.WDEPLOY.DBBBUILD.GENAPP.COBOL(IBGCUDAT)'
+PARSE ARG Member
+/* Member = 'NAZARE.WDEPLOY.DBBBUILD.GENAPP.COBOL(IBGCUDAT)' */
 parse var Member dsname '(' mbrname ')' .
 /* dsname    = libray to update   */
 /* mbrname   = member to update   */
