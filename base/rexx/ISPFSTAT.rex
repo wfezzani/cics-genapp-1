@@ -1,6 +1,5 @@
 /* rexx */
-Trace 'E'
-Member = 'AZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB01)'
+Member = 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB01)'
 parse var Member dsname '(' mbrname ')' .
 /* dsname    = libray to update   */
 /* mbrname   = member to update   */
@@ -16,9 +15,10 @@ if moddate   <> "" then moddate   = "MODDATE4("moddate")"
 if modtime   <> "" then modtime   = "MODTIME("modtime")"
 if version   <> "" then version   = "VERSION("version")"
 if modelevel <> "" then modelevel = "MODLEVEL("modelevel")"
-Address TSO
-  "ISPEXEC LMINIT DATAID(xx) DATASET('NAZARE.WDEPLOY.DBBBUILD.GENAPP.COBOL')"
-  "ISPEXEC LMMSTATS DATAID(xx) MEMBER(IBACSUM)",
+Address ispexec
+  "LMINIT   DATAID("lmd1") DATASET('NAZARE.WDEPLOY.DBBBUILD.GENAPP.COBOL')"
+  "LMMSTATS DATAID("lmd1") MEMBER(IBACSUM)",
      userid crdate moddate modtime version modelevel
-  "ISPEXEC LMFREE   DATAID(xx)"
+  "LMFREE   DATAID("lmd1")"
+
 Exit
