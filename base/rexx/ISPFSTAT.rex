@@ -2,8 +2,8 @@
 PARSE ARG Member
 /* Member = 'NAZARE.WDEPLOY.DBBBUILD.GENAPP.COBOL(IBGCUDAT)' */
 parse var Member dsname '(' mbrname ')' .
-/* dsname    = libray to update  */
-/* mbrname   = member to update  */
+/* dsname    = libray to update   */
+/* mbrname   = member to update   */
 userid    = ""            /* "USER3"      Userid to be updated  */
 crdate    = ""            /* "yyyy/mm/dd" PDS Created date      */
 moddate   = ""            /* "yyyy/mm/dd" PDS Updated date      */
