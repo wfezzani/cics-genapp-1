@@ -48,6 +48,7 @@ activities:
       - name: 'JCL'
       - name: 'LISTING'
       - name: 'SIDEFILE'
+      - name: 'CEXEC'
     is_artifact: True
 
   - name: DB2
