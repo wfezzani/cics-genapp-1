@@ -208,6 +208,11 @@ spec:
       is_binary: False
       is_sequential: True
       spec: "{{env.spec.seq_spec_a}}"
+    - pattern: .*.CEXEC$
+      dataset: "{{ env.spec.hlq_cics }}.CEXEC"
+      dataset_backup: "{{ env.spec.hlq_cics }}.CEXEC.DBRM"
+      spec: "{{ env.spec.common_pds_binary_spec }}"
+      is_binary: True
 
 # Variables for system_command template
   system_command_cmd_default: "D T"
