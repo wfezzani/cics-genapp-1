@@ -210,7 +210,7 @@ spec:
       spec: "{{env.spec.seq_spec_a}}"
     - pattern: .*.CEXEC$
       dataset: "{{ env.spec.hlq_cics }}.CEXEC"
-      dataset_backup: "{{ env.spec.hlq_cics }}.CEXEC.DBRM"
+      dataset_backup: "{{ env.spec.hlq_cics }}.BACK.CEXEC"
       spec: "{{ env.spec.common_pds_binary_spec }}"
       is_binary: True
 
