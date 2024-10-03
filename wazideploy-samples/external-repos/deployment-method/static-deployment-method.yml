@@ -31,6 +31,9 @@ activities:
           - name: MEMBER_ARCHIVE
             description: |
               This step do the copy of artifacts into PDSs
+              properties:
+              - key: "path_filter"
+                value: ".*LGA.*"
           - name: MEMBER_RESTORE
             description: |
               This step do the copy of artifacts into PDSs
@@ -50,6 +53,8 @@ activities:
       - name: 'SIDEFILE'
       - name: 'CEXEC'
     is_artifact: True
+    tags:
+      - deploy_module
 
   - name: DB2
     description: |
@@ -68,6 +73,7 @@ activities:
     is_artifact: True
     plan_tags:
     - restore
+    - db2
         
   - name: CICS
     description: |
@@ -87,6 +93,7 @@ activities:
     is_artifact: True
     plan_tags:
     - restore
+    - db2
 
   - name: DELETE_MODULES
     description: |
