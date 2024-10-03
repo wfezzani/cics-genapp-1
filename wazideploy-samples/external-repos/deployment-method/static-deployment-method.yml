@@ -17,6 +17,8 @@ activities:
         - name: PACKAGE
           steps:
           - name: PACKAGE
+    plan_tags:
+      - package
 
   - name: DEPLOY_MODULES
     description: |
@@ -31,9 +33,9 @@ activities:
           - name: MEMBER_ARCHIVE
             description: |
               This step do the copy of artifacts into PDSs
-              properties:
-              - key: "path_filter"
-                value: ".*LGA.*"
+            properties:
+            - key: "path_filter"
+              value: ".*LGA.*"
           - name: MEMBER_RESTORE
             description: |
               This step do the copy of artifacts into PDSs
@@ -48,10 +50,10 @@ activities:
       - name: 'LOAD'
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
-      - name: 'JCL'
-      - name: 'LISTING'
-      - name: 'SIDEFILE'
-      - name: 'CEXEC'
+      #- name: 'JCL'
+      #- name: 'LISTING'
+      #- name: 'SIDEFILE'
+      #- name: 'CEXEC'
     is_artifact: True
     tags:
       - deploy_module
