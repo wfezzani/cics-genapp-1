@@ -47,7 +47,7 @@ activities:
               This step do the copy of artifacts into PDSs
     types:
       - name: 'DBRM'
-      - name: 'LOAD'
+      #- name: 'LOAD'
       - name: 'CICSLOAD'
       - name: 'MAPLOAD'
       #- name: 'JCL'

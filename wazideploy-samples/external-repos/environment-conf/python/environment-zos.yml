@@ -110,6 +110,7 @@ spec:
       spec: "{{ env.spec.common_pds_load_spec }}"
       is_load: True
       aliases: True
+      use_native_copy : True
       cics_systems:
       - "{{ env.spec.cics_sys_def }}"
     - pattern: .*\.IMSLOAD$
@@ -152,6 +153,7 @@ spec:
       is_binary: True
       db2_systems:
       - "{{ env.spec.db2_sys_def }}"
+      use_native_copy : True
     - pattern: .*.SIDEFILE$
       dataset: "{{ env.spec.hlq_cics }}.SIDEFILE"
       dataset_backup: "{{ env.spec.hlq_cics }}.BACK.SIDEFILE"
