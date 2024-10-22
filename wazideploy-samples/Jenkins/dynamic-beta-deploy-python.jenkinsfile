@@ -233,6 +233,7 @@ pipeline {
                               exit $rc
                             fi
                             # Query Index
+                            mkdir -p ${WORKSPACE}/deploy/
                             CMD="wazideploy-evidence\
                               --indexFolder ${WORKSPACE}/evidences/index\
                               --template ${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/templates/full-report.yml\
