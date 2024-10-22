@@ -161,10 +161,6 @@ pipeline {
                             echo $CMD
                             $CMD 
                             rc=$?
-                            # For jenkins artifact upload
-                            chtag -r ${WORKSPACE}/deployment-plan.yml
-                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
-                            chtag -r  ${WORKSPACE}/evidences/data/evidence.${BUILD_NUMBER}.yml
                             exit $rc
                     ''')
                     if ( rc != 0 )
@@ -179,7 +175,12 @@ pipeline {
                          git add wazideploy-samples/external-repos/evidences/*
                          git commit -am "Commit new deployment state to ${GIT_BRANCH} branch for the current environment"
                          git push origin HEAD:${GIT_BRANCH}
+                         # For jenkins artifact upload
+                         chtag -r ${WORKSPACE}/deployment-plan.yml
+                         chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
+                         chtag -r  ${WORKSPACE}/evidences/data/evidence.${BUILD_NUMBER}.yml
                         ''')
+                    
                     if ( rc != 0 )
                         error("Git Push Failed!!!")
                 }
