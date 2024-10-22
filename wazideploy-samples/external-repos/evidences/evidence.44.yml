@@ -1,0 +1,3552 @@
+apiVersion: deploy.ibm.com/v1
+kind: Evidence
+metadata:
+  name: cics-genapp
+  description: cics-genapp
+  version: 1.0.63
+  annotations:
+    creation_timestamp: 20241022.220641.143
+    engine:
+      version: 3.0.3
+      build: manual
+      date: Tue Oct 22 23:50:54 CEST 2024
+    package:
+      path: /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/cics-genapp..44.tar
+      sha256: ca2faf04207d28bed256e8216609767514e8759658080926558e9aa3b1718231
+    environment_name: tivlp02.svl.ibm.com
+    deploy_timestamp: 20241022.220647.650
+    smf_record:
+      status: Ok
+status: Ok
+activities:
+- name: PACKAGE
+  properties: []
+  actions:
+  - name: PACKAGE
+    properties: []
+    steps:
+    - name: PACKAGE
+      properties: []
+      artifacts: []
+      step_result:
+        status: Ok
+        msg: Expand package completed
+        results:
+        - status: Ok
+          msg: Succeeded to expand the package /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/cics-genapp..44.tar
+            to /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy
+            on system os OS/390
+          results:
+            command: subprocess.run(['tar', '-xvf', '/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/cics-genapp..44.tar',
+              '-L', 'T', '-C', '/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy'],
+              capture_output=True, text=True)
+            rc: 0
+        duration: 0.3516812324523926
+      loop_index: 0
+    action_result:
+      status: Ok
+      msg: Ok
+      results: []
+    loop_index: 0
+  activity_result:
+    status: Ok
+    msg: Ok
+    results: []
+  description: This activity handle the package
+  loop_index: 0
+  tags:
+  - package
+- name: DEPLOY_MODULES
+  properties:
+  - key: my_activity_prop
+    value: my_value
+  actions:
+  - name: ADD
+    properties:
+    - key: my_action_prop
+      value: my_value
+    steps:
+    - name: MEMBER_COPY
+      properties: []
+      artifacts:
+      - name: LGIPDB01
+        hash: 07af9532c5eb75e4be8b388000e5f519634f1d151544e729ec2d54691bf325f9
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092600
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: SSMAP
+        hash: 09afa05be2f4491c696151709e5d7b89ea40dbd2c1be888b46c6d7e5cc95abf7
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/SSMAP.MAPLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092548
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: MAPLOAD
+      - name: LGICVS01
+        hash: 0ab850b77f3a109b0ac77c29c83e32ac861b109fd627fdc4614c37da8d7242d8
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092559
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACDB02
+        hash: 1b0cfb8fd9c97d0ff036015947ff513b25a7f8c48a99437698762f7f649c45ae
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+        - key: fingerprint
+          value: 1b0cfb8fd9c97d0ff036015947ff513b25a7f8c48a99437698762f7f649c45ae
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGDPDB01
+        hash: 1d20022d3f815299f9729db0afe273e7eb36c00cb1c6ddc6ba8a4feeb1348a65
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092555
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGIPDB01
+        hash: 2b3da2f8c41b0a7d1c1d9a101947f09c8cf9604008945cb848171c63b806a121
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGIPDB01.DBRM
+        - key: fingerprint
+          value: 2b3da2f8c41b0a7d1c1d9a101947f09c8cf9604008945cb848171c63b806a121
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGACUS01
+        hash: 2e156e23affa3cb019fe733f1be571ce68122e945db9e6a5c7e13208c31d0b2c
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACUS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092551
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUCDB01
+        hash: 3622a1c4fd9cfd8c8b2f8276b2028e18190e75ae3228a4c22d8c680b54431fd5
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092603
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGIPOL01
+        hash: 415361cbd2970406ff0029b92413a908297a7ff5f252941e9f95a7127376d682
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092600
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUPDB01
+        hash: 48ec9ca6a3ef7f79c453398c6655b20d23535200a1fea637d829bfc07b7fa029
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092606
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACDB01
+        hash: 52c750d9fdb28e58bea979e21e2b81e86c6cbed78baeef6b42d06c80467859b5
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB01.DBRM
+        - key: fingerprint
+          value: 52c750d9fdb28e58bea979e21e2b81e86c6cbed78baeef6b42d06c80467859b5
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: HELLO2
+        hash: 55e756a76e9339d24e5c6c46c102faf8ea468f7f2e49867f985a47e746529c1e
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO2.JCL
+        - key: fingerprint
+          value: 55e756a76e9339d24e5c6c46c102faf8ea468f7f2e49867f985a47e746529c1e
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: JCL
+      - name: HELLO1
+        hash: 573a056000558d6ae6887bb816a8759c57cff8f23c09261e130250307f9e767a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO1.JCL
+        - key: fingerprint
+          value: 573a056000558d6ae6887bb816a8759c57cff8f23c09261e130250307f9e767a
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: JCL
+      - name: LGICDB01
+        hash: 57cb1431ef097406f8076bf0363bfda7c01880f58174c75027f8bdb0bfece935
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092557
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUCVS01
+        hash: 662d279c422ba89e55ce2827b000e916b72c771841f704c6adfc176bc43c9a70
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092605
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGAPDB01
+        hash: 727e71dfb3d4763751bf86ca04decf0478e887e682a554e8bdf80f9a63e68a8a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGAPDB01.DBRM
+        - key: fingerprint
+          value: 727e71dfb3d4763751bf86ca04decf0478e887e682a554e8bdf80f9a63e68a8a
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGDPVS01
+        hash: 72f36e47ef0a1eadf29fe6eb5c613295292500d0772128723728c1e3922fc57a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092556
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUPVS01
+        hash: 75bb93906277d80b7ea104ed5a78e08f38af2e4801b96a5b2bd58ca02d005fde
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092607
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUPDB01
+        hash: 76b089b74e4203279b4cd547274e83f1a34957c220f55a214efe99aba92a58de
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUPDB01.DBRM
+        - key: fingerprint
+          value: 76b089b74e4203279b4cd547274e83f1a34957c220f55a214efe99aba92a58de
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGICUS01
+        hash: 83c87e58626b194d3e76cb917c2663d182b732b25490fb9c5e23a01c8746bc5e
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICUS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092558
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGAPVS01
+        hash: 8494460baf97f7511eac8a04bd983883b767eba9daadfd56f7f5cc5e0fbfbcc1
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092554
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGAPDB01
+        hash: 84a58c95d93a106989b3fa93f385530d7c50e6baf7503db5dfd7e629e7e362e8
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092553
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGDPOL01
+        hash: 940b0e39e7a41722d08d03585efd18a2de6cea3c1546c8eb2114de5798f408ed
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092556
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGICDB01
+        hash: 9ca39464c30e8565d6c3c4eadf0be9c0962780290ac7986a46ff2e2c1d9a170a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGICDB01.DBRM
+        - key: fingerprint
+          value: 9ca39464c30e8565d6c3c4eadf0be9c0962780290ac7986a46ff2e2c1d9a170a
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGSTSQ
+        hash: abcad4a7601479265fb80c3b531f7158905859f543c127c6ed06c67d595492be
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSTSQ.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092603
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGSETUP
+        hash: b708617d34ef2eb16f3dacff8efa4c40d3f08dfc3c04a5f9863a9745b2321e37
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSETUP.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092602
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACVS01
+        hash: b982f4735fb0add494ac0e8210e4786b8cc5a744e2bb4d6b0f173df87cc34f41
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092552
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUCUS01
+        hash: c5d6cf86142be52608d4af1c0e5e5e632c11f2e3a7207552d107e4463298226b
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCUS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092604
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGAPOL01
+        hash: cd9e95188459836a178d88cf8bfb740a0210f0c54bf9a228939a3e62e455d8eb
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092553
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGDPDB01
+        hash: db564582eed6d4355da78edd547677b9628760530b8d49e3dc2c8005e2b26cde
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGDPDB01.DBRM
+        - key: fingerprint
+          value: db564582eed6d4355da78edd547677b9628760530b8d49e3dc2c8005e2b26cde
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGIPVS01
+        hash: e64e94dcdb1fe02964bad5ef555c1a2f487c0fef3c67c11b6f9974eb51067992
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092601
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUCDB01
+        hash: e7a4dddef7d905a010044a4f81a13355c826fa6f76d640c7490729184677bf24
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUCDB01.DBRM
+        - key: fingerprint
+          value: e7a4dddef7d905a010044a4f81a13355c826fa6f76d640c7490729184677bf24
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGACDB01
+        hash: fa46def9f4fbfc5bc2a9b63d5815408a44ec2f0da5c20ae9fab939501f3132ef
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092550
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACDB02
+        hash: fa98b9e563099d0acb06e25f6e6d24a38a5d691a793ef1700de3d36505c185e9
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092550
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUPOL01
+        hash: ff2bc4f5565198bd45a7c908b9c28a0483522c0ef41afd1e64d024bbc9d4f40e
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092607
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      step_result:
+        status: Ok
+        msg: All items completed
+        results:
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPDB01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPDB01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPDB01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPDB01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPDB01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICVS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICVS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICVS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICVS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICVS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICVS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPDB01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPDB01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPDB01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPDB01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPDB01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACUS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACUS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACUS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACUS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACUS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACUS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCDB01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCDB01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCDB01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCDB01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCDB01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPOL01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPOL01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPOL01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPDB01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPDB01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPDB01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPDB01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPDB01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICDB01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICDB01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICDB01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICDB01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICDB01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCVS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCVS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCVS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCVS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCVS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCVS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPVS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPVS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPVS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPVS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPVS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPVS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPVS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPVS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPVS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPVS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPVS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPVS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICUS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICUS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICUS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICUS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICUS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGICUS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPVS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPVS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPVS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPVS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPVS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPVS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPDB01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPDB01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPDB01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPDB01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPDB01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPOL01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPOL01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPOL01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPOL01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPOL01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGDPOL01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSTSQ.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGSTSQ)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSTSQ.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGSTSQ)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSTSQ.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGSTSQ)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSETUP.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGSETUP)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSETUP.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGSETUP)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSETUP.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGSETUP)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACVS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACVS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACVS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACVS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACVS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACVS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCUS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCUS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCUS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCUS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCUS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUCUS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPOL01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPOL01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPOL01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPOL01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPOL01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGAPOL01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPVS01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPVS01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPVS01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPVS01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPVS01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGIPVS01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB02)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB02)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGACDB02)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPOL01.CICSLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPOL01)'
+          args:
+            pattern: .*\.CICSLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -XI /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPOL01.CICSLOAD
+              //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPOL01)'
+            result_command:
+              args:
+              - cp
+              - -XI
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPOL01.CICSLOAD
+              - //'NAZARE.WDEPLOY.PYTHON.LOADLIB(LGUPOL01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/SSMAP.MAPLOAD
+            to 'NAZARE.WDEPLOY.PYTHON.LOADLIB(SSMAP)'
+          args:
+            pattern: .*\.MAPLOAD$
+            dataset: NAZARE.WDEPLOY.PYTHON.LOADLIB
+            force_lock: false
+            aliases: true
+            is_load: true
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: false
+          results:
+            command: 'datasets._copy(/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/SSMAP.MAPLOAD,
+              NAZARE.WDEPLOY.PYTHON.LOADLIB(SSMAP), None, **{''options'': ''-XI''})'
+            result_command:
+              rc: 0
+              response_format: UTF-8
+              stdout_response: ''
+              stderr_response: ''
+              command: dcp -XI -- "/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/SSMAP.MAPLOAD"
+                "NAZARE.WDEPLOY.PYTHON.LOADLIB(SSMAP)"
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGACDB02)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGACDB02)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGACDB02)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGIPDB01.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGIPDB01)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGIPDB01.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGIPDB01)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGIPDB01.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGIPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB01.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGACDB01)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB01.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGACDB01)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB01.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGACDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGAPDB01.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGAPDB01)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGAPDB01.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGAPDB01)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGAPDB01.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGAPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUPDB01.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGUPDB01)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUPDB01.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGUPDB01)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUPDB01.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGUPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGICDB01.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGICDB01)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGICDB01.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGICDB01)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGICDB01.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGICDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGDPDB01.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGDPDB01)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGDPDB01.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGDPDB01)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGDPDB01.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGDPDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUCDB01.DBRM
+            to 'NAZARE.WDEPLOY.PYTHON.DBRM(LGUCDB01)'
+          args:
+            pattern: .*.DBRM$
+            dataset: NAZARE.WDEPLOY.PYTHON.DBRM
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: true
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs: []
+            use_native_copy: true
+          results:
+            command: cp -F bin /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUCDB01.DBRM
+              //'NAZARE.WDEPLOY.PYTHON.DBRM(LGUCDB01)'
+            result_command:
+              args:
+              - cp
+              - -F
+              - bin
+              - /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUCDB01.DBRM
+              - //'NAZARE.WDEPLOY.PYTHON.DBRM(LGUCDB01)'
+              returncode: 0
+              stdout: ''
+              stderr: ''
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO2.JCL
+            to 'NAZARE.WDEPLOY.PYTHON.JCL(HELLO2)'
+          args:
+            pattern: .*.JCL$
+            dataset: NAZARE.WDEPLOY.PYTHON.JCL
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs:
+            - pattern: '#SUB([0-9])'
+              replace: \1
+            use_native_copy: false
+          results:
+            command: 'datasets._copy(/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO2.JCL.sub,
+              NAZARE.WDEPLOY.PYTHON.JCL(HELLO2), None, **{''options'': ''''})'
+            result_command:
+              rc: 0
+              response_format: UTF-8
+              stdout_response: ''
+              stderr_response: ''
+              command: dcp  -- "/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO2.JCL.sub"
+                "NAZARE.WDEPLOY.PYTHON.JCL(HELLO2)"
+        - status: Ok
+          msg: Succeeded to copy /var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO1.JCL
+            to 'NAZARE.WDEPLOY.PYTHON.JCL(HELLO1)'
+          args:
+            pattern: .*.JCL$
+            dataset: NAZARE.WDEPLOY.PYTHON.JCL
+            force_lock: false
+            aliases: true
+            is_load: false
+            is_binary: false
+            is_psb: false
+            is_dbd: false
+            is_asa_text: false
+            rename_subs: []
+            text_subs:
+            - pattern: '#SUB([0-9])'
+              replace: \1
+            use_native_copy: false
+          results:
+            command: 'datasets._copy(/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO1.JCL.sub,
+              NAZARE.WDEPLOY.PYTHON.JCL(HELLO1), None, **{''options'': ''''})'
+            result_command:
+              rc: 0
+              response_format: UTF-8
+              stdout_response: ''
+              stderr_response: ''
+              command: dcp  -- "/var/jenkins/agent/wazideploy-e2e-pipeline/workspace/GENAPP_WD_DYNAMIC_BETA_CD_PYTHON_PROJECT/BUILD-44/deploy/NAZARE.WDEPLOY.DBBBUILD.GENAPP.JCL/HELLO1.JCL.sub"
+                "NAZARE.WDEPLOY.PYTHON.JCL(HELLO1)"
+        duration: 72.32531356811523
+      description: This step do the copy of artifacts into PDSs
+      loop_index: 0
+    action_result:
+      status: Ok
+      msg: Ok
+      results: []
+    description: This action is applicable when we add new artifacts.
+    loop_index: 0
+  activity_result:
+    status: Ok
+    msg: Ok
+    results: []
+  description: This activity is dedicated to the deployment of the artifacts into
+    the PDS
+  loop_index: 0
+  tags:
+  - deploy_modules
+- name: DB2
+  properties: []
+  actions:
+  - name: UPDATE
+    properties: []
+    steps:
+    - name: DB2_BIND_PACKAGE
+      properties: []
+      artifacts:
+      - name: LGACDB02
+        hash: 1b0cfb8fd9c97d0ff036015947ff513b25a7f8c48a99437698762f7f649c45ae
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+        - key: fingerprint
+          value: 1b0cfb8fd9c97d0ff036015947ff513b25a7f8c48a99437698762f7f649c45ae
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGIPDB01
+        hash: 2b3da2f8c41b0a7d1c1d9a101947f09c8cf9604008945cb848171c63b806a121
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGIPDB01.DBRM
+        - key: fingerprint
+          value: 2b3da2f8c41b0a7d1c1d9a101947f09c8cf9604008945cb848171c63b806a121
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGACDB01
+        hash: 52c750d9fdb28e58bea979e21e2b81e86c6cbed78baeef6b42d06c80467859b5
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB01.DBRM
+        - key: fingerprint
+          value: 52c750d9fdb28e58bea979e21e2b81e86c6cbed78baeef6b42d06c80467859b5
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGAPDB01
+        hash: 727e71dfb3d4763751bf86ca04decf0478e887e682a554e8bdf80f9a63e68a8a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGAPDB01.DBRM
+        - key: fingerprint
+          value: 727e71dfb3d4763751bf86ca04decf0478e887e682a554e8bdf80f9a63e68a8a
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGUPDB01
+        hash: 76b089b74e4203279b4cd547274e83f1a34957c220f55a214efe99aba92a58de
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUPDB01.DBRM
+        - key: fingerprint
+          value: 76b089b74e4203279b4cd547274e83f1a34957c220f55a214efe99aba92a58de
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGICDB01
+        hash: 9ca39464c30e8565d6c3c4eadf0be9c0962780290ac7986a46ff2e2c1d9a170a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGICDB01.DBRM
+        - key: fingerprint
+          value: 9ca39464c30e8565d6c3c4eadf0be9c0962780290ac7986a46ff2e2c1d9a170a
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGDPDB01
+        hash: db564582eed6d4355da78edd547677b9628760530b8d49e3dc2c8005e2b26cde
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGDPDB01.DBRM
+        - key: fingerprint
+          value: db564582eed6d4355da78edd547677b9628760530b8d49e3dc2c8005e2b26cde
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGUCDB01
+        hash: e7a4dddef7d905a010044a4f81a13355c826fa6f76d640c7490729184677bf24
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUCDB01.DBRM
+        - key: fingerprint
+          value: e7a4dddef7d905a010044a4f81a13355c826fa6f76d640c7490729184677bf24
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      step_result:
+        status: Ok
+        msg: Bind package succeeded
+        results:
+        - status: Ok
+          msg: Job JOB00411 succeeded
+          args:
+            db2_system:
+              package_maxrc: 4
+              plan_maxrc: 4
+              user: JENKINS
+              package: GENASA1
+              plan: GENAONE
+              qualifier: GENADB0
+              subsys: DBC1
+              package_jobcard: BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
+              plan_jobcard: |-
+                BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
+                /* ---
+              package_action: REPLACE
+              plan_action: REPLACE
+              sdsnload: DSN.V12R1M0.SDSNLOAD
+              plan_pklist: '*.GENASA1.*'
+            template_file: /u/jenkins/python_wazideploy/beta/env/lib/python3.12/site-packages/wazideploy_translator/templates/db2_bind_package.jcl.j2
+          results:
+            job_steps:
+            - stepname: JES2
+              dataset: JESMSGLG
+              format: UA
+              length: '133'
+              recnum: '18'
+              dsid: '2'
+              msg: |-
+                1                    J E S 2  J O B  L O G  --  S Y S T E M  I P O 1  --  N O D E  T I V L P 0 2
+                0
+                 18.08.01 JOB00411 ---- TUESDAY,   22 OCT 2024 ----
+                 18.08.01 JOB00411  IRR010I  USERID JENKINS  IS ASSIGNED TO THIS JOB.
+                 18.08.01 JOB00411  ICH70001I JENKINS  LAST ACCESS AT 18:02:45 ON TUESDAY, OCTOBER 22, 2024
+                 18.08.01 JOB00411  $HASP373 BINDPKG  STARTED - INIT A    - CLASS A        - SYS IPO1
+                 18.08.01 JOB00411  -                                                --TIMINGS (MINS.)--            ----PAGING COUNTS---
+                 18.08.01 JOB00411  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP   CONN    TCB    SRB  CLOCK   SERV  PG  PAGE  SWAP   VIO SWAPS
+                 18.08.01 JOB00411  -BINDPKG  PKGBIND              00    272      8    .00    .00     .0   4601   0     0     0     0     0
+                 18.08.01 JOB00411  -BINDPKG  ENDED.  NAME-                     TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+                 18.08.01 JOB00411  $HASP395 BINDPKG  ENDED - RC=0000
+                0------ JES2 JOB STATISTICS ------
+                -  22 OCT 2024 JOB EXECUTION DATE
+                -           84 CARDS READ
+                -          480 SYSOUT PRINT RECORDS
+                -            0 SYSOUT PUNCH RECORDS
+                -           23 SYSOUT SPOOL KBYTES
+                -         0.00 MINUTES EXECUTION TIME
+            - stepname: JES2
+              dataset: JESJCL
+              format: V
+              length: '136'
+              recnum: '10'
+              dsid: '3'
+              msg: |2-
+                        1 //BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID     JOB00411
+                          IEFC653I SUBSTITUTION JCL - 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=JENKINS
+                        2 //JOBLIB   DD  DISP=SHR,
+                          //             DSN=DSN.V12R1M0.SDSNLOAD
+                        3 //PKGBIND EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)
+                        4 //SYSTSPRT DD  SYSOUT=*
+                        5 //SYSPRINT DD  SYSOUT=*
+                        6 //SYSUDUMP DD  SYSOUT=*
+                        7 //SYSIN    DD  DUMMY
+                        8 //SYSTSIN  DD  *
+            - stepname: JES2
+              dataset: JESYSMSG
+              format: VA
+              length: '137'
+              recnum: '42'
+              dsid: '4'
+              msg: |2-
+                 ICH70001I JENKINS  LAST ACCESS AT 18:02:45 ON TUESDAY, OCTOBER 22, 2024
+                 IEFA111I BINDPKG IS USING THE FOLLOWING JOB RELATED SETTINGS:
+                          SWA=BELOW,TIOT SIZE=32K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+                 IEF236I ALLOC. FOR BINDPKG PKGBIND
+                 IEF237I 360C ALLOCATED TO JOBLIB
+                 IEF237I JES2 ALLOCATED TO SYSTSPRT
+                 IEF237I JES2 ALLOCATED TO SYSPRINT
+                 IEF237I JES2 ALLOCATED TO SYSUDUMP
+                 IEF237I DMY  ALLOCATED TO SYSIN
+                 IEF237I JES2 ALLOCATED TO SYSTSIN
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00001
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00001
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00002
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00002
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00003
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00003
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00004
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00004
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00005
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00005
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00006
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00006
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00007
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00007
+                 IGD103I SMS ALLOCATED TO DDNAME SYS00008
+                 IGD104I NAZARE.WDEPLOY.PYTHON.DBRM                   RETAINED,  DDNAME=SYS00008
+                 IEF142I BINDPKG PKGBIND - STEP WAS EXECUTED - COND CODE 0000
+                 IEF285I   JENKINS.BINDPKG.JOB00411.D0000102.?          SYSOUT
+                 IEF285I   JENKINS.BINDPKG.JOB00411.D0000103.?          SYSOUT
+                 IEF285I   JENKINS.BINDPKG.JOB00411.D0000104.?          SYSOUT
+                 IEF285I   JENKINS.BINDPKG.JOB00411.D0000101.?          SYSIN
+                 IEF373I STEP/PKGBIND /START 2024296.1808
+                 IEF032I STEP/PKGBIND /STOP  2024296.1808
+                         CPU:     0 HR  00 MIN  00.05 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+                         VIRT:   500K  SYS:   388K  EXT:      464K  SYS:    11832K
+                         ATB- REAL:                    32K  SLOTS:                     0K
+                              VIRT- ALLOC:      12M SHRD:       0M
+                 IEF285I   DSN.V12R1M0.SDSNLOAD                         KEPT
+                 IEF285I   VOL SER NOS= PP0M1P.
+                 IEF375I  JOB/BINDPKG /START 2024296.1808
+                 IEF033I  JOB/BINDPKG /STOP  2024296.1808
+                         CPU:     0 HR  00 MIN  00.05 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+            - stepname: PKGBIND
+              dataset: SYSTSPRT
+              format: VBA
+              length: '137'
+              recnum: '406'
+              dsid: '102'
+              msg: |-
+                1READY
+                 DSN SYSTEM (DBC1)
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGACDB02) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                 ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB02.()
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                            ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                            APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                            ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                 DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB02.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB02.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB02.()
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGIPDB01) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                1ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGIPDB01.()
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                            ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                            APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                            ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                 DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGIPDB01.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGIPDB01.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGIPDB01.()
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGACDB01) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                 ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB01.()
+                            ACTION        REPLACE
+                1           OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                            ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                            APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                            ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                 DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB01.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB01.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGACDB01.()
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGAPDB01) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                 ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGAPDB01.()
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                1           ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                            APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                            ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                 DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGAPDB01.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGAPDB01.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGAPDB01.()
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGUPDB01) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                 ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGUPDB01.()
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                            ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                1           APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                            ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                 DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGUPDB01.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGUPDB01.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGUPDB01.()
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGICDB01) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                 ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGICDB01.()
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                            ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                            APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                1           ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                 DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGICDB01.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGICDB01.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGICDB01.()
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGDPDB01) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                 ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGDPDB01.()
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                            ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                            APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                            ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                1DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGDPDB01.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGDPDB01.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGDPDB01.()
+                 DSN
+                 BIND  PACKAGE(GENASA1) MEMBER(LGUCDB01) LIBRARY('NAZARE.WDEPLOY.PYTHON.DBRM') QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOL
+                 ATION(CS) RELEASE(COMMIT) ENCODING(EBCDIC)
+                 DSNT254I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGUCDB01.()
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            QUALIFIER     GENADB0
+                            VALIDATE      RUN
+                            EXPLAIN       NO
+                            ISOLATION     CS
+                            RELEASE       COMMIT
+                            COPY
+                            APREUSE
+                            APCOMPARE
+                            APRETAINDUP
+                            BUSTIMESENSITIVE YES
+                            SYSTIMESENSITIVE YES
+                            ARCHIVESENSITIVE YES
+                            APPLCOMPAT V12R1
+                            DESCSTAT YES
+                            APREUSESOURCE
+                 DSNT255I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGUCDB01.()
+                            SQLERROR      NOPACKAGE
+                            CURRENTDATA   NO
+                1           DEGREE        1
+                            DYNAMICRULES
+                            DEFER
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    INHERITFROMPLAN
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            PLANMGMT      OFF
+                            PLANMGMTSCOPE STATIC
+                            CONCURRENTACCESSRESOLUTION
+                            EXTENDEDINDICATOR
+                            PATH
+                 DSNT275I  -DBC1 DSNTBCM2 BIND OPTIONS FOR
+                            PACKAGE = DBC1.GENASA1.LGUCDB01.()
+                            QUERYACCELERATION
+                            GETACCELARCHIVE
+                            ACCELERATOR
+                            CONCENTRATESTMT
+                            ACCELERATIONWAITFORDATA
+                            RESTSERVICEDEFAULT
+                 DSNT232I  -DBC1 SUCCESSFUL BIND FOR
+                            PACKAGE = DBC1.GENASA1.LGUCDB01.()
+                 DSN
+                 END
+                 READY
+                 END
+            rc: '0000'
+        duration: 13.482528448104858
+      loop_index: 0
+    - name: DB2_BIND_PLAN
+      properties: []
+      artifacts:
+      - name: LGACDB02
+        hash: 1b0cfb8fd9c97d0ff036015947ff513b25a7f8c48a99437698762f7f649c45ae
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB02.DBRM
+        - key: fingerprint
+          value: 1b0cfb8fd9c97d0ff036015947ff513b25a7f8c48a99437698762f7f649c45ae
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGIPDB01
+        hash: 2b3da2f8c41b0a7d1c1d9a101947f09c8cf9604008945cb848171c63b806a121
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGIPDB01.DBRM
+        - key: fingerprint
+          value: 2b3da2f8c41b0a7d1c1d9a101947f09c8cf9604008945cb848171c63b806a121
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGACDB01
+        hash: 52c750d9fdb28e58bea979e21e2b81e86c6cbed78baeef6b42d06c80467859b5
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGACDB01.DBRM
+        - key: fingerprint
+          value: 52c750d9fdb28e58bea979e21e2b81e86c6cbed78baeef6b42d06c80467859b5
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGAPDB01
+        hash: 727e71dfb3d4763751bf86ca04decf0478e887e682a554e8bdf80f9a63e68a8a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGAPDB01.DBRM
+        - key: fingerprint
+          value: 727e71dfb3d4763751bf86ca04decf0478e887e682a554e8bdf80f9a63e68a8a
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGUPDB01
+        hash: 76b089b74e4203279b4cd547274e83f1a34957c220f55a214efe99aba92a58de
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUPDB01.DBRM
+        - key: fingerprint
+          value: 76b089b74e4203279b4cd547274e83f1a34957c220f55a214efe99aba92a58de
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGICDB01
+        hash: 9ca39464c30e8565d6c3c4eadf0be9c0962780290ac7986a46ff2e2c1d9a170a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGICDB01.DBRM
+        - key: fingerprint
+          value: 9ca39464c30e8565d6c3c4eadf0be9c0962780290ac7986a46ff2e2c1d9a170a
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGDPDB01
+        hash: db564582eed6d4355da78edd547677b9628760530b8d49e3dc2c8005e2b26cde
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGDPDB01.DBRM
+        - key: fingerprint
+          value: db564582eed6d4355da78edd547677b9628760530b8d49e3dc2c8005e2b26cde
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      - name: LGUCDB01
+        hash: e7a4dddef7d905a010044a4f81a13355c826fa6f76d640c7490729184677bf24
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.DBRM/LGUCDB01.DBRM
+        - key: fingerprint
+          value: e7a4dddef7d905a010044a4f81a13355c826fa6f76d640c7490729184677bf24
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: DBRM
+      step_result:
+        status: Ok
+        msg: Bind plan succeeded
+        results:
+        - status: Ok
+          msg: Job JOB00412 succeeded
+          args:
+            db2_system:
+              package_maxrc: 4
+              plan_maxrc: 4
+              user: JENKINS
+              package: GENASA1
+              plan: GENAONE
+              qualifier: GENADB0
+              subsys: DBC1
+              package_jobcard: BINDPKG JOB 'WD-PKGBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
+              plan_jobcard: |-
+                BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
+                /* ---
+              package_action: REPLACE
+              plan_action: REPLACE
+              sdsnload: DSN.V12R1M0.SDSNLOAD
+              plan_pklist: '*.GENASA1.*'
+            template_file: /u/jenkins/python_wazideploy/beta/env/lib/python3.12/site-packages/wazideploy_translator/templates/db2_bind_plan.jcl.j2
+          results:
+            job_steps:
+            - stepname: JES2
+              dataset: JESMSGLG
+              format: UA
+              length: '133'
+              recnum: '18'
+              dsid: '2'
+              msg: |-
+                1                    J E S 2  J O B  L O G  --  S Y S T E M  I P O 1  --  N O D E  T I V L P 0 2
+                0
+                 18.08.15 JOB00412 ---- TUESDAY,   22 OCT 2024 ----
+                 18.08.15 JOB00412  IRR010I  USERID JENKINS  IS ASSIGNED TO THIS JOB.
+                 18.08.15 JOB00412  ICH70001I JENKINS  LAST ACCESS AT 18:08:01 ON TUESDAY, OCTOBER 22, 2024
+                 18.08.15 JOB00412  $HASP373 BINDPLA  STARTED - INIT A    - CLASS A        - SYS IPO1
+                 18.08.15 JOB00412  -                                                --TIMINGS (MINS.)--            ----PAGING COUNTS---
+                 18.08.15 JOB00412  -JOBNAME  STEPNAME PROCSTEP    RC   EXCP   CONN    TCB    SRB  CLOCK   SERV  PG  PAGE  SWAP   VIO SWAPS
+                 18.08.15 JOB00412  -BINDPLA  PLABIND              00    155      3    .00    .00     .0    549   0     0     0     0     0
+                 18.08.15 JOB00412  -BINDPLA  ENDED.  NAME-                     TOTAL TCB CPU TIME=   .00  TOTAL ELAPSED TIME=    .0
+                 18.08.15 JOB00412  $HASP395 BINDPLA  ENDED - RC=0000
+                0------ JES2 JOB STATISTICS ------
+                -  22 OCT 2024 JOB EXECUTION DATE
+                -           21 CARDS READ
+                -           96 SYSOUT PRINT RECORDS
+                -            0 SYSOUT PUNCH RECORDS
+                -            8 SYSOUT SPOOL KBYTES
+                -         0.00 MINUTES EXECUTION TIME
+            - stepname: JES2
+              dataset: JESJCL
+              format: V
+              length: '136'
+              recnum: '11'
+              dsid: '3'
+              msg: |2-
+                        1 //BINDPLA JOB 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID    JOB00412
+                          /* ---
+                          IEFC653I SUBSTITUTION JCL - 'WD-PLANBIND',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=JENKINS
+                        2 //JOBLIB   DD  DISP=SHR,
+                          //             DSN=DSN.V12R1M0.SDSNLOAD
+                        3 //PLABIND EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)
+                        4 //SYSTSPRT DD  SYSOUT=*
+                        5 //SYSPRINT DD  SYSOUT=*
+                        6 //SYSUDUMP DD  SYSOUT=*
+                        7 //SYSIN    DD  DUMMY
+                        8 //SYSTSIN  DD  *
+            - stepname: JES2
+              dataset: JESYSMSG
+              format: VA
+              length: '137'
+              recnum: '26'
+              dsid: '4'
+              msg: |2-
+                 ICH70001I JENKINS  LAST ACCESS AT 18:08:01 ON TUESDAY, OCTOBER 22, 2024
+                 IEFA111I BINDPLA IS USING THE FOLLOWING JOB RELATED SETTINGS:
+                          SWA=BELOW,TIOT SIZE=32K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+                 IEF236I ALLOC. FOR BINDPLA PLABIND
+                 IEF237I 360C ALLOCATED TO JOBLIB
+                 IEF237I JES2 ALLOCATED TO SYSTSPRT
+                 IEF237I JES2 ALLOCATED TO SYSPRINT
+                 IEF237I JES2 ALLOCATED TO SYSUDUMP
+                 IEF237I DMY  ALLOCATED TO SYSIN
+                 IEF237I JES2 ALLOCATED TO SYSTSIN
+                 IEF142I BINDPLA PLABIND - STEP WAS EXECUTED - COND CODE 0000
+                 IEF285I   JENKINS.BINDPLA.JOB00412.D0000102.?          SYSOUT
+                 IEF285I   JENKINS.BINDPLA.JOB00412.D0000103.?          SYSOUT
+                 IEF285I   JENKINS.BINDPLA.JOB00412.D0000104.?          SYSOUT
+                 IEF285I   JENKINS.BINDPLA.JOB00412.D0000101.?          SYSIN
+                 IEF373I STEP/PLABIND /START 2024296.1808
+                 IEF032I STEP/PLABIND /STOP  2024296.1808
+                         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+                         VIRT:   496K  SYS:   336K  EXT:      464K  SYS:    11700K
+                         ATB- REAL:                    32K  SLOTS:                     0K
+                              VIRT- ALLOC:      12M SHRD:       0M
+                 IEF285I   DSN.V12R1M0.SDSNLOAD                         KEPT
+                 IEF285I   VOL SER NOS= PP0M1P.
+                 IEF375I  JOB/BINDPLA /START 2024296.1808
+                 IEF033I  JOB/BINDPLA /STOP  2024296.1808
+                         CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+            - stepname: PLABIND
+              dataset: SYSTSPRT
+              format: VBA
+              length: '137'
+              recnum: '37'
+              dsid: '102'
+              msg: |-
+                1READY
+                 DSN SYSTEM (DBC1)
+                 DSN
+                 BIND  PLAN(GENAONE) PKLIST(*.GENASA1.*) QUALIFIER(GENADB0) OWNER(JENKINS) ACTION(REPLACE) ISOLATION(CS) RELEASE(COMMIT) ENCODING(EBC
+                 DIC)
+                 DSNT252I  -DBC1 DSNTBCM1 BIND OPTIONS FOR PLAN GENAONE
+                            ACTION        REPLACE
+                            OWNER         JENKINS
+                            VALIDATE      RUN
+                            ISOLATION     CS
+                            ACQUIRE       USE
+                            RELEASE       COMMIT
+                            EXPLAIN       NO
+                            DYNAMICRULES  RUN
+                            PROGAUTH      DISABLE
+                 DSNT253I  -DBC1 DSNTBCM1 BIND OPTIONS FOR PLAN GENAONE
+                            NODEFER       PREPARE
+                            CACHESIZE     3072
+                            QUALIFIER     GENADB0
+                            CURRENTSERVER
+                            CURRENTDATA   NO
+                            DEGREE        1
+                            SQLRULES      DB2
+                            DISCONNECT    EXPLICIT
+                            NOREOPT       VARS
+                            KEEPDYNAMIC   NO
+                            IMMEDWRITE    NO
+                            DBPROTOCOL    DRDA
+                            OPTHINT
+                            ENCODING      EBCDIC(00037)
+                            CONCURRENTACCESSRESOLUTION
+                            PATH
+                 DSNT200I  -DBC1  BIND FOR PLAN GENAONE  SUCCESSFUL
+                 DSN
+                 END
+                 READY
+                 END
+            rc: '0000'
+        duration: 14.001942873001099
+      loop_index: 0
+    action_result:
+      status: Ok
+      msg: Ok
+      results: []
+    description: This action is applicable when we update a DBRM modules
+    loop_index: 0
+  activity_result:
+    status: Ok
+    msg: Ok
+    results: []
+  description: This activity is dedicated to DBRM bind modules
+  loop_index: 0
+  tags:
+  - db2
+- name: CICS
+  properties: []
+  actions:
+  - name: UPDATE
+    properties: []
+    steps:
+    - name: PROG_UPDATE
+      properties:
+      - key: template
+        value: cics_cmci_prog_update
+      artifacts:
+      - name: LGIPDB01
+        hash: 07af9532c5eb75e4be8b388000e5f519634f1d151544e729ec2d54691bf325f9
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092600
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: SSMAP
+        hash: 09afa05be2f4491c696151709e5d7b89ea40dbd2c1be888b46c6d7e5cc95abf7
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/SSMAP.MAPLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092548
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: MAPLOAD
+      - name: LGICVS01
+        hash: 0ab850b77f3a109b0ac77c29c83e32ac861b109fd627fdc4614c37da8d7242d8
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092559
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGDPDB01
+        hash: 1d20022d3f815299f9729db0afe273e7eb36c00cb1c6ddc6ba8a4feeb1348a65
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092555
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACUS01
+        hash: 2e156e23affa3cb019fe733f1be571ce68122e945db9e6a5c7e13208c31d0b2c
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACUS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092551
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUCDB01
+        hash: 3622a1c4fd9cfd8c8b2f8276b2028e18190e75ae3228a4c22d8c680b54431fd5
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092603
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGIPOL01
+        hash: 415361cbd2970406ff0029b92413a908297a7ff5f252941e9f95a7127376d682
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092600
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUPDB01
+        hash: 48ec9ca6a3ef7f79c453398c6655b20d23535200a1fea637d829bfc07b7fa029
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092606
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGICDB01
+        hash: 57cb1431ef097406f8076bf0363bfda7c01880f58174c75027f8bdb0bfece935
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092557
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUCVS01
+        hash: 662d279c422ba89e55ce2827b000e916b72c771841f704c6adfc176bc43c9a70
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092605
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGDPVS01
+        hash: 72f36e47ef0a1eadf29fe6eb5c613295292500d0772128723728c1e3922fc57a
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092556
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUPVS01
+        hash: 75bb93906277d80b7ea104ed5a78e08f38af2e4801b96a5b2bd58ca02d005fde
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092607
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGICUS01
+        hash: 83c87e58626b194d3e76cb917c2663d182b732b25490fb9c5e23a01c8746bc5e
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGICUS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092558
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGAPVS01
+        hash: 8494460baf97f7511eac8a04bd983883b767eba9daadfd56f7f5cc5e0fbfbcc1
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092554
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGAPDB01
+        hash: 84a58c95d93a106989b3fa93f385530d7c50e6baf7503db5dfd7e629e7e362e8
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092553
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGDPOL01
+        hash: 940b0e39e7a41722d08d03585efd18a2de6cea3c1546c8eb2114de5798f408ed
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGDPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092556
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGSTSQ
+        hash: abcad4a7601479265fb80c3b531f7158905859f543c127c6ed06c67d595492be
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSTSQ.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092603
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGSETUP
+        hash: b708617d34ef2eb16f3dacff8efa4c40d3f08dfc3c04a5f9863a9745b2321e37
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGSETUP.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092602
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACVS01
+        hash: b982f4735fb0add494ac0e8210e4786b8cc5a744e2bb4d6b0f173df87cc34f41
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092552
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUCUS01
+        hash: c5d6cf86142be52608d4af1c0e5e5e632c11f2e3a7207552d107e4463298226b
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUCUS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092604
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGAPOL01
+        hash: cd9e95188459836a178d88cf8bfb740a0210f0c54bf9a228939a3e62e455d8eb
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGAPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092553
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGIPVS01
+        hash: e64e94dcdb1fe02964bad5ef555c1a2f487c0fef3c67c11b6f9974eb51067992
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGIPVS01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092601
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACDB01
+        hash: fa46def9f4fbfc5bc2a9b63d5815408a44ec2f0da5c20ae9fab939501f3132ef
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092550
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGACDB02
+        hash: fa98b9e563099d0acb06e25f6e6d24a38a5d691a793ef1700de3d36505c185e9
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGACDB02.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092550
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      - name: LGUPOL01
+        hash: ff2bc4f5565198bd45a7c908b9c28a0483522c0ef41afd1e64d024bbc9d4f40e
+        properties:
+        - key: path
+          value: NAZARE.WDEPLOY.DBBBUILD.GENAPP.LOAD/LGUPOL01.CICSLOAD
+        - key: fingerprint
+          value: 5695PMB01 02042024296092607
+        - key: wd_manifest_index
+          value: 0
+        - key: type
+          value: CICSLOAD
+      step_result:
+        status: Ok
+        msg: All items completed
+        results:
+        - status: Ok
+          msg: NEWCOPY succeeded for LGIPDB01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGIPDB01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C9D7C4C2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="26448" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGIPDB01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGICVS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGICVS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C9C3E5E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8844" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGICVS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGDPDB01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGDPDB01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C4D7C4C2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8476" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGDPDB01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGACUS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGACUS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C1C3E4E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7724" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGACUS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGUCDB01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGUCDB01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E4C3C4C2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8724" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGUCDB01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGIPOL01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGIPOL01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C9D7D6D3F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7576" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="6" operation="" pgrjusecount="0" platform="" program="LGIPOL01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGUPDB01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGUPDB01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E4D7C4C2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="13088" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGUPDB01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGICDB01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGICDB01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C9C3C4C2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="CSDAPI"
+              installtime="2020-05-01T19:04:29.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8892" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGICDB01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGUCVS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGUCVS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E4C3E5E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8184" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGUCVS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGDPVS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGDPVS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C4D7E5E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7560" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGDPVS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGUPVS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGUPVS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E4D7E5E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8640" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGUPVS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGICUS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGICUS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C9C3E4E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8140" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGICUS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGAPVS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGAPVS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C1D7E5E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7912" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGAPVS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGAPDB01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGAPDB01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C1D7C4C2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="14504" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGAPDB01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGDPOL01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGDPOL01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C4D7D6D3F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8012" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGDPOL01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGSTSQ
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGSTSQ),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E2E3E2D84040"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7396" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGSTSQ"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGSETUP
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGSETUP),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E2C5E3E4D740"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="18084" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGSETUP"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGACVS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGACVS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C1C3E5E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7536" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGACVS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGUCUS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGUCUS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E4C3E4E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7508" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGUCUS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGAPOL01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGAPOL01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C1D7D6D3F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7736" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGAPOL01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGIPVS01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGIPVS01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C9D7E5E2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="7348" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGIPVS01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGACDB01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGACDB01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C1C3C4C2F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="10304" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGACDB01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGACDB02
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGACDB02),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7C1C3C4C2F0F2"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8476" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="6" operation="" pgrjusecount="0" platform="" program="LGACDB02"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for LGUPOL01
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=LGUPOL01),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="D3C7E4D7D6D3F0F1"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="8004" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="LGUPOL01"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        - status: Ok
+          msg: NEWCOPY succeeded for SSMAP
+          args:
+            cicsplex: CICS01
+            cmci_url: http://127.0.0.1:1490
+            cmci_user: ''
+            cmci_password: ''
+            csd_group: GENASAP
+          results:
+            command: requests.put(http://127.0.0.1:1490/CICSSystemManagement/CICSProgram/CICS01?CRITERIA=(PROGRAM=SSMAP),
+              data=<request><action name='NEWCOPY'/></request>, headers=headers, verify=False,
+              auth=(, [MASKED]), timeout=30)
+            rc: 200
+            response: b'<?xml version="1.0"?>\r\n<response xmlns="http://www.ibm.com/xmlns/prod/CICS/smw2int"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/CICS/smw2int
+              http://127.0.0.1:1490/CICSSystemManagement/schema/CICSSystemManagement.xsd"
+              version="3.0" connect_version="0550">\r\n\t<resultsummary api_response1="1024"
+              api_response2="0" api_response1_alt="OK" api_response2_alt="" recordcount="1"
+              displayed_recordcount="1" />\r\n\t<records>\r\n\t\t<cicsprogram _keydata="E2E2D4C1D7404040"
+              aloadtime="00:00:00.000000" apist="CICSAPI" application="" applmajorver="-1"
+              applmicrover="-1" applminorver="-1" basdefinever="0" cedfstatus="CEDF"
+              changeagent="CSDBATCH" changeagrel="0720" changetime="2019-01-30T05:38:59.000000+00:00"
+              changeusrid="SUMANG" coboltype="NOTINIT" concurrency="QUASIRENT" copy="NOTREQUIRED"
+              currentloc="NOCOPY" datalocation="ANY" definesource="GENASAP" definetime="2019-01-30T05:38:59.000000+00:00"
+              dynamstatus="NOTDYNAMIC" entrypoint="FF000000" execkey="USEREXECKEY"
+              executionset="FULLAPI" eyu_cicsname="CICS01" eyu_cicsrel="E720" eyu_reserved="0"
+              fetchcnt="0" fetchtime="00:00:00.000000" holdstatus="NOTAPPLIC" installagent="GRPLIST"
+              installtime="2020-05-01T16:16:15.000000+00:00" installusrid="CICSUSER"
+              jvmclass="" jvmserver="" language="COBOL" length="10416" library="NAZGEN"
+              librarydsn="NAZARE.GENAPP.LOADLIB" loadpoint="FF000000" lpastat="NOTAPPLIC"
+              newcopycnt="4" operation="" pgrjusecount="0" platform="" program="SSMAP"
+              progtype="PROGRAM" remotename="" remotesystem="" removecnt="0" rescount="0"
+              residency="NONRESIDENT" rloading="0.000" rplid="0" rremoval="0.000"
+              runtime="UNKNOWN" ruse="0.000" sharestatus="PRIVATE" status="ENABLED"
+              transid="" useagelstat="0" usecount="0" usefetch="0.000" />\r\n\t</records>\r\n</response>'
+        duration: 0.46707701683044434
+      loop_index: 0
+    action_result:
+      status: Ok
+      msg: Ok
+      results: []
+    loop_index: 0
+  activity_result:
+    status: Ok
+    msg: Ok
+    results: []
+  description: This activity is dedicated to CICS load modules
+  loop_index: 0
+  tags:
+  - cics
+manifests:
+- name: cics-genapp
+  description: cics-genapp
+  version: 1.0.63
+  annotations:
+    creation_timestamp: 20241022.132618.720
+    scm:
+      type: git
+      uri: git@github.com:jbyibm/cics-genapp.git
+      branch: main
+      short_commit: 81e8ab71
+    package:
+      name: sys-wazi-deploy-team/cics-genapp-wazideploy-dynamic-build
+      properties:
+      - key: repository_path
+        value: wazideploy/dynamic/cics-genapp
+      - key: repository
+        value: sys-wazi-deploy-team-pentest-generic-local
+      - key: build_name
+        value: sys-wazi-deploy-team/cics-genapp-wazideploy-dynamic-build
+      - key: build_number
+        value: '47'
+      uri: https://na.artifactory.swg-devops.com/ui/builds/sys-wazi-deploy-team%2Fcics-genapp-wazideploy-dynamic-build/47
+      type: ARTIFACTORY
