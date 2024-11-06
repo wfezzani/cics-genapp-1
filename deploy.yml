@@ -30,7 +30,6 @@
             --manifests ./wazideploy-samples/application-manifest/application-manifest-static.yml\
             --deploymentPlan ./deployment-plan.yml\
             --deploymentPlanReport ./deployment-plan-report.html\
-            #--deploymentState ./merged-deployment-state.yml\
             --packageOutputFile ./package.tar\
             --configFile ./config.yml
         delegate_to: localhost
