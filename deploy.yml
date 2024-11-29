@@ -12,13 +12,10 @@
   serial: "{{ wd_serial if wd_serial is defined else 5 }}"
   tasks:
       - name: Print Python Version
-        debug: |
-          msg: "{{callback_plugins}}"
-        delegate_to: localhost  
-      - name: Print Python Version
         shell: |
           #!/bin/bash
           python3 -V
+          env
         delegate_to: localhost
       - name: Install Wazi Deploy
         ansible.builtin.pip:
