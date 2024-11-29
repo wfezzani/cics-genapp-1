@@ -9,5 +9,5 @@ collections:
     source: https://galaxy.ansible.com
   - name: community.general
     source: https://galaxy.ansible.com
-#  - name: /var/lib/awx/projects/_8__genapp/ibm-ibm_zos_wazi_deploy-3.0.3-1.tar.gz
-#    type: file
+  - name: /var/lib/awx/projects/_8__genapp/ibm-ibm_zos_wazi_deploy-3.0.3-1.tar.gz
+    type: file
