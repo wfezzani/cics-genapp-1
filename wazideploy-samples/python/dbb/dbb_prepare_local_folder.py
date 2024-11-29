@@ -1,6 +1,6 @@
 #*******************************************************************************
 # Licensed Materials - Property of IBM
-# (c) Copyright IBM Corp. 2023. All Rights Reserved.
+# (c) Copyright IBM Corp. 2023, 2024. All Rights Reserved.
 #
 # Note to U.S. Government Users Restricted Rights:
 # Use, duplication or disclosure restricted by GSA ADP Schedule
@@ -166,7 +166,7 @@ RETURN RC2
                 msgstr = f"*! Error executing command: {args} out: {out} error: {err}"
                 print(msgstr)
                 sys.exit(-1)
-            if copyMode == 'TEXT':
+            if copyMode == 'TEXT' or copyMode == 'LANGX':
                 args = ["chtag", "-r", f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
             else:
                 args = ["chtag", "-b",  f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
