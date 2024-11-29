@@ -16,6 +16,7 @@
           #!/bin/bash
           python3 -V
           env
+          ls -l $ANSIBLE_CALLBACK_PLUGINS
         delegate_to: localhost
       - name: Install Wazi Deploy
         ansible.builtin.pip:
