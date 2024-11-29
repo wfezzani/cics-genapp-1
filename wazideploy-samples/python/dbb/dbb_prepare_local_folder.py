@@ -15,6 +15,7 @@ import re
 import json
 import subprocess
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 class DBBUtilities(object):
 
@@ -81,13 +82,13 @@ class DBBUtilities(object):
             return "TEXT"
         elif re.search('CEXEC', deployType, re.IGNORECASE):
             return "BINARY"
-        elif re.search('SIDEFILE', deployType, re.IGNORECASE):
-            return "OPUT"
+        elif re.search('LANGX', deployType, re.IGNORECASE):
+            return "LANGX"
         else:
             return "TEXT"
 
-def run_command (args: list, verbose: bool = True):
-    process = subprocess.run(args, capture_output=True, text=True)
+def run_command (args: list, verbose: bool = True, shell: bool = False):
+    process = subprocess.run(args, capture_output=True, text=True, shell=shell)
 
     if process.returncode != 0 and verbose:
         print("stdout:", process.stdout, file=sys.stdout)
@@ -118,8 +119,40 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
         copyMode = DBBUtilities.get_copy_mode(deploy_type, **kwargs)
         msgstr = f"** Copy //'{dataset}' to {working_folder}/{pds_name}/{member_name}.{deploy_type} ({copyMode})"
         print(msgstr)
-        if copyMode == 'OPUT':
-            args = ["tsocmd", f"OPUT '{dataset}' '{working_folder}/{pds_name}/{member_name}.{deploy_type}'"]
+        if copyMode == 'LANGX':
+            f = NamedTemporaryFile(delete=False, encoding='cp1047', mode='w+t', suffix='.rexx')
+            f.write(f"""/* rexx */
+
+ADDRESS TSO
+"BPXBATCH SH rm -f /tmp/test.jby"
+"ALLOC FI(SYSPRINT) DUMMY REUSE"
+"ALLOC FI(SYSPRINT) DUMMY REUSE"
+"ALLOC FI(SYSIN) DUMMY REUSE"
+"ALLOC FI(SYSUT1) DATASET('{dataset}') SHR REUSE"
+"ALLOC FI(SYSUT2) PATH('{f.name}.{deploy_type}') PATHOPTS(ORDWR,OCREAT) PATHDISP(KEEP,DELETE)  
+       PATHMODE(SIRUSR,SIWUSR,SIRGRP,SIROTH) FILEDATA(RECORD) RECFM(V B) LRECL(1562) BLKSIZE(32760)"
+"IEBGENER"
+RC2 = RC
+"FREE FI(SYSUT1)"
+"FREE FI(SYSUT2)"
+"FREE FI(SYSPRINT)"
+"FREE FI(SYSIN)"
+IF RC2 ^= 0 THEN DO
+  SAY "IEBGENER FAILED."
+  END
+RETURN RC2
+""")
+            f.flush()
+            os.chmod(f.name, 0o755)
+            if platform.system() == 'OS/390':
+                args = f"sh -c {f.name}"
+                rc, out, err = run_command(args, shell=True)
+                if rc != 0:
+                    msgstr = f"*! Error executing command: {args} out: {out} error: {err}"
+                    print(msgstr)
+                    sys.exit(-1)
+            f.close()
+            args = ["mv", f"{f.name}.{deploy_type}", f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
         elif copyMode == 'LOAD':
             args = ["cp", "-XI", f"//'{dataset}'", f"{working_folder}/{pds_name}/{member_name}.{deploy_type}"]
         elif copyMode == 'BINARY':
@@ -130,7 +163,7 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
         if platform.system() == 'OS/390':
             rc, out, err = run_command(args)
             if rc != 0:
-                msgstr = f"*! Error executing command: {cmd} out: {out} error: {err}"
+                msgstr = f"*! Error executing command: {args} out: {out} error: {err}"
                 print(msgstr)
                 sys.exit(-1)
             if copyMode == 'TEXT':

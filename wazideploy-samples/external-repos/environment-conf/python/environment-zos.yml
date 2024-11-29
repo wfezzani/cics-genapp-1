@@ -154,11 +154,12 @@ spec:
       db2_systems:
       - "{{ env.spec.db2_sys_def }}"
       use_native_copy : True
-    - pattern: .*.SIDEFILE$
-      dataset: "{{ env.spec.hlq_cics }}.SIDEFILE"
-      dataset_backup: "{{ env.spec.hlq_cics }}.BACK.SIDEFILE"
+    #{ Case TS017767556
+    - pattern: .*.LANGX$
+      dataset: "{{ env.spec.hlq_cics }}.LANGX"
+      dataset_backup: "{{ env.spec.hlq_cics }}.BACK.LANGX"
       spec: "{{ env.spec.common_pds_binary_spec }}"
-      is_asa_text: True
+    # Case TS017767556}
     - pattern: .*.LISTING$
       dataset: "{{ env.spec.hlq }}.LISTING"
       dataset_backup: "{{ env.spec.hlq }}.BACK.LISTING"
