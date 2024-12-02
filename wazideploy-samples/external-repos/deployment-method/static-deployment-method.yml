@@ -45,6 +45,14 @@ activities:
           - name: MEMBER_COPY
             description: |
               This step do the copy of artifacts into PDSs
+          - name: LANGX_COPY
+            description: |
+              This step do the copy of artifacts into PDSs
+            properties:
+            - key: "template"
+              value: "job_submit"
+            types:
+              - name: 'LANGX'
     types:
       - name: 'DBRM'
       #- name: 'LOAD'
@@ -52,7 +60,7 @@ activities:
       - name: 'MAPLOAD'
       #- name: 'JCL'
       #- name: 'LISTING'
-      #- name: 'SIDEFILE'
+      - name: 'LANGX'
       #- name: 'CEXEC'
     is_artifact: True
     tags:
