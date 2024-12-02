@@ -45,6 +45,14 @@ activities:
           - name: MEMBER_COPY
             description: |
               This step do the copy of artifacts into PDSs
+          - name: LANGX_DS
+            description: |
+              This step do the creation of the dataset for LANGX artifacts
+            properties:
+            - key: "template"
+              value: "ds_create"
+            - key: "var_ds_create"
+              value: "ds_create_langx"
           - name: LANGX_COPY
             description: |
               This step do the copy of artifacts into PDSs
@@ -60,7 +68,6 @@ activities:
       - name: 'MAPLOAD'
       #- name: 'JCL'
       #- name: 'LISTING'
-      - name: 'LANGX'
       #- name: 'CEXEC'
     is_artifact: True
     tags:
