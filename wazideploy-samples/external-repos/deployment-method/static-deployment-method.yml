@@ -44,7 +44,29 @@ activities:
             - never
           - name: MEMBER_COPY
             description: |
-              This step do the copy of artifacts into PDSs
+              This step do the copy of artifacts into PDSs'
+    types:
+      - name: 'DBRM'
+      #- name: 'LOAD'
+      - name: 'CICSLOAD'
+      - name: 'MAPLOAD'
+      #- name: 'JCL'
+      #- name: 'LISTING'
+      #- name: 'CEXEC'
+    is_artifact: True
+    tags:
+      - deploy_module
+
+  - name: DEPLOY_MODULES_LANGX
+    description: |
+      This activity is dedicated to the deployment of the artifacts into the PDS 
+    actions:
+        - name: UPDATE
+          description: |
+            This action is applicable when we udpate artifacts.
+          states:
+             - UNDEFINED
+          steps:
           - name: LANGX_DS
             description: |
               This step do the creation of the dataset for LANGX artifacts
@@ -59,19 +81,11 @@ activities:
             properties:
             - key: "template"
               value: "job_submit"
-            types:
-              - name: 'LANGX'
     types:
-      - name: 'DBRM'
-      #- name: 'LOAD'
-      - name: 'CICSLOAD'
-      - name: 'MAPLOAD'
-      #- name: 'JCL'
-      #- name: 'LISTING'
-      #- name: 'CEXEC'
+      - name: 'LANGX'
     is_artifact: True
     tags:
-      - deploy_module
+      - deploy_module_langx
 
   - name: DB2
     description: |
