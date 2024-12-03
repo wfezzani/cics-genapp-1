@@ -75,12 +75,15 @@ activities:
               value: "ds_create"
             - key: "var_ds_create"
               value: "ds_create_langx"
+            is_artifact: False
           - name: LANGX_COPY
             description: |
               This step do the copy of artifacts into PDSs
             properties:
             - key: "template"
               value: "job_submit"
+            - key: "var_type"
+              value: "types_langx"
     types:
       - name: 'LANGX'
     is_artifact: True

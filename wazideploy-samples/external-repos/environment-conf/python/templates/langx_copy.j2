@@ -1,0 +1,13 @@
+//COPYJCL JOB 'WD-JCL-LANGX',MSGLEVEL=(1,1),MSGCLASS=R,NOTIFY=&SYSUID
+{% for artifact in step.artifacts  %}
+{% set path_property = artifact.properties | selectattr("key", "equalto", "path") | list | first%}
+//{{artifact.name}} EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN   DD DUMMY
+{{ ('//SYSUT1  DD PATH=\'' + extra_vars.working_folder + '/' + path_property.value + '\',') | format_line(71,13,True,'//')}}
+//       PATHDISP=KEEP,
+//       RECFM=VB,LRECL=1562,BLKSIZE=32760
+//SYSUT2  DD DSN=NAZARE.WDEPLOY.PYTHON.LANGX({{artifact.name}}),DISP=SHR
+//SYSIN   DD DUMMY
+//*
+{% endfor -%}
