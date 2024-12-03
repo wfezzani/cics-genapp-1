@@ -101,12 +101,12 @@ spec:
      block_size: 32750
 
   ds_create_langx:
-    - name: '{{ hlq_langx  }}.LANGX'
-      spec: '{{env.spec.common_langx_spec}}'
+    - name: "{{ env.spec.hlq_langx  }}.LANGX"
+      spec: "{{env.spec.common_langx_spec}}"
 
   types_langx:
     - pattern: .*.langx$
-      dataset: "{{env.spec.hlq_langx}}.LANGX"
+      dataset: "{{ env.spec.hlq_langx }}.LANGX"
       spec: "{{ env.spec.common_langx_spec }}"
 
   hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.WDEPLOY.PYTHON' }}"
