@@ -13,19 +13,6 @@ metadata:
   name: "tivlp02.svl.ibm.com"
   version: 1.0.0
 
-common_langx_spec:
-  type: LIBRARY
-  primary_space: 5TRK
-  secondary_space: 2TRK
-  record_format: VB
-  record_length: 1562
-  block_size: 32750
-hlq_langx: "{{hlq}}"
-ds_create_langx:
-  - name: '{{ hlq_langx  }}.LANGX'
-    spec: '{{common_langx_spec}}'
-
-
 spec:
 
   default_cics_cmci_action: "NEWCOPY"
