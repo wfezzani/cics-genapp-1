@@ -91,6 +91,7 @@ spec:
      record_format: FB
      record_length: 15
 
+  #{ Side files are not usable after WAZI Deploy
   hlq_langx: "{{env.spec.hlq}}"
   common_langx_spec:
      type: LIBRARY
@@ -108,12 +109,14 @@ spec:
     - pattern: .*.langx$
       dataset: "{{ env.spec.hlq_langx }}.LANGX"
       spec: "{{ env.spec.common_langx_spec }}"
-      
+  #} Side files are not usable after WAZI Deploy
+
   job_submit_langx:
      use_template: True
      src: "{{ extra_vars.git_app_source }}/wazideploy-samples/external-repos/environment-conf/python/templates/langx_copy.j2"
      dest: "/tmp/job_submit_langx.jcl"
      max_rc: 4
+
 
   hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.WDEPLOY.PYTHON' }}"
   hlq_cics: "{{ extra_vars.hlq_cics if extra_vars.hlq_cics is defined else 'NAZARE.WDEPLOY.PYTHON' }}"
