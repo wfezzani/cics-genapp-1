@@ -279,6 +279,7 @@ pipeline {
                             else
                                export PATH=$PATH:$HOME/.local/bin
                             fi
+                            export DEPLOY_FILTERS_PATH=${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/filters
                             if [ "$ROLLING_BACK" != "True" ]
                             then
                                 CMD="wazideploy-deploy\
@@ -286,13 +287,15 @@ pipeline {
                                     --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
+                                    --extraVars git_app_source=${WORKSPACE}/${APP_NAME}\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
                             else
                                 CMD="wazideploy-deploy\
                                     --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
-                                    --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
+                                    --envFile ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
+                                    --extraVars git_app_source=${WORKSPACE}/${APP_NAME}\
                                     --planTags restore"
                             fi
                             echo $CMD

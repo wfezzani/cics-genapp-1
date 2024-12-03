@@ -84,6 +84,8 @@ activities:
               value: "job_submit"
             - key: "var_type"
               value: "types_langx"
+            - key: "var_job_submit"
+              value: "job_submit_langx"
     types:
       - name: 'LANGX'
     is_artifact: True
