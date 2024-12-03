@@ -106,7 +106,7 @@ spec:
 
   types_langx:
     - pattern: .*.langx$
-      dataset: "{{hlq_langx}}.LANGX"
+      dataset: "{{env.spec.hlq_langx}}.LANGX"
       spec: "{{ env.spec.common_langx_spec }}"
 
   hlq: "{{ extra_vars.hlq if extra_vars.hlq is defined else 'NAZARE.WDEPLOY.PYTHON' }}"
