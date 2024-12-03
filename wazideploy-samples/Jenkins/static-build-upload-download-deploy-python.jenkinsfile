@@ -288,7 +288,7 @@ pipeline {
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --extraVars git_app_source=${WORKSPACE}/${APP_NAME}\
-                                    --extraVars working_folder${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
+                                    --extraVars working_folder=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
                             else
                                 CMD="wazideploy-deploy\
@@ -297,7 +297,7 @@ pipeline {
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
                                     --extraVars git_app_source=${WORKSPACE}/${APP_NAME}\
-                                    --extraVars working_folder${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
+                                    --extraVars working_folder=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
                                     --planTags restore"
                             fi
                             echo $CMD
