@@ -6,7 +6,7 @@
 //SYSIN   DD DUMMY
 {{ ('//SYSUT1  DD PATH=\'' + extra_vars.working_folder + '/' + path_property.value + '\',') | format_line(71,13,True,'//')}}
 //       PATHDISP=KEEP,
-//       RECFM=VB,LRECL=1562,BLKSIZE=32760
+//       RECFM=VB,LRECL=1562,BLKSIZE=32760,FILEDATA=RECORD
 //SYSUT2  DD DSN=NAZARE.WDEPLOY.PYTHON.LANGX({{artifact.name}}),DISP=SHR
 //SYSIN   DD DUMMY
 //*
