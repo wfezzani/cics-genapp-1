@@ -102,12 +102,12 @@ spec:
      block_size: 32750
 
   ds_create_langx:
-    - name: "{{ env.spec.hlq_langx  }}.LANGX"
+    - name: "{{ env.spec.hlq_langx  }}.SIDEFILE"
       spec: "{{env.spec.common_langx_spec}}"
 
   types_langx:
     - pattern: .*.langx$
-      dataset: "{{ env.spec.hlq_langx }}.LANGX"
+      dataset: "{{ env.spec.hlq_langx }}.SIDEFILE"
       spec: "{{ env.spec.common_langx_spec }}"
 
   job_submit_langx:
