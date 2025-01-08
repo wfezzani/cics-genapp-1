@@ -193,8 +193,8 @@ function toggle(log, text)
 <td>
 {{ activity.name }}
 </td>
-<td>
 {%for action in activity.actions -%}
+<td>
 {{ action.name }}
 </td>
 <td>
@@ -228,9 +228,11 @@ function toggle(log, text)
 </tr>
 {% endfor %}
 </table>
-{% endfor %}
 </tr>
 </td>
+<td></td>
+{% endfor %}
+
 {% endfor %}
 </table>
 <p>&nbsp;</p>
