@@ -17,8 +17,8 @@ application:
           value: 
             - "**/wazideploy-samples/**"
             - "**/collections/**"
-            - ".*"
-            - "**/.*"
+            - ".**"
+            - "**/.**"
             - "**.properties"
             - "**.xml"
             - "**.yaml"
