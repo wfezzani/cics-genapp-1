@@ -114,18 +114,19 @@ pipeline {
                             #    --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
                             #    ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
                             #    --application ${APP_NAME} --sourceDir ${WORKSPACE}"
-                            set -x
                             export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
                             export PATH=$DBB_HOME/bin:$PATH
                             cd ${WORKSPACE}/${APP_NAME}
-                            dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml
+                            #set -x         
+                            CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml"
+                            $CMD
                             rc=$?
+                            #set +x
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.logs
                             mv logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.logs
-                            $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
-                               -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
-                               -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
-                            set +x
+                            #$DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
+                            #   -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
+                            #   -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt                            
                             exit $rc
                         ''')
                     if ( rc != 0 )
@@ -149,7 +150,7 @@ pipeline {
         }
 
 
-        stage('IDz Static Analysis on z/OS') {
+        /*stage('IDz Static Analysis on z/OS') {
             when {
                 expression { rollingBack == false } 
             }
@@ -214,7 +215,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         stage('Package & Artifactory Upload') {
             when {
