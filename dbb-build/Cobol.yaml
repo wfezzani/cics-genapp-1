@@ -149,7 +149,7 @@ tasks:
       # Copy log file to LISTING dataset
       - step: copyListing
         type: copy
-        source: ${LOGS}/${STEP}-${FILE_NAME}.log
+        source: ${LOGS}/compile-${FILE_NAME}.log
         target: //'${HLQ}.LISTING(${MEMBER})'
         dependencyCopy:
           - search: ${dependencySearchPath}
