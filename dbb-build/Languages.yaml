@@ -69,7 +69,7 @@ variables:
 
   # CICS COBOL Library. Example: CICSTS.V6R1M0.CICS.SDFHCOB
   - name: SDFHCOB
-    value: 
+    value: DFH.V5R5M0.CICS.SDFHCOB
   
   # CICS Load Library. Example: CICSTS.V6R1M0.CICS.SDFHLOAD
   - name: SDFHLOAD
