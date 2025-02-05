@@ -20,10 +20,10 @@ tasks:
     # Can be used for JCL, PROC, CNTL, REXX and any other type of source code which needs
     # to be packaged and processed by the pipeline. 
     sources: 
-      - "**.jcl"
-      - "**.proc"
-      - "**.cntl"
-      - "**.rexx"
+      - "upload/jcl/*.jcl"
+      #- "**.proc"
+      #- "**.cntl"
+      #- "**.rexx"
 
     # Dataset allocation options
     datasets:
