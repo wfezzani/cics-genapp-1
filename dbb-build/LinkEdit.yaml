@@ -1,0 +1,73 @@
+---
+#
+# Licensed materials - Property of IBM
+# 5655-AC5 Copyright IBM Corp. 2024
+# All rights reserved
+# US Government users restricted rights  -  Use, duplication or
+# disclosure restricted by GSA ADP schedule contract with IBM Corp.
+#
+####################################
+# LinkEdit language configuration
+#################################### 
+
+version: 1.0.0
+tasks:
+  # LinkEdit Language task builds link cards
+  - language: LinkEdit
+
+    # source file association patterns
+    sources:
+      - "**.lnk"
+      
+    # overridable variables
+    variables:
+      # default link edit parameters
+      - name: linkEditParms
+        value: MAP,RENT,COMPAT(PM5)
+        
+      # default flag to identify CICS load modules
+      - name: hasCICSModules
+        value: false
+        
+      # default flag to scan load modules  
+      - name: scanLoadModule
+        value: true
+        
+    # datasets that need to be created / validated for this language configuration
+    datasets:
+      - name: ${HLQ}.LINK
+        options: "cyl space(1,1) lrecl(80) dsorg(PO) recfm(F,B) dsntype(library)"
+      - name: ${HLQ}.OBJ
+        options: "cyl space(1,1) lrecl(80) dsorg(PO) recfm(F,B) dsntype(library)"
+      - name: ${HLQ}.LOAD
+        options: cyl space(1,1) dsorg(PO) recfm(U) blksize(32760) dsntype(library)
+
+    # list of steps to execute for each program processed by this language configuration
+    steps:
+    
+      # Copy build file and dependency files to data sets
+      - step: copySrc
+        type: copy
+        source: ${FILE_PATH}
+        target: //'${HLQ}.LINK(${MEMBER})'
+
+
+      # Link-Edit step
+      - step: linkEdit
+        type: mvs
+        pgm: IEWBLINK
+        parm: ${linkEditParms}
+        maxRC: 0
+        dds:
+          - { name: "SYSLIN", dsn: "${HLQ}.LINK(${MEMBER})", options: "shr" }
+          - { name: "SYSLMOD", dsn: "${HLQ}.LOAD(${MEMBER})", options: "shr", output: true, deployType: "LOAD", scan: "${scanLoadModule}" }
+          - { name: "SYSPRINT", log: "${LOGS}/${STEP}-${FILE_NAME}.log", logEncoding: "${LOG_ENCODING}", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
+          - { name: "SYSUT1", options: "cyl space(5,5) unit(vio) blksize(80) lrecl(80) recfm(f,b) new" }
+          - { name: "SYSLIB", dsn: "${HLQ}.OBJ", options: "shr" }
+          - {                 dsn: "${SCEELKED}", options: "shr" }
+          - {                 dsn: "${SDFHLOAD}", condition: "${hasCICSModules}", options: "shr" }
+          - {                 dsn: "${SDSNLOAD}", condition: "${hasCICSModules}", options: "shr" }
+
+
+
+          

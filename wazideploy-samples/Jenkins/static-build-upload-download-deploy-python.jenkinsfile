@@ -2,8 +2,8 @@
 def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
 
 // DBB Git repositories (For DBB 2.0.xX)
-//def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
-def zAppBuildGitRepo = 'https://github.com/jbyibm/dbb-zappbuild.git'
+def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
+// def zAppBuildGitRepo = 'https://github.com/jbyibm/dbb-zappbuild.git'
 def zAppBuildGitBranch = 'main'
 def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
@@ -109,17 +109,21 @@ pipeline {
                     if ( env.DBB_BUILD_TYPE == null )
                         env.DBB_BUILD_TYPE = "--fullBuild"
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
-                                ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
-                                --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
-                                ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
-                                --application ${APP_NAME} --sourceDir ${WORKSPACE}"
-                            echo $CMD
-                            $CMD
+                            #CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
+                            #    ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
+                            #    --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
+                            #    ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
+                            #    --application ${APP_NAME} --sourceDir ${WORKSPACE}"
+                            set -x
+                            export DBB_BUILD=${WORKSPACE}/${APP_NAME}
+                            dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml
                             rc=$?
+                            mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.logs
+                            c$ logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.logs
                             $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
                                -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
                                -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
+                            set +x
                             exit $rc
                         ''')
                     if ( rc != 0 )
@@ -137,6 +141,74 @@ pipeline {
                                         artifacts: '**/*.log,**/*.json,**/*.html',
                                         excludes: '**/*clist',
                                         onlyIfSuccessful: false
+                    }
+                }
+            }
+        }
+
+
+        stage('IDz Static Analysis on z/OS') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script{
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            cd /tmp/zcodescan
+                            $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
+                               -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
+                               -cr /tmp/zcodescan/rules.dat
+                            exit $?
+                        ''')
+                        if ( rc != 0 )
+                            error("IDz Static Analysis on z/OS !!!")
+                    }
+                }
+            }
+        }
+        
+        stage('zCodeScan Static Analysis on z/OS') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script{
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            cd /tmp/zcodescan
+                            ./zcodescan.sh
+                            if [ $? -ne 12 ]
+                            then
+                              exit $?
+                            fi
+                            exit 0
+                        ''')
+                        if ( rc != 0 )
+                            error("zCodeScan Static Analysis on z/OS !!!")
+                    }
+                }
+            }
+        }
+
+        stage('Upload Static Analysis to SonarQ') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script{
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            cd /tmp/zcodescan
+                            ./sonar.sh
+                            if [ $? -ne 12 ]
+                            then
+                              exit $?
+                            fi
+                            exit 0
+                        ''')
+                        if ( rc != 0 )
+                            error("Uploading Package failed!!!")
                     }
                 }
             }
@@ -279,7 +351,6 @@ pipeline {
                             else
                                export PATH=$PATH:$HOME/.local/bin
                             fi
-                            export DEPLOY_FILTERS_PATH=${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/filters
                             if [ "$ROLLING_BACK" != "True" ]
                             then
                                 CMD="wazideploy-deploy\
@@ -287,17 +358,13 @@ pipeline {
                                     --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
-                                    --extraVars git_app_source=${WORKSPACE}/${APP_NAME}\
-                                    --extraVars working_folder=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
                             else
                                 CMD="wazideploy-deploy\
                                     --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
-                                    --envFile ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
+                                    --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
-                                    --extraVars git_app_source=${WORKSPACE}/${APP_NAME}\
-                                    --extraVars working_folder=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
                                     --planTags restore"
                             fi
                             echo $CMD
