@@ -14,7 +14,22 @@ application:
     - task: ScannerInit
       variables: 
         - name: excludeFileList # List of glob file patterns to exclude from scanning.
-          value: ["**/wazideploy-samples/**","**/collections/**",".*","**/*.properties","**/*.xml","**/*.groovy","**/*.md","**/application-conf/*.*","**/lgapbr01.cbl","**/lgwebst5.cbl","**/lgastat1.cbl","**/*.json","**/lgtest*.cbl"]
+          value: 
+            - "**/wazideploy-samples/**"
+            - "**/collections/**"
+            - ".*"
+            - "**/.*"
+            - "**.properties"
+            - "**.xml"
+            - "**.yaml"
+            - "**.groovy"
+            - "**.md"
+            - "**.json"
+            - "**/application-conf/**"
+            - "**/lgapbr01.cbl"
+            - "**/lgwebst5.cbl"
+            - "**/lgastat1.cbl"
+            - "**/lgtest*.cbl"
       
     # Variable overrides for the ImpactAnalysis task
     - task: ImpactAnalysis
