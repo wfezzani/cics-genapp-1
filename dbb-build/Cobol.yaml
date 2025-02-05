@@ -46,7 +46,7 @@ tasks:
         
       # default dependency search path for single repository build
       - name: dependencySearchPath
-        value: search:${WORKSPACE}/?path=${APP_DIR_NAME}/copybook/*.cpy
+        value: search:${WORKSPACE}/?path=${APP_DIR_NAME}/base/src/*.cpy
 
       # flag incating to scan the load module for static link dependencies  
       - name: scanLoadModule
@@ -70,6 +70,8 @@ tasks:
         options: cyl space(1,1) lrecl(80) dsorg(PO) recfm(F,B) dsntype(library)
       - name: ${HLQ}.LOAD
         options: cyl space(1,1) dsorg(PO) recfm(U) blksize(32760) dsntype(library)
+      - name: ${HLQ}.LISTING
+        options: cyl space(5,5) lrecl(250) dsorg(PO) recfm(F,B) dsntype(library)        
 
     # list of steps to execute for each program processed by this language configuration
     steps:
@@ -143,4 +145,15 @@ tasks:
           - {                 dsn: "${SCEELKED}", options: "shr" }
           - {                 dsn: "${SDFHLOAD}", condition: "${IS_CICS}", options: "shr" }
           - {                 dsn: "${SDSNLOAD}", condition: "${IS_SQL}", options: "shr" }
+          
+      # Copy log file to LISTING dataset
+      - step: copyListing
+        type: copy
+        source: ${LOGS}/${STEP}-${FILE_NAME}.log
+        target: //'${HLQ}.LISTING(${MEMBER})'
+        dependencyCopy:
+          - search: ${dependencySearchPath}
+            mappings:
+              - source: "**/*"
+                dataset: ${HLQ}.COPY          
 
