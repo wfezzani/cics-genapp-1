@@ -151,9 +151,8 @@ tasks:
         type: copy
         source: ${LOGS}/compile-${FILE_NAME}.log
         target: //'${HLQ}.LISTING(${MEMBER})'
-        dependencyCopy:
-          - search: ${dependencySearchPath}
-            mappings:
-              - source: "**/*"
-                dataset: ${HLQ}.COPY          
+        sourceEncoding: UTF-8
+        targetEncoding: IBM-1047
+        copyMode: TEXT
+              
 
