@@ -11,7 +11,7 @@ application:
   name: GenAppCICS
   tasks:
 
-    - task: ScannerInit
+    - task: FullAnalysis
       variables: 
         - name: excludeFileList # List of glob file patterns to exclude from scanning.
           value: 
