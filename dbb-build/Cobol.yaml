@@ -135,7 +135,7 @@ tasks:
         maxRC: 0
         dds:
           - { name: "SYSLIN", dsn: "${HLQ}.OBJ(${MEMBER})", options: "shr" }
-          - { name: "SYSLMOD", dsn: "${HLQ}.LOAD(${MEMBER})", options: "shr", output: true, deployType: "LOAD", scan: "${scanLoadModule}" }
+          - { name: "SYSLMOD", dsn: "${HLQ}.LOAD(${MEMBER})", options: "shr", output: true, deployType: "CICSLOAD", scan: "${scanLoadModule}" }
           - { name: "SYSPRINT", log: "${LOGS}/${STEP}-${FILE_NAME}.log", logEncoding: "${LOG_ENCODING}", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
           - { name: "SYSUT1", options: "cyl space(5,5) unit(vio) blksize(80) lrecl(80) recfm(f,b) new" }
           - { name: "RESLIB", condition: { exists: RESLIB }, options: "shr" }
