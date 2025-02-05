@@ -165,6 +165,5 @@ tasks:
         dds:
           - { name: "LISTING", dsn: "${HLQ}.LISTING(${MEMBER})", options: "shr" }
           - { name: "IDILANGX", dsn: "NAZARE.WDEPLOY.DBBBUILD.GENAPP.LANGX(${MEMBER})", options: "shr", output: true, deployType: "LANGX" }
-          - { name: "SYSUDUMP", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
-          - { name: "SYSPRINT", log: "${LOGS}/${STEP}-${FILE_NAME}.log", logEncoding: "${LOG_ENCODING}", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
+          - { name: "SYSUDUMP", log: "${LOGS}/${STEP}-${FILE_NAME}.log", logEncoding: "${LOG_ENCODING}", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
           
