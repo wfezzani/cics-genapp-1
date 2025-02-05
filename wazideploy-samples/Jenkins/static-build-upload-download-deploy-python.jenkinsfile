@@ -122,8 +122,8 @@ pipeline {
                             $CMD
                             rc=$?
                             #set +x
-                            mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.logs
-                            mv logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.logs
+                            mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
+                            mv logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
                             #$DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
                             #   -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
                             #   -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt                            
