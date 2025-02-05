@@ -117,6 +117,7 @@ pipeline {
                             set -x
                             export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
                             export PATH=$DBB_HOME/bin:$PATH
+                            cd ${WORKSPACE}/${APP_NAME}
                             dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml
                             rc=$?
                             mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.logs
