@@ -8,7 +8,7 @@
 #
 version: 1.0.0
 application:
-  name: MortgageApplication
+  name: GenAppCICS
   tasks:
 
     # Variable overrides for the ImpactAnalysis task
@@ -21,36 +21,11 @@ application:
             # Cobol program dependency patterns
             - languageExt: cbl      
               dependencyPatterns: 
-                - ${APP_DIR_NAME}/copybook/*.cpy   # Copybook source dependency
-                - ${APP_DIR_NAME}/bms/*.bms        # BMS Map source dependency
-                - ${APP_DIR_NAME}/cobol/*.cbl      # Static link dependency  
+                - ${APP_DIR_NAME}/base/src/*.cpy   # Copybook source dependency
+                - ${APP_DIR_NAME}/base/src/*.bms        # BMS Map source dependency
+                - ${APP_DIR_NAME}/base/src/*.cbl      # Static link dependency  
             # Link card dependency patterns
             - languageExt: lnk                    
               dependencyPatterns: 
-                - ${APP_DIR_NAME}/cobol/*.cbl      # Static link dependency 
-
-    # Variable overrides for the Cobol language task
-    - task: Cobol
-      variables:  
-        # Need to build sub-module epsnbrvl.cbl first during cobol builds
-        - name: fileBuildRank
-          value: 1
-          forFiles: "**/cobol/epsnbrvl.cbl"
-
-        # Skip creating a load module for these programs as they will be 
-        # statically linked to other programs
-        - name: doLinkEdit
-          value: false
-          forFiles: 
-            - "**/cobol/epsnbrvl.cbl"
-            - "**/cobol/epsmlist.cbl"   
-
-    # Variable overrides for the LinkEdit language task
-    - task: LinkEdit
-      variables: 
-        # Set flag for link cards with CICS load modules
-        - name: hasCICSModules
-          value: true
-          forFiles:
-            - "**/link/epsmlist.lnk"
+                - ${APP_DIR_NAME}/base/src/*.cbl      # Static link dependency 
             
