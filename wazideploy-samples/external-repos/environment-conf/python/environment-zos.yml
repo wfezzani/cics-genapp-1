@@ -110,11 +110,11 @@ spec:
       dataset: "{{ env.spec.hlq_langx }}.SIDEFILE"
       spec: "{{ env.spec.common_langx_spec }}"
 
-  job_submit_langx:
-     use_template: True
-     src: "{{ extra_vars.git_app_source }}/wazideploy-samples/external-repos/environment-conf/python/templates/langx_copy.j2"
-     dest: "/tmp/job_submit_langx.jcl"
-     max_rc: 4
+  #job_submit_langx:
+  #   use_template: True
+  #   src: "{{ extra_vars.git_app_source }}/wazideploy-samples/external-repos/environment-conf/python/templates/langx_copy.j2"
+  #   dest: "/tmp/job_submit_langx.jcl"
+  #   max_rc: 4
 
   #} Side files are not usable after WAZI Deploy
 
