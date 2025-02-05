@@ -119,6 +119,7 @@ pipeline {
                             cd ${WORKSPACE}/${APP_NAME}
                             #set -x         
                             CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml"
+                            echo "$CMD"
                             $CMD
                             rc=$?
                             #set +x
