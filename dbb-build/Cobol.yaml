@@ -154,5 +154,6 @@ tasks:
         sourceEncoding: UTF-8
         targetEncoding: IBM-1047
         copyMode: TEXT
+        deployType: LISTING
               
 
