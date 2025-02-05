@@ -115,7 +115,7 @@ pipeline {
                             #    ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
                             #    --application ${APP_NAME} --sourceDir ${WORKSPACE}"
                             set -x
-                            export DBB_BUILD=${WORKSPACE}/${APP_NAME}
+                            export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
                             export PATH=$DBB_HOME/bin:$PATH
                             dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml
                             rc=$?
