@@ -48,93 +48,37 @@ variables:
   ############################################################
   
   # z/OS macro library. Example: SYS1.MACLIB
-  #- name: MACLIB
-  #  value: 
+  - name: MACLIB
+    value: SYS1.MACLIB 
     
   # LE (Language Environment) load library. Example: CEE.SCEELKED
-  #- name: SCEELKED
-  #  value: 
+  - name: SCEELKED
+    value: CEE.SCEELKED 
 
   # High Level Assembler (HLASM) load library. Example: ASM.SASMMOD1
-  #- name: SASMMOD1
-  #  value: 
+  - name: SASMMOD1
+    value: ASM.SASMMOD1
 
   # Cobol Compiler Data Sets. Example: COBOL.V6R1M0.SIGYCOMP
-  #- name: SIGYCOMP
-  #  value: 
+  - name: SIGYCOMP
+    value: IGY.V6R2M0.SIGYCOMP
 
   # CICS Macro Library. Example: CICSTS.V6R1M0.CICS.SDFHMAC
-  #- name: SDFHMAC
-  #  value: 
+  - name: SDFHMAC
+    value:  DFH.V5R5M0.CICS.SDFHMAC
 
   # CICS COBOL Library. Example: CICSTS.V6R1M0.CICS.SDFHCOB
-  #- name: SDFHCOB
-  #  value: 
+  - name: SDFHCOB
+    value: 
   
   # CICS Load Library. Example: CICSTS.V6R1M0.CICS.SDFHLOAD
-  #- name: SDFHLOAD
-  #  value: 
+  - name: SDFHLOAD
+    value: DFH.V5R5M0.CICS.SDFHLOAD 
   
   # DB2 Load Library. Example: DB2.V12R1M0.SDSNLOAD
-  #- name: SDSNLOAD
-  #  value: 
+  - name: SDSNLOAD
+    value: DSN.V12R1M0.SDSNLOAD
 
   # Optional IDz Load Library. Needed for Error Feedback option. Example: FEL.V16R0M0.SFELLOAD
   #- name: SFELLOAD
   #  value: 
-  
-  ############################################################
-  # End: Datasets required for MortgageApplication sample
-  ############################################################
-
-  # Assembler macro library. Example: CEE.SCEEMAC
-  #- name: SCEEMAC
-  #  value: 
-  
-  # PL/I Compiler Data Sets.  Example: PLI.V6R1M0.SIBMZCMP
-  #- name: IBMZPLI
-  #  value: 
-  
-  # CICS PLI Library. Example: CICSTS.V6R1M0.CICS.SDFHPL1
-  #- name: SDFHPL1
-  #  value: 
-
-  # MQ COBOL Library. Example: CSQ.V9R4M0.SCSQCOBC
-  #- name: SCSQCOBC
-  #  value: 
-
-  # MQ PLI Library. Example: CSQ.V9R4M0.SCSQPLIC
-  #- name: SCSQPLIC
-  #  value: 
-
-  # MQ Assembler Library. Example: CSQ.V9R4M0.SCSQMACS
-  #- name: SCSQMACS
-  #  value:
-
-  # MQ Load Library. Example: CSQ.V9R4M0.SCSQLOAD
-  #- name: SCSQLOAD
-  #  value: 
-
-  # DB2 Exit Library. Example: DB2.V12R1M0.SDSNEXIT
-  #- name: SDSNEXIT
-  #  value:
-
-  # IMS Macro Library. Example: DFS.V11R1M0.SDFSMAC
-  #- name: SDFSMAC
-  #  value:
-
-  # IMS RESLIB. Example: DFS.V11R1M0.SDFSRESL
-  #- name: SDFSRESL
-  #  value:
-
-  # IBM Debug Library containing Exits
-  #- name: SEQAMOD
-  #  value:
-
-  # Optional IDZ zUnit / WAZI VTP library containing necessary copybooks. Example : FEL.V16R2M0.SBZUSAMP
-  #- name: SBZUSAMP
-  #  value:
-
-  # PD Tools Common Component load library. Example : PDTCC.V1R8.SIPVMODA 
-  #- name: SIPVMODA
-  #  value:
