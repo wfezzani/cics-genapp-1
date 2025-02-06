@@ -109,26 +109,32 @@ pipeline {
                     if ( env.DBB_BUILD_TYPE == null )
                         env.DBB_BUILD_TYPE = "--fullBuild"
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            #CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
-                            #    ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
-                            #    --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
-                            #    ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
-                            #    --application ${APP_NAME} --sourceDir ${WORKSPACE}"
-                            export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
-                            export DBB_CONF=${DBB_HOME}/conf
-                            export PATH=$DBB_HOME/bin:$PATH
-                            cd ${WORKSPACE}/${APP_NAME}
-                            #set -x         
-                            CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml"
-                            echo "$CMD"
-                            $CMD
-                            rc=$?
-                            #set +x
-                            mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
-                            mv logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
+                            export USE_ZAPP_BUILD="True"
+                            if [ "USE_ZAPP_BUILD" == "True" ]
+                            then
+                                CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
+                                    ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
+                                    --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
+                                    ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
+                                    --application ${APP_NAME} --sourceDir ${WORKSPACE}"
+                                echo "$CMD"
+                                $CMD
+                                rc=$?
+                            else
+                                export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
+                                export DBB_CONF=${DBB_HOME}/conf
+                                export PATH=$DBB_HOME/bin:$PATH
+                                cd ${WORKSPACE}/${APP_NAME}
+                                CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml"
+                                mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
+                                echo "$CMD"
+                                $CMD
+                                rc=$?
+                                mv logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
+                            fi
                             #$DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
                             #   -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
-                            #   -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt                            
+                            #   -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
                             exit $rc
                         ''')
                     if ( rc != 0 )
