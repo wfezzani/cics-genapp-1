@@ -115,6 +115,7 @@ pipeline {
                             #    ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
                             #    --application ${APP_NAME} --sourceDir ${WORKSPACE}"
                             export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
+                            export DBB_CONF=${DBB_HOME}/conf
                             export PATH=$DBB_HOME/bin:$PATH
                             cd ${WORKSPACE}/${APP_NAME}
                             #set -x         

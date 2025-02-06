@@ -156,8 +156,8 @@ tasks:
         copyMode: TEXT
         deployType: LISTING
         
-      # SIDEFIE step
-      - step: sideFile
+      # LANGX step
+      - step: langx
         type: mvs
         pgm: IDILANGX
         parm: "(COBOL ERROR LOUD"
