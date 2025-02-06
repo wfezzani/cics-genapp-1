@@ -110,7 +110,7 @@ pipeline {
                         env.DBB_BUILD_TYPE = "--fullBuild"
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                             export USE_ZAPP_BUILD="True"
-                            if [ "USE_ZAPP_BUILD" == "True" ]
+                            if [ "$USE_ZAPP_BUILD" == "True" ]
                             then
                                 CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
                                     ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
