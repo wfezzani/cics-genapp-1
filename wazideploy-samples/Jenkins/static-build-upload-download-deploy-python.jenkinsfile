@@ -111,6 +111,7 @@ pipeline {
                     rc = sh (returnStatus: true, script: '''#!/bin/sh
                             if [[ $DBB_BUILD_TYPE == *Build ]]
                             then
+                                export DBB_CONF=${WORKSPACE}/${APP_NAME}/dbb-build
                                 CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
                                     ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
                                     --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
