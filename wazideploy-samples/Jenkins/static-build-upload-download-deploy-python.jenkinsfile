@@ -127,7 +127,7 @@ pipeline {
                                 cd ${WORKSPACE}/${APP_NAME}
                                 CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ}\
                                          --config $DBB_BUILD/dbb-app.yaml\
-                                         --dbid db2inst1 --dbpf password"
+                                         --dbid db2inst1 --dbpf $HOME/password"
                                 mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
                                 echo "$CMD"
                                 $CMD
