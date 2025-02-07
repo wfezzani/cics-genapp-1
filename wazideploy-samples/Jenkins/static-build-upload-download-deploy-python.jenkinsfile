@@ -131,9 +131,6 @@ pipeline {
                                 rc=$?
                                 mv logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
                             fi
-                            #$DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
-                            #   -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
-                            #   -cr /tmp/zcodescan/rules.dat -p | grep "L=COBOL" | sed "s/^..//" > /tmp/zcodescan/list.txt
                             exit $rc
                         ''')
                     if ( rc != 0 )
@@ -155,74 +152,6 @@ pipeline {
                 }
             }
         }
-
-
-        /*stage('IDz Static Analysis on z/OS') {
-            when {
-                expression { rollingBack == false } 
-            }
-            steps {
-                script{
-                    if ( hasBuildFiles ) {
-                        rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            cd /tmp/zcodescan
-                            $DBB_HOME/bin/groovyz /tmp/zcodescan/dbb/Pipeline/RunIDZCodeReview/RunCodeReview.groovy \
-                               -w ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.*\
-                               -cr /tmp/zcodescan/rules.dat
-                            exit $?
-                        ''')
-                        if ( rc != 0 )
-                            error("IDz Static Analysis on z/OS !!!")
-                    }
-                }
-            }
-        }
-        
-        stage('zCodeScan Static Analysis on z/OS') {
-            when {
-                expression { rollingBack == false } 
-            }
-            steps {
-                script{
-                    if ( hasBuildFiles ) {
-                        rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            cd /tmp/zcodescan
-                            ./zcodescan.sh
-                            if [ $? -ne 12 ]
-                            then
-                              exit $?
-                            fi
-                            exit 0
-                        ''')
-                        if ( rc != 0 )
-                            error("zCodeScan Static Analysis on z/OS !!!")
-                    }
-                }
-            }
-        }
-
-        stage('Upload Static Analysis to SonarQ') {
-            when {
-                expression { rollingBack == false } 
-            }
-            steps {
-                script{
-                    if ( hasBuildFiles ) {
-                        rc = sh (returnStatus: true, script: '''#!/bin/sh
-                            cd /tmp/zcodescan
-                            ./sonar.sh
-                            if [ $? -ne 12 ]
-                            then
-                              exit $?
-                            fi
-                            exit 0
-                        ''')
-                        if ( rc != 0 )
-                            error("Uploading Package failed!!!")
-                    }
-                }
-            }
-        }*/
 
         stage('Package & Artifactory Upload') {
             when {
