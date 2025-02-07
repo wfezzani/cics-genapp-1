@@ -121,7 +121,7 @@ pipeline {
                                 rc=$?
                             else
                                 export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
-                                export DBB_CONF=${DBB_HOME}/conf
+                                export DBB_CONF=${DBB_BUILD}
                                 export PATH=$DBB_HOME/bin:$PATH
                                 cd ${WORKSPACE}/${APP_NAME}
                                 CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml"
