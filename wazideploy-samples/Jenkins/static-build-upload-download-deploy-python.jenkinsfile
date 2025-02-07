@@ -125,7 +125,9 @@ pipeline {
                                 export DBB_CONF=${DBB_BUILD}
                                 export PATH=$DBB_HOME/bin:$PATH
                                 cd ${WORKSPACE}/${APP_NAME}
-                                CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ} --config $DBB_BUILD/dbb-app.yaml"
+                                CMD="dbb build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ}\
+                                         --config $DBB_BUILD/dbb-app.yaml\
+                                         --dbid db2inst1 --dbpf password"
                                 mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
                                 echo "$CMD"
                                 $CMD
@@ -209,14 +211,14 @@ pipeline {
                                     --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
                                     --repository  ${ARTIFACTORY_REPO}\
-                                    --repositoryPath  ${ARTIFACTORY_REPO_PATH}\
+                                    --repositoryPath  ${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}.${BUILD_NUMBER}\
                                     --buildName ${ARTIFACTORY_STATIC_BUILD_NAME}\
                                     --buildNumber ${BUILD_NUMBER}\
                                     --buildUrl "${BUILD_URL}"\
                                     --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
-                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/application-manifest.yml\
+                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/wazideploy_manifest.yml\
                                     --uploadType archive"
                             echo $CMD
                             $CMD

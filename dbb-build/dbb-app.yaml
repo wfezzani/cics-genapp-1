@@ -11,6 +11,13 @@ application:
   name: GenAppCICS
   tasks:
 
+    - task: MetadataInit
+      variables: 
+        - name: type # Type of metadata store. Valid values are "file" or "db2".
+          value: db2 #  Default is "file".
+        - name: db2Url # Db2 URL for JDBC connection to Db2 server.
+          value: "jdbc:db2://zdevops-demo1.fyre.ibm.com:5000/DBB"
+
     - task: FullAnalysis
       variables: 
         - name: excludeFileList # List of glob file patterns to exclude from scanning.
