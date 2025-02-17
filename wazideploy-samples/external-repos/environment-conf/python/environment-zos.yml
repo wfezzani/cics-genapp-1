@@ -112,7 +112,7 @@ spec:
 
   job_submit_langx:
      use_template: True
-     src: "{{ extra_vars.git_app_source }}/wazideploy-samples/external-repos/environment-conf/python/templates/langx_copy.j2"
+     src: "{{ extra_vars.git_env_source }}/wazideploy-samples/external-repos/environment-conf/python/templates/langx_copy.j2"
      dest: "/tmp/job_submit_langx.jcl"
      max_rc: 4
 

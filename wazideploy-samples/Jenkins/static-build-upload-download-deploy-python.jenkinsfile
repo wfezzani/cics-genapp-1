@@ -2,8 +2,8 @@
 def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
 
 // DBB Git repositories (For DBB 3.x)
-// def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
-def zAppBuildGitRepo = 'https://github.com/jbyibm/dbb-zappbuild.git'
+def zAppBuildGitRepo = 'https://github.com/IBM/dbb-zappbuild.git'
+//def zAppBuildGitRepo = 'https://github.com/jbyibm/dbb-zappbuild.git'
 def zAppBuildGitBranch = 'main'
 def dbbGitRepo = 'https://github.com/IBM/dbb.git'
 def dbbGitBranch = 'main'
@@ -300,14 +300,14 @@ pipeline {
                                     --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
-                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy"
+                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy -e git_env_source=${WORKSPACE}"
                             else
                                 CMD="wazideploy-deploy\
                                     --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
-                                    --planTags restore"
+                                    --planTags restore -e git_env_source=${WORKSPACE}"
                             fi
                             echo $CMD
                             $CMD 
