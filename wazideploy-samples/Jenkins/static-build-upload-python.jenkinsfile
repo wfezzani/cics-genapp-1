@@ -200,10 +200,7 @@ pipeline {
                                     --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
                                     --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
                                     --repository  ${ARTIFACTORY_REPO}\
-                                    --repositoryPath  ${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}.${BUILD_NUMBER}\
-                                    --buildName ${ARTIFACTORY_STATIC_BUILD_NAME}\
-                                    --buildNumber ${BUILD_NUMBER}\
-                                    --buildUrl "${BUILD_URL}"\
+                                    --repositoryPath  ${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}\
                                     --manifestVersion "${RELEASE_VERSION}"\
                                     --manifestName "${APP_NAME}"\
                                     --manifestDescription "${APP_NAME}"\
