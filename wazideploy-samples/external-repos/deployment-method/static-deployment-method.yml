@@ -89,6 +89,7 @@ activities:
     types:
       - name: 'LANGX'
     is_artifact: True
+    when: wd_query[[ length ( current_plan_step.artifacts ) ]] != 0
     tags:
       - deploy_module_langx
 
