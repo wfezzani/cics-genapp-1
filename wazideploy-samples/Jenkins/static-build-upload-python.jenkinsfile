@@ -1,0 +1,223 @@
+// Agent labels
+def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
+
+def gitCredId = 'git_hub_cred'
+
+// Private
+def appName="cics-genapp"
+def verbose = false
+def rollingBack = false
+def hasBuildFiles = true
+def srcGitRepo =  null
+def srcGitBranch = null
+
+pipeline {
+
+    agent { label zOsAgentLabel }
+    
+    environment {
+        APP_NAME = "${appName}"
+        BUILD_NUMBER = "${env.BUILD_NUMBER}"
+        DBB_HOME = "${env.DBB_HOME ? env.DBB_HOME : '/usr/lpp/IBM/dbb'}"
+        DBB_HLQ = "${env.DBB_HLQ ? env.DBB_HLQ : 'IBMUSER.GENAPP.DBBBUILD'}"
+        PYTHON_INTERPRETER = "${env.PYTHON_INTERPRETER ? env.PYTHON_INTERPRETER : '/usr/lpp/IBM/cyp/v3r10/pyz/bin/python3'}"
+        ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
+        ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"
+        ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
+        ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : 'wazideploy/static' + appName}"
+        ARTIFACTORY_STATIC_BUILD_NAME = "${env.ARTIFACTORY_STATIC_BUILD_NAME ? env.ARTIFACTORY_STATIC_BUILD_NAME : appName + '-wazideploy-static-build'}"
+        PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
+     }
+     
+     parameters {
+       string(defaultValue: "1.0", description: 'Release Version.', name: 'RELEASE_VERSION')
+       choice(choices: ["impact", "full", "--impactBuild", "--fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
+       booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
+    }
+
+    options { skipDefaultCheckout(true) }
+
+    stages {
+        stage('Initialization') {
+            steps {
+                script {
+                    verbose = env.VERBOSE && env.VERBOSE == 'true' ? true : false
+                    env.BUILD_VERBOSE = verbose ? '-v' : ''
+                    if ( verbose ) {
+                        echo sh(script: 'env|sort', returnStdout: true)
+                    }
+                }
+            }
+        }
+        stage('Git Clone/Refresh') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script {
+
+                    dir(appName) {
+                        srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
+                        srcGitBranch = scm.branches[0].name
+                        if ( env.APP_GIT_BRANCH == null || env.APP_GIT_BRANCH == "") {
+                            srcGitBranch = scm.branches[0].name
+                            env.GIT_BRANCH = srcGitBranch
+                        } else
+                            srcGitBranch =  env.GIT_BRANCH
+                        def scmVars = null
+                        scmVars = checkout([$class: 'GitSCM', branches: [[name: srcGitBranch]],
+                                                doGenerateSubmoduleConfigurations: false,
+                                                submoduleCfg: [],
+                                                userRemoteConfigs: [[
+                                                                     url: srcGitRepo, credentialsId: gitCredId
+                                                                     ]]])
+                    }
+                    dir("dbb-zappbuild") {
+                        def scmVars =
+                            checkout([$class: 'GitSCM', branches: [[name: zAppBuildGitBranch]],
+                                    doGenerateSubmoduleConfigurations: false,
+                                    submoduleCfg: [],
+                                    userRemoteConfigs: [[
+                                        url: zAppBuildGitRepo,
+                            ]]])
+                    }
+                }
+            }
+        }
+
+        stage('DBB Build') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script{
+                    // DBB Build
+                    if ( env.DBB_BUILD_TYPE == null )
+                        env.DBB_BUILD_TYPE = "--fullBuild"
+                    rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            if [[ $DBB_BUILD_TYPE == *Build ]]
+                            then
+                                export DBB_CONF=${WORKSPACE}/${APP_NAME}/dbb-build
+                                CMD="$DBB_HOME/bin/groovyz $GROOVYZ_BUILD_EXTRA_OPTS\
+                                    ${WORKSPACE}/dbb-zappbuild/build.groovy --logEncoding UTF-8 -w ${WORKSPACE}\
+                                    --workDir ${WORKSPACE}/BUILD-${BUILD_NUMBER} --hlq ${DBB_HLQ}\
+                                    ${DBB_BUILD_TYPE} ${BUILD_VERBOSE} ${DBB_BUILD_EXTRA_OPTS}\
+                                    --application ${APP_NAME} --sourceDir ${WORKSPACE}"
+                                echo "$CMD"
+                                $CMD
+                                rc=$?
+                            else
+                                export DBB_BUILD=${WORKSPACE}/${APP_NAME}/dbb-build
+                                export DBB_CONF=${DBB_BUILD}
+                                export PATH=$DBB_HOME/bin:$PATH
+                                cd ${WORKSPACE}/${APP_NAME}
+                                CMD="dbb -cp $HOME/db2/db2jcc4.jar build ${DBB_BUILD_TYPE} --log-encoding UTF-8 --hlq ${DBB_HLQ}\
+                                         --config $DBB_BUILD/dbb-app.yaml\
+                                         --dbid db2inst1 --dbpf $HOME/password"
+                                mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
+                                echo "$CMD"
+                                $CMD
+                                rc=$?
+                                mv logs/* ${WORKSPACE}/BUILD-${BUILD_NUMBER}/build.${BUILD_NUMBER}
+                            fi
+                            exit $rc
+                        ''')
+                    if ( rc != 0 )
+                        error("DBB build failed!!!")
+
+                    def files = findFiles(glob: "**BUILD-${BUILD_NUMBER}/**/buildList.txt")
+                    // Do not enter into some steps if nothing in the build list
+                    hasBuildFiles = files.length > 0 && files[0].length > 0
+                }
+            }
+            post {
+                always {
+                    dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                        archiveArtifacts allowEmptyArchive: true,
+                                        artifacts: '**/*.log,**/*.json,**/*.html',
+                                        excludes: '**/*clist',
+                                        onlyIfSuccessful: false
+                    }
+                }
+            }
+        }
+
+        stage('Package & Artifactory Upload') {
+            when {
+                expression { rollingBack == false } 
+            }
+           environment {
+              ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
+            }
+            steps {
+                script {
+                    if ( hasBuildFiles ) {
+                        writeFile file: "${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml", encoding: "UTF-8",
+                        text:"""artifact_repository:
+   # The type of the artifactory manager [artifactory|nexus]]
+   type: 'artifactory'
+   # The URL to the Artifactory Server
+   url: ${ARTIFACTORY_URL}
+   # Artifactory credentials
+   user: ${ARTI_CREDS_USR}
+   password: ${ARTI_CREDS_PSW}
+                             """
+                        if ( env.PYTHON_VIRTUAL_ENV_COMMAND == null  ){
+                            env.PYTHON_VIRTUAL_ENV_COMMAND = ""
+                        }
+
+                        if ( env.RELEASE_VERSION == null )
+                            env.RELEASE_VERSION = "1.0.0"
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
+                            then
+                               echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
+                               . $PYTHON_VIRTUAL_ENV_COMMAND
+                               export PYTHON_INTERPRETER="python3"
+                            else
+                               export PATH=$PATH:$HOME/.local/bin
+                            fi
+                            
+                            BUILD_OUTPUT_FOLDER=$(ls ${WORKSPACE}/BUILD-${BUILD_NUMBER} | grep "build.*[0-9]$" | tail -n 1)
+                            mkdir -p ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package
+                            
+                            cd ${WORKSPACE}
+                            CMD="${PYTHON_INTERPRETER}\
+                                   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/python/dbb/dbb_prepare_local_folder.py\
+                                   --dbbBuildResult ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${BUILD_OUTPUT_FOLDER}/BuildReport.json\
+                                   --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package"
+                            echo $CMD
+                            $CMD
+                            if [ $? -ne 0 ]
+                            then
+                              exit $?
+                            fi
+                            
+                            CMD="wazideploy-package\
+                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
+                                    --localFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package\
+                                    --repository  ${ARTIFACTORY_REPO}\
+                                    --repositoryPath  ${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}.${BUILD_NUMBER}\
+                                    --buildName ${ARTIFACTORY_STATIC_BUILD_NAME}\
+                                    --buildNumber ${BUILD_NUMBER}\
+                                    --buildUrl "${BUILD_URL}"\
+                                    --manifestVersion "${RELEASE_VERSION}"\
+                                    --manifestName "${APP_NAME}"\
+                                    --manifestDescription "${APP_NAME}"\
+                                    --manifest ${WORKSPACE}/BUILD-${BUILD_NUMBER}/package/wazideploy_manifest.yml\
+                                    --uploadType archive"
+                            echo $CMD
+                            $CMD
+                            if [ $? -ne 0 ]
+                            then
+                              exit $?
+                            fi
+                        ''')
+                        if ( rc != 0 )
+                            error("Uploading Package failed!!!")
+                     }
+                }
+            }
+        }
+    }
+}
