@@ -75,7 +75,6 @@ activities:
               value: "ds_create"
             - key: "var_ds_create"
               value: "ds_create_langx"
-            is_artifact: False
           - name: LANGX_COPY
             description: |
               This step do the copy of artifacts into PDSs
@@ -89,7 +88,6 @@ activities:
     types:
       - name: 'LANGX'
     is_artifact: True
-    when: wd_query[[ length ( current_plan_step.artifacts ) ]] != 0
     tags:
       - deploy_module_langx
 
