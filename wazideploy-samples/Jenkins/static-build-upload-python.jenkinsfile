@@ -9,7 +9,6 @@ def gitCredId = 'git_hub_cred'
 // Private
 def appName=env.APP_NAME
 def verbose = false
-def rollingBack = false
 def hasBuildFiles = true
 def srcGitRepo =  null
 def srcGitBranch = null
@@ -54,9 +53,6 @@ pipeline {
             }
         }
         stage('Git Clone/Refresh') {
-            when {
-                expression { rollingBack == false } 
-            }
             steps {
                 script {
 
@@ -90,9 +86,6 @@ pipeline {
         }
 
         stage('DBB Build') {
-            when {
-                expression { rollingBack == false } 
-            }
             steps {
                 script{
                     // DBB Build
@@ -147,9 +140,6 @@ pipeline {
         }
 
         stage('Package & Artifactory Upload') {
-            when {
-                expression { rollingBack == false } 
-            }
            environment {
               ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
             }
