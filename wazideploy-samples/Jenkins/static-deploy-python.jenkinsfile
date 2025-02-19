@@ -7,7 +7,6 @@ def gitCredId = 'git_hub_cred'
 // Private
 def appName=env.APP_NAME
 def verbose = false
-def rollingBack = false
 def hasBuildFiles = true
 def srcGitRepo =  null
 def srcGitBranch = null
@@ -38,9 +37,6 @@ pipeline {
 
     stages {
         stage('Git Clone/Refresh') {
-            when {
-                expression { rollingBack == false } 
-            }
             steps {
                 script {
 
@@ -65,9 +61,6 @@ pipeline {
         }
 
         stage('Deploy: Generate The Deployment Plan & Package') {
-            when {
-                expression { rollingBack == false } 
-            }
            environment {
               ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
             }
@@ -142,7 +135,8 @@ pipeline {
                                     --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
-                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy -e git_env_source=${WORKSPACE}"
+                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy -e git_env_source=${WORKSPACE}\
+                                    -e hlq=NAZARE.WDEPLOY.PYTHON.${TARGET_ENV}"
                             echo $CMD
                             $CMD 
                             rc=$?
