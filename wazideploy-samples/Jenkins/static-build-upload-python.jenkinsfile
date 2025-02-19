@@ -7,7 +7,7 @@ def zAppBuildGitBranch = 'main'
 def gitCredId = 'git_hub_cred'
 
 // Private
-def appName="cics-genapp"
+def appName=env.APP_NAME
 def verbose = false
 def rollingBack = false
 def hasBuildFiles = true
@@ -33,7 +33,8 @@ pipeline {
      }
      
      parameters {
-       string(defaultValue: "1.0", description: 'Release Version.', name: 'RELEASE_VERSION')
+       string(defaultValue: "GenApp", description: 'Application Name.', name: 'APP_NAME')
+       string(defaultValue: "1.0", description: 'Application Version.', name: 'RELEASE_VERSION')
        choice(choices: ["impact", "full", "--impactBuild", "--fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
        booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
     }
