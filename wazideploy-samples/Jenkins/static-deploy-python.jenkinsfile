@@ -68,9 +68,22 @@ pipeline {
             when {
                 expression { rollingBack == false } 
             }
+           environment {
+              ARTI_CREDS = credentials("$ARTIFACTORY_CRED_ID")
+            }
             steps {
                 script {
                     if ( hasBuildFiles ) {
+                        writeFile file: "${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml", encoding: "UTF-8",
+                        text:"""artifact_repository:
+   # The type of the artifactory manager [artifactory|nexus]]
+   type: 'artifactory'
+   # The URL to the Artifactory Server
+   url: ${ARTIFACTORY_URL}
+   # Artifactory credentials
+   user: ${ARTI_CREDS_USR}
+   password: ${ARTI_CREDS_PSW}
+                             """
                         rc = sh (returnStatus: true, script: '''#!/bin/sh
                             if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
                             then
