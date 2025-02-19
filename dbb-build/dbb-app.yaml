@@ -16,7 +16,7 @@ application:
         - name: type # Type of metadata store. Valid values are "file" or "db2".
           value: db2 #  Default is "file".
         - name: db2Url # Db2 URL for JDBC connection to Db2 server.
-          value: "jdbc:db2://zdevops-demo1.fyre.ibm.com:5000/DBB"
+          value: "jdbc:db2://zdevops-demo1.fyre.ibm.com:50000/DBB"
 
     - task: FullAnalysis
       variables: 

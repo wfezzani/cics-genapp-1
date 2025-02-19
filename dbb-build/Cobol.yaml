@@ -155,7 +155,7 @@ tasks:
         targetEncoding: Cp1047
         copyMode: TEXT
         deployType: LISTING
-        
+
       # LANGX step
       - step: langx
         type: mvs
@@ -166,4 +166,3 @@ tasks:
           - { name: "LISTING",  dsn: "${HLQ}.LISTING(${MEMBER})", options: "shr" }
           - { name: "IDILANGX", dsn: "${HLQ}..LANGX(${MEMBER})", options: "shr", output: true, deployType: "LANGX" }
           - { name: "SYSUDUMP", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
-          
