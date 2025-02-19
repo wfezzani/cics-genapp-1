@@ -1,6 +1,9 @@
 // Agent labels
 def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
 
+def gitCredId = 'git_hub_cred'
+
+
 // Private
 def appName=env.APP_NAME
 def verbose = false
