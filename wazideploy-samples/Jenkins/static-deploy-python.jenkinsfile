@@ -1,0 +1,221 @@
+// Agent labels
+def zOsAgentLabel = env.ZOS_AGENT_LABEL ? env.ZOS_AGENT_LABEL : 'wazideploy-e2e-pipeline'
+
+// Private
+def appName=env.APP_NAME
+def verbose = false
+def rollingBack = false
+def hasBuildFiles = true
+def srcGitRepo =  null
+def srcGitBranch = null
+
+pipeline {
+
+    agent { label zOsAgentLabel }
+    
+    environment {
+        APP_NAME = "${appName}"
+        PYTHON_INTERPRETER = "${env.PYTHON_INTERPRETER ? env.PYTHON_INTERPRETER : '/usr/lpp/IBM/cyp/v3r10/pyz/bin/python3'}"
+        ZOAU_HOME ="${env.ZOAU_HOME ? env.ZOAU_HOME : '/usr/lpp/IBM/zoautil'}"
+        ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
+        ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"
+        ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
+        ARTIFACTORY_REPO_PATH = "${env.ARTIFACTORY_REPO_PATH ? env.ARTIFACTORY_REPO_PATH : appName}"
+        ARTIFACTORY_STATIC_BUILD_NAME = "${env.ARTIFACTORY_STATIC_BUILD_NAME ? env.ARTIFACTORY_STATIC_BUILD_NAME : appName + '-wazideploy-static-build'}"
+        PYTHON_VIRTUAL_ENV_COMMAND = "${env.PYTHON_VIRTUAL_ENV_COMMAND ? env.PYTHON_VIRTUAL_ENV_COMMAND : ''}"
+     }
+     
+     parameters {
+       string(defaultValue: "GenApp", description: 'Application Name.', name: 'APP_NAME')
+       string(defaultValue: "1.0", description: 'Application Version.', name: 'RELEASE_VERSION')
+       choice(choices: ["DEV", "PROD"], description: 'Target Environment', name: 'TARGET_ENV')
+    }
+
+    options { skipDefaultCheckout(true) }
+
+    stages {
+        stage('Git Clone/Refresh') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script {
+
+                    dir(appName) {
+                        srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
+                        srcGitBranch = scm.branches[0].name
+                        if ( env.APP_GIT_BRANCH == null || env.APP_GIT_BRANCH == "") {
+                            srcGitBranch = scm.branches[0].name
+                            env.GIT_BRANCH = srcGitBranch
+                        } else
+                            srcGitBranch =  env.GIT_BRANCH
+                        def scmVars = null
+                        scmVars = checkout([$class: 'GitSCM', branches: [[name: srcGitBranch]],
+                                                doGenerateSubmoduleConfigurations: false,
+                                                submoduleCfg: [],
+                                                userRemoteConfigs: [[
+                                                                     url: srcGitRepo, credentialsId: gitCredId
+                                                                     ]]])
+                    }
+                }
+            }
+        }
+
+        stage('Deploy: Generate The Deployment Plan & Package') {
+            when {
+                expression { rollingBack == false } 
+            }
+            steps {
+                script {
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
+                            then
+                               echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
+                               . $PYTHON_VIRTUAL_ENV_COMMAND
+                               export PYTHON_INTERPRETER="python3"
+                            else
+                               export PATH=$PATH:$HOME/.local/bin
+                            fi
+                            cd ${WORKSPACE}
+                            CMD="wazideploy-generate\
+                                   --deploymentMethod  ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/deployment-method/static-deployment-method.yml\
+                                   --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
+                                   --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
+                                   --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
+                                   --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
+                                   --manifestName "${APP_NAME}"\
+                                   --manifestDescription "${APP_NAME}"\
+                                   --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${APP_NAME}.${RELEASE_VERSION}.tar
+                                   --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar"
+                            echo $CMD
+                            $CMD
+                            rc=$?
+                            cp ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml ${WORKSPACE}/deployment-plan.yml
+                            exit $rc
+                        ''')
+                        if ( rc != 0 )
+                          error("Generation Of Deployment Scripts Failed!!!")
+                     }
+                }
+            }
+        }
+        
+        
+        stage('Deploy: Execute The Deployment With Python/ZOAU') {
+            steps {
+                script {
+                    if ( hasBuildFiles ) {
+                        if ( env.WD_DEPLOY_ENV_FILE == null )
+                           env.WD_DEPLOY_ENV_FILE = "environment-zos.yml"
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            export ZOAU_HOME=${ZOAU_HOME}
+                            export PATH=${ZOAU_HOME}/bin:$PATH
+                            export LIBPATH=${ZOAU_HOME}/lib:${LIBPATH}
+                            if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
+                            then
+                               echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
+                               . $PYTHON_VIRTUAL_ENV_COMMAND
+                               export PYTHON_INTERPRETER="python3"
+                            else
+                               export PATH=$PATH:$HOME/.local/bin
+                            fi
+                            if [ "$ROLLING_BACK" != "True" ]
+                            then
+                                CMD="wazideploy-deploy\
+                                    --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
+                                    --packageInputFile  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar\
+                                    --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
+                                    --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
+                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy -e git_env_source=${WORKSPACE}"
+                            else
+                                CMD="wazideploy-deploy\
+                                    --deploymentPlan  ${WORKSPACE}/deployment-plan.yml\
+                                    --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
+                                    --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
+                                    --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy\
+                                    --planTags restore -e git_env_source=${WORKSPACE}"
+                            fi
+                            echo $CMD
+                            $CMD 
+                            rc=$?
+                            # For jenkins artifact upload
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
+                            chtag -r ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml
+                            exit $rc
+                      ''')
+                      if ( rc != 0 )
+                          error("Excecution Of Deployment Scripts Failed!!!")
+                     }
+                }
+            }
+            post {
+                always {
+                    dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                        archiveArtifacts allowEmptyArchive: true,
+                                        artifacts: '**/deployment-plan.yml,**/deployment-plan-report.html,**/evidence.yml',
+                                        onlyIfSuccessful: false
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy: Deployment Report') {
+            steps {
+                script {
+                    if ( hasBuildFiles ) {
+                        rc = sh (returnStatus: true, script: '''#!/bin/sh
+                            if [ "$PYTHON_VIRTUAL_ENV_COMMAND" != "" ]
+                            then
+                               echo "Use a virtual env $PYTHON_VIRTUAL_ENV_COMMAND"
+                               . $PYTHON_VIRTUAL_ENV_COMMAND
+                               export PYTHON_INTERPRETER="python3"
+                            else
+                               export PATH=$PATH:$HOME/.local/bin
+                            fi
+                            # Index Evidences
+                            CMD="wazideploy-evidence\
+                                --indexFolder ${WORKSPACE}/evidences/index\
+                                --dataFolder ${WORKSPACE}/evidences/data\
+                                i"
+                            echo $CMD
+                            $CMD 
+                            rc=$?
+                            if [ $rc -ne 0 ]
+                            then
+                              exit $rc
+                            fi
+                            # Query Index
+                            CMD="wazideploy-evidence\
+                              --indexFolder ${WORKSPACE}/evidences/index\
+                              --template ${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/templates/full-report.yml\
+                              --output=${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html\
+                              r\
+                              renderer=${WORKSPACE}/${APP_NAME}/wazideploy-samples/evidences/renderers/full-report.html"
+                            echo $CMD
+                            $CMD 
+                            rc=$?
+                            if [ $rc -ne 0 ]
+                            then
+                              exit $rc
+                            fi
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy/deployment-report.html
+                      ''')
+                      if ( rc != 0 )
+                          error("Excecution Of Deployment Report Failed!!!")
+                     }
+                }
+            }
+            post {
+                always {
+                    dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
+                        archiveArtifacts allowEmptyArchive: true,
+                                        artifacts: '**/deployment-report.html',
+                                        onlyIfSuccessful: false
+                    }
+                }
+            }
+        }
+    }
+}
