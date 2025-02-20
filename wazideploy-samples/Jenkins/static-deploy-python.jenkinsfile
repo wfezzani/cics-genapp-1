@@ -29,7 +29,7 @@ pipeline {
      
      parameters {
        string(defaultValue: "GenApp", description: 'Application Name.', name: 'APP_NAME')
-       string(defaultValue: "1.0", description: 'Application Version.', name: 'RELEASE_VERSION')
+       string(defaultValue: "1.0", description: 'Application Version.', name: 'APP_VERSION')
        choice(choices: ["DEV", "PROD"], description: 'Target Environment', name: 'TARGET_ENV')
     }
 
@@ -39,7 +39,7 @@ pipeline {
         stage('Git Clone/Refresh') {
             steps {
                 script {
-                    currentBuild.displayName = "${APP_NAME} - ${RELEASE_VERSION} - ${TARGET_ENV} #${BUILD_NUMBER}"
+                    currentBuild.displayName = "${APP_NAME} - ${APP_VERSION} - ${TARGET_ENV} #${BUILD_NUMBER}"
                     dir(appName) {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name
@@ -92,10 +92,10 @@ pipeline {
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
-                                   --deploymentPlanVersion "${RELEASE_VERSION}"\
+                                   --deploymentPlanVersion "${APP_VERSION}"\
                                    --deploymentPlanName "${APP_NAME}"\
                                    --deploymentPlanDescription "${APP_NAME}"\
-                                   --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}/${APP_NAME}.${RELEASE_VERSION}.tar
+                                   --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${APP_VERSION}/${APP_NAME}.${APP_VERSION}.tar
                                    --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${BUILD_NUMBER}.tar"
                             echo $CMD
                             $CMD
