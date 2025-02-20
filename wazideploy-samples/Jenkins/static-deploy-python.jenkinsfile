@@ -92,7 +92,7 @@ pipeline {
                                    --deploymentPlan  ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml\
                                    --deploymentPlanReport ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html\
                                    --configFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/config.yml\
-                                   --deploymentPlanVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
+                                   --deploymentPlanVersion "${RELEASE_VERSION}"\
                                    --deploymentPlanName "${APP_NAME}"\
                                    --deploymentPlanDescription "${APP_NAME}"\
                                    --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}/${APP_NAME}.${RELEASE_VERSION}.tar
