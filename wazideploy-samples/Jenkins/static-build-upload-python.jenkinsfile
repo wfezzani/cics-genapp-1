@@ -35,7 +35,7 @@ pipeline {
        string(defaultValue: "GenApp", description: 'Application Name.', name: 'APP_NAME')
        string(defaultValue: "1.0", description: 'Application Version.', name: 'APP_VERSION')
        choice(choices: ["impact", "full", "--impactBuild", "--fullBuild"], description: 'DBB Build Type.', name: 'DBB_BUILD_TYPE')
-       booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
+       //booleanParam(defaultValue: false, description: 'Display verbose output', name: 'VERBOSE')
     }
 
     options { skipDefaultCheckout(true) }
