@@ -141,9 +141,10 @@ pipeline {
                             $CMD 
                             rc=$?
                             # For jenkins artifact upload
+                            cp ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml ${WORKSPACE}/BUILD-${BUILD_NUMBER}/evidence.yml
                             chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan.yml
                             chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deployment-plan-report.html
-                            chtag -r ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml
+                            chtag -r ${WORKSPACE}/BUILD-${BUILD_NUMBER}/evidence.yml
                             exit $rc
                       ''')
                       if ( rc != 0 )
@@ -155,7 +156,7 @@ pipeline {
                 always {
                     dir("${WORKSPACE}/BUILD-${BUILD_NUMBER}") {
                         archiveArtifacts allowEmptyArchive: true,
-                                        artifacts: '**/deployment-plan.yml,**/deployment-plan-report.html,**/*.evidence.yml',
+                                        artifacts: '**/deployment-plan.yml,**/deployment-plan-report.html,**/evidence.yml',
                                         onlyIfSuccessful: false
                     }
                 }
