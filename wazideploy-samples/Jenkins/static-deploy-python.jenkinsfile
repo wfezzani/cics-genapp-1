@@ -18,7 +18,7 @@ pipeline {
     environment {
         APP_NAME = "${appName}"
         PYTHON_INTERPRETER = "${env.PYTHON_INTERPRETER ? env.PYTHON_INTERPRETER : '/usr/lpp/IBM/cyp/v3r10/pyz/bin/python3'}"
-        ZOAU_HOME ="${env.ZOAU_HOME ? env.ZOAU_HOME : '/usr/lpp/IBM/zoautil'}"
+        ZOAU_HOME ="${env.ZOAU_HOME ? env.ZOAU_HOME : '/var/usr/lpp/IBM/zoautil/v1.2.5.8'}"
         ARTIFACTORY_URL  = "${env.ARTIFACTORY_URL  ? env.ARTIFACTORY_URL : 'https://example.com/artifactory'}"
         ARTIFACTORY_CRED_ID = "${env.ARTIFACTORY_CRED_ID ? env.ARTIFACTORY_CRED_ID : 'artifactory_id'}"
         ARTIFACTORY_REPO = "${env.ARTIFACTORY_REPO  ? env.ARTIFACTORY_REPO : 'repository'}"
