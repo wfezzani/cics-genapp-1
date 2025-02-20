@@ -39,7 +39,7 @@ pipeline {
         stage('Git Clone/Refresh') {
             steps {
                 script {
-
+                    currentBuild.displayName = "${APP_NAME} - ${RELEASE_VERSION} - ${TARGET_ENV} #${BUILD_NUMBER}"
                     dir(appName) {
                         srcGitRepo = scm.getUserRemoteConfigs()[0].getUrl()
                         srcGitBranch = scm.branches[0].name

@@ -49,6 +49,7 @@ pipeline {
                     if ( verbose ) {
                         echo sh(script: 'env|sort', returnStdout: true)
                     }
+                    currentBuild.displayName = "${APP_NAME} - ${RELEASE_VERSION} #${BUILD_NUMBER}"
                 }
             }
         }
