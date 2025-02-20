@@ -10,7 +10,7 @@
 apiVersion: deploy.ibm.com/v1
 kind: Environment
 metadata:
-  name: "tivlp02.svl.ibm.com"
+  name: "{{ extra_vars.target_environment if extra_vars.target_environment is defined else 'tivlp02.svl.ibm.com' }}"
   version: 1.0.0
 
 spec:
