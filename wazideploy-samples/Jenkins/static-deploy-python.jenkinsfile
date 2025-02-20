@@ -136,7 +136,7 @@ pipeline {
                                     --envFile   ${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/${WD_DEPLOY_ENV_FILE}\
                                     --evidencesFileName ${WORKSPACE}/evidences/data/BUILD-${BUILD_NUMBER}-evidence.yml\
                                     --workingFolder ${WORKSPACE}/BUILD-${BUILD_NUMBER}/deploy -e git_env_source=${WORKSPACE}\
-                                    -e hlq_cics=NAZARE.WDEPLOY.PYTHON.${TARGET_ENV}"
+                                    -e hlq_cics=NAZARE.WDEPLOY.PYTHON.${TARGET_ENV} -e target_environment=${TARGET_ENV}"
                             echo $CMD
                             $CMD 
                             rc=$?
