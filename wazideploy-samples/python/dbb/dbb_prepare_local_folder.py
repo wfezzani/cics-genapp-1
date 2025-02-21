@@ -124,7 +124,6 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
             f.write(f"""/* rexx */
 
 ADDRESS TSO
-"BPXBATCH SH rm -f /tmp/test.jby"
 "ALLOC FI(SYSPRINT) DUMMY REUSE"
 "ALLOC FI(SYSPRINT) DUMMY REUSE"
 "ALLOC FI(SYSIN) DUMMY REUSE"
