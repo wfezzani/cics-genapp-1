@@ -23,9 +23,8 @@ tasks:
     variables:
       # conditional variable builds compile parameters i.e CICS,SQL
       - name: compileParms
+        value: "LIB,LIST,MAP,Source,XREF"
         append:
-          - condition: "True"
-            value: "LIB,LIST,MAP,Source,XREF"
           - condition: ${IS_CICS}
             value: CICS
           - condition: ${IS_SQL}
