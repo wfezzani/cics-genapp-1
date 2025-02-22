@@ -6,7 +6,7 @@
 //SYSIN   DD DUMMY
 //SYSUT1  DD PATHDISP=KEEP,
 //           RECFM={{environment.spec.common_langx_spec.record_format}},LRECL={{environment.spec.common_langx_spec.record_length}},BLKSIZE={{environment.spec.common_langx_spec.block_size}},FILEDATA=RECORD,
-{{ ('//         PATH=\'' + working_folder + '/' + path_property.value + '\'') | format_line(71,13,True,'//')}}
+{{ ('//         PATH=\'' + extra_vars.working_folder + '/' + path_property.value + '\'') | format_line(71,13,True,'//')}}
 //SYSUT2  DD DSN={{environment.spec.ds_create_langx[0].name}}({{artifact.name}}),DISP=SHR
 //SYSIN   DD DUMMY
 //*
