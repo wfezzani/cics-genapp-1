@@ -72,6 +72,8 @@ tasks:
         options: cyl space(1,1) dsorg(PO) recfm(U) blksize(32760) dsntype(library)
       - name: ${HLQ}.LISTING
         options: cyl space(5,5) lrecl(133) dsorg(PO) recfm(F,B) dsntype(library)
+      - name: ${HLQ}.LANGX
+        options: tracks space(200,40) dsorg(PO) lrecl(1562) blksize(32750) recfm(V,B) dsntype(library)
 
     # list of steps to execute for each program processed by this language configuration
     steps:
