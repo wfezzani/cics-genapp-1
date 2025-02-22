@@ -71,7 +71,7 @@ tasks:
       - name: ${HLQ}.LOAD
         options: cyl space(1,1) dsorg(PO) recfm(U) blksize(32760) dsntype(library)
       - name: ${HLQ}.LISTING
-        options: cyl space(5,5) lrecl(250) dsorg(PO) recfm(F,B) dsntype(library)
+        options: cyl space(5,5) lrecl(133) dsorg(PO) recfm(F,B) dsntype(library)
 
     # list of steps to execute for each program processed by this language configuration
     steps:
@@ -157,12 +157,12 @@ tasks:
         deployType: LISTING
 
       # LANGX step
-#      - step: langx
-#        type: mvs
-#        pgm: IDILANGX
-#        parm: "(COBOL ERROR LOUD"
-#        maxRC: 0
-#        dds:
-#          - { name: "LISTING",  dsn: "${HLQ}.LISTING(${MEMBER})", options: "shr" }
-#          - { name: "IDILANGX", dsn: "${HLQ}..LANGX(${MEMBER})", options: "shr", output: true, deployType: "LANGX" }
-#          - { name: "SYSUDUMP", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
+      - step: langx
+        type: mvs
+        pgm: IDILANGX
+        parm: "(COBOL ERROR LOUD"
+        maxRC: 0
+        dds:
+          - { name: "LISTING",  dsn: "${HLQ}.LISTING(${MEMBER})", options: "shr" }
+          - { name: "IDILANGX", dsn: "${HLQ}.LANGX(${MEMBER})", options: "shr", output: true, deployType: "LANGX" }
+          - { name: "SYSUDUMP", options: "cyl space(5,5) unit(vio) blksize(133) lrecl(133) recfm(f,b) new" }
