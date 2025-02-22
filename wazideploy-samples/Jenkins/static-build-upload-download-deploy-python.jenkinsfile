@@ -293,6 +293,7 @@ pipeline {
                             else
                                export PATH=$PATH:$HOME/.local/bin
                             fi
+                            export DEPLOY_FILTERS_PATH=${WORKSPACE}/${APP_NAME}/wazideploy-samples/external-repos/environment-conf/python/filters
                             if [ "$ROLLING_BACK" != "True" ]
                             then
                                 CMD="wazideploy-deploy\
