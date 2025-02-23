@@ -23,7 +23,7 @@ tasks:
     variables:
       # conditional variable builds compile parameters i.e CICS,SQL
       - name: compileParms
-        value: "LIB,LIST,MAP,Source,XREF"
+        value: "LIST" #"LIB,LIST,MAP,Source,XREF"
         append:
           - condition: ${IS_CICS}
             value: CICS
@@ -43,8 +43,8 @@ tasks:
         
       # default link edit parameters
       - name: linkEditParms
-        #value: MAP,RENT,COMPAT(PM5)
-        value: XREF,LIST,RENT
+        value: MAP,RENT,COMPAT(PM5),LIST
+        #value: XREF,LIST,RENT
         
       # default dependency search path for single repository build
       - name: dependencySearchPath
