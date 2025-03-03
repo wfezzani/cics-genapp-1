@@ -10,6 +10,8 @@
 - hosts: "{{ wd_hosts if wd_hosts is defined else 'all' }}"
   gather_facts: "{{ wd_gather_facts if wd_gather_facts is defined else 'no' }}"
   serial: "{{ wd_serial if wd_serial is defined else 5 }}"
+  vars:
+      ansible_remote_tmp: "/tmp/jby/{{tower_job_id }}"
   collections:
     - ibm.ibm_zos_core
     - ibm.ibm_zos_wazi_deploy
