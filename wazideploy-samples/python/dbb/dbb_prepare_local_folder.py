@@ -104,15 +104,16 @@ def copy_dbb_build_result_to_local_folder(**kwargs):
     records = list(filter(lambda record: DBBUtilities().filter_deployable_records(record),buildResult['records']))
     for record in records:
         for output in record['outputs']:
-            dataset = output['dataset']
-            deploy_type = output['deployType']
-            parts = re.split('\\(|\\)',dataset)
-            if len(parts) < 2 :
-                print(f"**! WARNING: {parts[0]} has no members!!!")
-                continue
-            member_name = parts[1]
-            pds_name = parts[0]
-    
+            if 'deployType' in output:
+                dataset = output['dataset']
+                deploy_type = output['deployType']
+                parts = re.split('\\(|\\)',dataset)
+                if len(parts) < 2 :
+                    print(f"**! WARNING: {parts[0]} has no members!!!")
+                    continue
+                member_name = parts[1]
+                pds_name = parts[0]
+
         # Build the local_folder from DBB Build Outputs
         os.makedirs(f"{working_folder}/{pds_name}", exist_ok=True)
         copyMode = DBBUtilities.get_copy_mode(deploy_type, **kwargs)
