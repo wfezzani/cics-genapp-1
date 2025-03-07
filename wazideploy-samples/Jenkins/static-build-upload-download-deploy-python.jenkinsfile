@@ -259,7 +259,7 @@ pipeline {
                                    --manifestVersion "${RELEASE_VERSION}.${BUILD_NUMBER}"\
                                    --manifestName "${APP_NAME}"\
                                    --manifestDescription "${APP_NAME}"\
-                                   --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}.${BUILD_NUMBER}/${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}.${BUILD_NUMBER}.tar
+                                   --packageInputFile ${ARTIFACTORY_URL}/${ARTIFACTORY_REPO}/${ARTIFACTORY_REPO_PATH}/${RELEASE_VERSION}.${BUILD_NUMBER}/${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}-${BUILD_NUMBER}.tar
                                    --packageOutputFile ${WORKSPACE}/BUILD-${BUILD_NUMBER}/${APP_NAME}.${RELEASE_VERSION}-${BUILD_NUMBER}.tar"
                             echo $CMD
                             $CMD
