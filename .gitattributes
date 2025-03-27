@@ -39,3 +39,4 @@
 *.bzucfg zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
 *.plbck binary
 *.tar binary
+*.yml zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
